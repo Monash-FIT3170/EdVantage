@@ -18,6 +18,12 @@ app.get("/", async (req, res) => {
   res.send(`Hello, World! The time from the DB is ${rows[0].now}`)
 })
 
+app.get('/authors', async (req, res) => {
+  const { rows } = await pool.query("SELECT * FROM authors")
+
+  res.json(rows)
+})
+
 app.get('/jokes', async (req, res) => {
   const { rows } = await pool.query("SELECT * FROM jokes")
 
