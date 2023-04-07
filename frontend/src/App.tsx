@@ -11,6 +11,8 @@ function App() {
   interface Author {
     id: number;
     first_name: string;
+    last_name: string;
+    email: string;
   }
 
   useEffect(() => {
@@ -38,13 +40,28 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <div>
-          <h2>List of Authors</h2>
-          <ul>
-            {authors.map((author) => (
-              <li key={author.id}>{author.first_name}</li>
-            ))}
-          </ul>
+        <h2>Fetching authors from <a href="https://edvantage.up.railway.app/authors" target="_blank">https://edvantage.up.railway.app/authors</a></h2>
+        <div className="border border-white/60 rounded-2xl p-1.5">
+          <table>
+            <thead>
+              <tr>
+                <th className="p-2">ID</th>
+                <th className="p-2">First Name</th>
+                <th className="p-2">Last Name</th>
+                <th className="p-2">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {authors.map((author) => (
+                <tr key={author.id}>
+                  <td className="p-2">{author.id}</td>
+                  <td className="p-2">{author.first_name}</td>
+                  <td className="p-2">{author.last_name}</td>
+                  <td className="p-2">{author.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
       <p className="read-the-docs">
