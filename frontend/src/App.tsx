@@ -1,10 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const [authors, setAuthors] = useState<Author[]>([]);
+
+  interface Author {
+    id: number;
+    first_name: string;
+  }
+
+  useEffect(() => {
+    fetch("https://edvantage.up.railway.app/authors")
+      .then((response) => response.json())
+      .then((data) => setAuthors(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <div className="App">
@@ -24,6 +38,14 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <div>
+          <h2>List of Authors</h2>
+          <ul>
+            {authors.map((author) => (
+              <li key={author.id}>{author.first_name}</li>
+            ))}
+          </ul>
+        </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
