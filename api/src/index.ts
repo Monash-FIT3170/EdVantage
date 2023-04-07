@@ -1,12 +1,14 @@
 import bodyParser from "body-parser"
 import express from "express"
 import pg from "pg"
+import cors from "cors"
 
 // Connect to the database using the DATABASE_URL environment
 //   variable injected by Railway
 const pool = new pg.Pool()
 
 const app = express()
+app.use(cors())
 const port = process.env.PORT || 3333
 
 app.use(bodyParser.json())
