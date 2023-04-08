@@ -51,7 +51,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+button:hover, button:disabled {
   border-color: #646cff;
 }
 button:focus,
