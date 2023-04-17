@@ -1,0 +1,21 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci
+        test:
+          commands:
+            - npm run test
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: /dist/
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+    appRoot: frontend
