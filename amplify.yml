@@ -5,6 +5,9 @@ applications:
         preBuild:
           commands:
             - npm ci
+        test:
+          commands:
+            - npm run test
         build:
           commands:
             - npm run build
