@@ -16,11 +16,11 @@ applications:
         paths:
           - node_modules/**/*
     appRoot: frontend
-test:
-  phases:
-    preTest:
-      commands:
-        - npm ci
-    test:
-      commands:
-        - npm run test
+  - test:
+      phases:
+        preTest:
+          commands:
+            - npm ci
+        test:
+          commands:
+            - npm run test
