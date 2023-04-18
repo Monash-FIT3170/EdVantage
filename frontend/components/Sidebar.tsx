@@ -29,34 +29,36 @@ const Sidebar = () => {
     >
       <Flex
         flex={'1 1 0%'}
-        maxW={{ base: 'full', sm: 'xs' }}
+        maxW={{ base: 'full', sm: '2xs' }}
         px={{ base: 4, sm: 6 }}
         py={{ base: 6, sm: 8 }}
         background={'white'}
         boxShadow={'base'}
       >
         <Stack justifyContent={'space-between'} w={'fill-available'}>
-          <Stack>
+          <Stack spacing={6}>
             <Heading>EdVantage</Heading>
-            <Button
-              variant={'ghost'}
-              leftIcon={<FiHome />}
-              h={10}
-              minW={10}
-              justifyContent={'start'}
-            >
-              Home
-            </Button>
-            <Button
-              variant={'ghost'}
-              leftIcon={<FiStar />}
-              h={10}
-              minW={10}
-              justifyContent={'start'}
-            >
-              Favourites
-            </Button>
-            <Stack mt={8}>
+            <Stack>
+              <Button
+                variant={'ghost'}
+                leftIcon={<FiHome />}
+                h={10}
+                minW={10}
+                justifyContent={'start'}
+              >
+                Home
+              </Button>
+              <Button
+                variant={'ghost'}
+                leftIcon={<FiStar />}
+                h={10}
+                minW={10}
+                justifyContent={'start'}
+              >
+                Favourites
+              </Button>
+            </Stack>
+            <Stack>
               <Text size="xs" color={'gray.500'}>
                 Units
               </Text>
@@ -77,8 +79,8 @@ const Sidebar = () => {
             </Stack>
           </Stack>
 
-          <Stack>
-            <Stack mt={8}>
+          <Stack spacing={6}>
+            <Stack>
               <Button
                 variant={'ghost'}
                 leftIcon={<FiHelpCircle />}
@@ -97,16 +99,23 @@ const Sidebar = () => {
               >
                 Settings
               </Button>
-              <Divider />
-              <Stack mt={6} direction={'row'} alignItems={'center'}>
-                <Avatar name="Barack Obama" size="sm"></Avatar>
-                <Box ml={3}>
-                  <Text size={'sm'} fontWeight={'medium'}>
-                    Barack Obama
-                  </Text>
-                  <Text size={'sm'}>barack.obama@us.gov</Text>
-                </Box>
-              </Stack>
+            </Stack>
+            <Divider />
+            <Stack
+              mt={6}
+              mb={0}
+              direction={'row'}
+              alignItems={'center'}
+              paddingInlineStart={2}
+              marginInline={0}
+            >
+              <Avatar name="Barack Obama" size="sm"></Avatar>
+              <Box ml={3}>
+                <Text fontSize={'sm'} fontWeight={'medium'}>
+                  Barack Obama
+                </Text>
+                <Text fontSize={'sm'}>barack.obama@us.gov</Text>
+              </Box>
             </Stack>
           </Stack>
         </Stack>
