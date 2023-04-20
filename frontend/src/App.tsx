@@ -4,7 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [fetchURL, setFetchURL] = useState("https://edvantage.up.railway.app/authors")
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const [fetchURL, setFetchURL] = useState(backendUrl + "authors")
 
   const [authors, setAuthors] = useState<Author[]>([]);
   const [jokes, setJokes] = useState<Joke[]>([]);
@@ -22,13 +23,13 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("https://edvantage.up.railway.app/authors")
+    fetch(backendUrl + "authors")
       .then((response) => response.json())
       .then((data) => setAuthors(data))
       .catch((error) => console.error(error));
   }, []);
   useEffect(() => {
-    fetch("https://edvantage.up.railway.app/jokes")
+    fetch(backendUrl + "jokes")
       .then((response) => response.json())
       .then((data) => setJokes(data))
       .catch((error) => console.error(error));
@@ -48,16 +49,16 @@ function App() {
       <div className="card flex flex-col gap-4 items-center">
         <div className="flex gap-2">
           <button
-            onClick={() => setFetchURL("https://edvantage.up.railway.app/authors")}
+            onClick={() => setFetchURL(backendUrl + "authors")}
             className="max-w-fit"
-            disabled={fetchURL == "https://edvantage.up.railway.app/authors"}>
+            disabled={fetchURL == (backendUrl + "authors")}>
             Authors
           </button>
           <button
-            onClick={() => setFetchURL("https://edvantage.up.railway.app/jokes")}
+            onClick={() => setFetchURL(backendUrl + "jokes")}
             className="max-w-fit"
-            disabled={fetchURL == "https://edvantage.up.railway.app/jokes"}>
-            Jokes 
+            disabled={fetchURL == (backendUrl + "jokes")}>
+            Jokes
           </button>
         </div>
         <p>
@@ -67,20 +68,20 @@ function App() {
         <div className="border border-white/60 rounded-2xl p-1.5">
           <table>
             <thead>
-              {fetchURL == "https://edvantage.up.railway.app/authors" && <tr>
+              {fetchURL == (backendUrl + "authors") && <tr>
                 <th className="p-2">ID</th>
                 <th className="p-2">First Name</th>
                 <th className="p-2">Last Name</th>
                 <th className="p-2">Email</th>
               </tr>}
-              {fetchURL == "https://edvantage.up.railway.app/jokes" && <tr>
+              {fetchURL == (backendUrl + "jokes") && <tr>
                 <th className="p-2">ID</th>
                 <th className="p-2">Setup</th>
                 <th className="p-2">Punchline</th>
               </tr>}
             </thead>
             <tbody>
-              {fetchURL == "https://edvantage.up.railway.app/authors" &&  authors.map((author) => (
+              {fetchURL == (backendUrl + "authors") &&  authors.map((author) => (
                 <tr key={author.id}>
                   <td className="p-2">{author.id}</td>
                   <td className="p-2">{author.first_name}</td>
@@ -88,7 +89,7 @@ function App() {
                   <td className="p-2">{author.email}</td>
                 </tr>
               ))}
-              {fetchURL == "https://edvantage.up.railway.app/jokes" &&  jokes.map((joke) => (
+              {fetchURL == (backendUrl + "jokes") &&  jokes.map((joke) => (
                 <tr key={joke.id}>
                   <td className="p-2">{joke.id}</td>
                   <td className="p-2">{joke.setup}</td>

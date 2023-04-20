@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS Authors (
-    "ID" int,
-    "First Name" varchar(255),
-    "Last Name" varchar(255),
-    "Email" varchar(255)
+    id int,
+    first_name varchar(255),
+    last_name varchar(255),
+    email varchar(255)
 );
 
 INSERT INTO
-    Authors ("ID", "First Name", "Last Name", "Email")
+    Authors (id, first_name, last_name, email)
 VALUES
     (1, 'Harry', 'Potter', 'HP1@gmail.com'),
     (2, 'Ron', 'Weasley', 'RW2@gmail.com'),

@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS Jokes (
-     ID int,
-     Setup varchar(255),
-     Punchline varchar(255)
+     id int,
+     setup varchar(255),
+     punchline varchar(255)
 );
 
 INSERT INTO
-    Jokes (ID, Setup, Punchline)
+    Jokes (id, setup, punchline)
 VALUES
     (1, 'Setup1', 'Punchline1'),
     (2, 'Setup2', 'Punchline2'),
