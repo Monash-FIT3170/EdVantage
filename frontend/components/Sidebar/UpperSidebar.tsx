@@ -6,7 +6,12 @@ const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
 const UpperSidebar = () => {
   return (
     <Stack spacing={6}>
-      <Heading>EdVantage</Heading>
+      <Heading
+        bgGradient={'linear(to right, #EDE342, #FF51EB)'}
+        bgClip={'text'}
+      >
+        EdVantage
+      </Heading>
       <Stack>
         <Button
           variant={'ghost'}
