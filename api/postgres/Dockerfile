@@ -5,4 +5,5 @@ LABEL description="Postgres image for local development"
 LABEL version="1.0"
 
 # Copies sql files into our db init file, can be used for test data
-#COPY *.sql /docker-entrypoint-initdb.d/
+COPY ./data/*.sql /docker-entrypoint-initdb.d/
+
