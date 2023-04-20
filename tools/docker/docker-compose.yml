@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
   edvantage-backend:
     image: "edvantage-backend"
-    container_name: "edvantage_backend"
+    container_name: "edvantage-backend"
     environment:
       NODE_ENV: "docker"
     ports:
@@ -22,6 +22,17 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+  edvantage-frontend:
+    image: "edvantage-frontend"
+    container_name: "edvantage-frontend"
+    environment:
+      NODE_ENV: "docker"
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - edvantage-backend
 
 volumes:
   edvantagedb:

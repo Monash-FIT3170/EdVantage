@@ -5,4 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   // base:"/EdVantage/",
   plugins: [react()],
+  server: {
+    host: true,
+    port: 5173
+  }
 })
