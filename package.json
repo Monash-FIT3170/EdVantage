@@ -1,0 +1,6 @@
+{
+    "workspaces": [
+        "api",
+        "frontend"
+    ]
+}

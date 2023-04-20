@@ -1,5 +1,4 @@
-import bodyParser from "body-parser"
-import express from "express"
+import express, { Express, RequestHandler } from "express"
 import pg from "pg"
 import cors from "cors"
 
@@ -20,13 +19,11 @@ const pool = new pg.Pool({
   connectionTimeoutMillis: 1000
 })
 
-const app = express()
+const app: Express = express()
+app.use(express.json() as RequestHandler)
 app.use(cors())
 const port = process.env.PORT || 3333
 
-app.use(bodyParser.json())
-app.use(bodyParser.raw({ type: "application/vnd.custom-type" }))
-app.use(bodyParser.text({ type: "text/html" }))
 
 app.get("/", async (req, res) => {
   const { rows } = await pool.query("SELECT NOW()")
