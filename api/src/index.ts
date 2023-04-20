@@ -3,9 +3,22 @@ import express from "express"
 import pg from "pg"
 import cors from "cors"
 
+var env = process.env.NODE_ENV || 'local'
+var config = require('../postgres/config')[env]
+
 // Connect to the database using the DATABASE_URL environment
 //   variable injected by Railway
-const pool = new pg.Pool()
+const pool = new pg.Pool({
+  database: config.database,
+  user: config.user,
+  password: config.password,
+  host: config.host,
+  port: config.port,
+  ssl: config.sslEnabled,
+  max: 20,
+  idleTimeoutMillis: 1000,
+  connectionTimeoutMillis: 1000
+})
 
 const app = express()
 app.use(cors())
