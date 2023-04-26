@@ -1,19 +1,29 @@
-import bodyParser from "body-parser"
-import express from "express"
+import express, { Express, RequestHandler } from "express"
 import pg from "pg"
 import cors from "cors"
 
+var env = process.env.NODE_ENV || 'local'
+var config = require('../postgres/config')[env]
+
 // Connect to the database using the DATABASE_URL environment
 //   variable injected by Railway
-const pool = new pg.Pool()
+const pool = new pg.Pool({
+  database: config.database,
+  user: config.user,
+  password: config.password,
+  host: config.host,
+  port: config.port,
+  ssl: config.sslEnabled,
+  max: 20,
+  idleTimeoutMillis: 1000,
+  connectionTimeoutMillis: 1000
+})
 
-const app = express()
+const app: Express = express()
+app.use(express.json() as RequestHandler)
 app.use(cors())
 const port = process.env.PORT || 3333
 
-app.use(bodyParser.json())
-app.use(bodyParser.raw({ type: "application/vnd.custom-type" }))
-app.use(bodyParser.text({ type: "text/html" }))
 
 app.get("/", async (req, res) => {
   const { rows } = await pool.query("SELECT NOW()")
