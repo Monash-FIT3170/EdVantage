@@ -1,0 +1,12 @@
+psa:
+    list out the criteria at the start so that we have an understanding of why we have chosen a technology
+    
+project roadmap
+    have y axis as the features
+    x axis as time
+    labels as the tea
+
+risk matrix
+    define probabilities numerically
+    remove the generic risksA
+    risk of change in requirements should be 9 (probably remove it because it is going to happen as part of agile)
