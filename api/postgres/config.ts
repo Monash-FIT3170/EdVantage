@@ -22,5 +22,13 @@ module.exports = {
         user: 'DB USER',
         password: 'DB PASS',
         sslEnabled: false
+    },
+    prod: {
+        database: process.env.PGDATABASE,
+        host: process.env.PGHOST,
+        port: process.env.PGPORT,
+        user: process.env.PGUSER,
+        password: process.env.PGPASSWORD,
+        sslEnabled: true
     }
 }
