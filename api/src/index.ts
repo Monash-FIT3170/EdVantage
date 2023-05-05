@@ -1,6 +1,7 @@
 import express, { Express, RequestHandler } from "express"
 import pg from "pg"
 import cors from "cors"
+import { quizRouter } from "./routes/Quiz"
 
 var env = process.env.NODE_ENV || 'local'
 var config = require('../postgres/config')[env]
@@ -24,6 +25,7 @@ app.use(express.json() as RequestHandler)
 app.use(cors())
 const port = process.env.PORT || 3333
 
+app.use(quizRouter)
 
 app.get("/", async (req, res) => {
   const { rows } = await pool.query("SELECT NOW()")
