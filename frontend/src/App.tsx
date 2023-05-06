@@ -5,7 +5,6 @@ import Public from './components/Public'
 import Login1 from './components/Login1'
 import Login2 from './components/Login2'
 import MultipleQuizz from './components/quizz/MultipleQuizz'
-import {Quizz} from './components/quizz/Quizz.js'
 
 function App() {
   return (
