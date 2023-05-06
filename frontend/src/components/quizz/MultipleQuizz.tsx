@@ -5,7 +5,7 @@ function MultipleQuizz () {
     var [currentQuestion, setCurrentQuestion]=useState(0);
     var questionList=[{
         id:0,
-        text:"How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car",
+        text:"How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car",
         type: "multiple",
         options:[
             {id:0, text:"1"},
@@ -54,11 +54,13 @@ function MultipleQuizz () {
         }
         if(ischecked==0){
             answerList.push(temp);
+            console.log(questionid);
+            console.log(ans.text);
         }
         if(currentQuestion+1<questionList.length){
             setCurrentQuestion(currentQuestion+1);
         } else {
-            console.log(answerList);
+         
         }
     }
     return (
