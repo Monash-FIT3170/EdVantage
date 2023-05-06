@@ -4,7 +4,7 @@
     color: white;
     padding: 16px;
     height: auto;
-    width: 80%;
+    width: 100%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
@@ -21,11 +21,26 @@ margin-top: 8px;
 }
 .question-txt{
 font-size:x-large;
+max-height: 300px;
+overflow: scroll;
+margin-top: 10px;
 }
 .question-field{
-    max-height: 300px;
+    max-height: 10%;
+    width: 100%;
+    margin:auto;
+    display: flex;
     overflow: scroll;
 }
 .question-index{
+    margin: auto;
     font:bold;
+}
+.next-button-field{
+    float:right;
+    width: 20%;
+}
+.previous-button{
+    float:left;
+    width: 20%;
 }
