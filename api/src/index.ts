@@ -13,18 +13,18 @@ const port = process.env.PORT || 3333
 app.use(quizRouter)
 
 app.get("/", async (req, res) => {
-  const rows = await postgresClient.query("SELECT NOW()", [])
+  const rows = await postgresClient.query("SELECT NOW()")
   res.send(`Hello, World! The time from the DB is ${rows[0].now}`)
 })
 
 app.get('/authors', async (req, res) => {
-  const rows = await postgresClient.query("SELECT * FROM authors", [])
+  const rows = await postgresClient.query("SELECT * FROM authors")
 
   res.json(rows)
 })
 
 app.get('/jokes', async (req, res) => {
-  const rows = await postgresClient.query("SELECT * FROM jokes", [])
+  const rows = await postgresClient.query("SELECT * FROM jokes")
 
   res.json(rows)
 })
