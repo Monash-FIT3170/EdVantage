@@ -4,22 +4,26 @@ CREATE TABLE quizzes (
     description TEXT
 );
 
-CREATE TABLE quiz_questions (
+CREATE TABLE questions (
     question_id SERIAL PRIMARY KEY,
-    quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
     question TEXT NOT NULL,
     question_type TEXT NOT NULL
 );
 
-CREATE TABLE quiz_answers (
+CREATE TABLE quiz_questions (
+    quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
+    question_id INTEGER NOT NULL REFERENCES questions(question_id)
+);
+
+CREATE TABLE question_answers (
     answer_id SERIAL PRIMARY KEY,
-    question_id INTEGER NOT NULL REFERENCES quiz_questions(question_id),
+    question_id INTEGER NOT NULL REFERENCES questions(question_id),
     answer TEXT NOT NULL
 );
 
-CREATE TABLE quiz_options (
+CREATE TABLE question_choices (
     option_id SERIAL PRIMARY KEY,
-    question_ID INTEGER NOT NULL REFERENCES quiz_questions(question_id),
+    question_ID INTEGER NOT NULL REFERENCES questions(question_id),
     option TEXT NOT NULL,
     is_correct BOOLEAN NOT NULL
 );
@@ -27,23 +31,23 @@ CREATE TABLE quiz_options (
 INSERT INTO quizzes (title, description)
 VALUES ('Math Quiz', 'A quiz about basic arithmetic.');
 
-INSERT INTO quiz_questions (quiz_id, question, question_type)
-VALUES (1, 'What is 2 + 2?', 'multiple_choice');
+INSERT INTO questions (question, question_type)
+VALUES ('What is 2 + 2?', 'multiple_choice');
 
-INSERT INTO quiz_answers (question_id, answer)
-VALUES (1, '4');
-
-INSERT INTO quiz_options (question_id, option, is_correct)
+INSERT INTO question_choices (question_id, option, is_correct)
 VALUES (1, '2', false);
 
-INSERT INTO quiz_options (question_id, option, is_correct)
+INSERT INTO question_choices (question_id, option, is_correct)
 VALUES (1, '3', false);
 
-INSERT INTO quiz_options (question_id, option, is_correct)
+INSERT INTO question_choices (question_id, option, is_correct)
 VALUES (1, '4', true);
 
-INSERT INTO quiz_questions (quiz_id, question, question_type)
-VALUES (1, 'What is 4 + 4?', 'short_answer');
+INSERT INTO questions (question, question_type)
+VALUES ('What is 4 + 4?', 'short_answer');
 
-INSERT INTO quiz_answers (question_id, answer)
+INSERT INTO question_answers (question_id, answer)
 VALUES (2, '8');
+
+INSERT INTO quiz_questions (quiz_id, question_id)
+VALUES (1, 1), (1, 2);
