@@ -28,8 +28,7 @@ CREATE TABLE class_enrolments (
     unit_code VARCHAR(50) NOT NULL,
     PRIMARY KEY (user_id, unit_code),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (class_num) REFERENCES classes(class_num),
-    FOREIGN KEY (unit_code) REFERENCES units(unit_code)
+    FOREIGN KEY (class_num, unit_code) REFERENCES classes(class_num, unit_code)
 );
 
 
