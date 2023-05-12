@@ -11,7 +11,7 @@ function MultipleQuizz () {
     var questionList=[{
         id:0,
         text:"How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car",
-        type: "multiple",
+        type: "single-multiple",
         morethanoneans:false,
         options:[
             {id:0, text:"1", isChoosen:false},
@@ -22,23 +22,23 @@ function MultipleQuizz () {
     },
     {
         id:1,
-        text:"How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car How manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a carHow manyzzzzzzzzzzzzzzzzzzzzzzzzzzzzz wheels in a car",
-        type: "multiple",
+        text:"Is team 2 hard-working",
+        type: "single-multiple",
         morethanoneans:false,
         options:[
-            {id:0, text:"1", isChoosen:false},
-            {id:1, text:"2", isChoosen:false},
-            {id:2, text:"3", isChoosen:false},
-            {id:3, text:"4", isChoosen:false},
+            {id:0, text:"very much", isChoosen:false},
+            {id:1, text:"a lot", isChoosen:false},
+            {id:2, text:" they alway working on the project", isChoosen:false},
+            {id:3, text:"1000 out of 10", isChoosen:false},
         ]
     },
     {
         id:2,
         text:"this is question 3",
-        type: "multiple",
+        type: "single-multiple",
         morethanoneans:false,
         options:[
-            {id:0, text:"answer 3 1", isChoosen:false},
+            {id:0, text:"answer 3 1", isChoosen:true},
             {id:1, text:"answer 3 2", isChoosen:false},
             {id:2, text:"answer 3 3", isChoosen:false},
             {id:3, text:"answer 3 4", isChoosen:false},
@@ -63,6 +63,7 @@ function MultipleQuizz () {
     }
     showButton();
     function recordAnswer(questionid,ans){
+     if(questionList[currentQuestion].type=="single-multiple"){
         var temp={
             "id":questionid,
             "answer":ans,
@@ -75,9 +76,9 @@ function MultipleQuizz () {
                 ans.isChoosen=false;
                 answerList.pop()
             }
+            questionList[currentQuestion].options[ans.id].isChoosen=true
               ischecked=1;
               console.log(questionList[currentQuestion].options)
-
             }
         }
         if(ischecked==0){
@@ -93,12 +94,17 @@ function MultipleQuizz () {
         } else {
          
         }
+     }
     }
     function printAnswer(option){
         if(!option.isChoosen){
-            return <li className='multiple-choice' key={option.id} onClick={()=>recordAnswer(questionList[currentQuestion].id,option)}>{option.text}</li>
+            return (<li className='multiple-choice' key={option.id} onClick={()=>recordAnswer(questionList[currentQuestion].id,option)}>{option.text}</li>)
+        }else{
+            return (<li className='selected-multiple-choice' key={option.id} onClick={()=>recordAnswer(questionList[currentQuestion].id,option)}>{option.text}</li>)
+
         }
     }
+
     function goToPreviousQuestion(){
         if (currentQuestion>=1){
             setCurrentQuestion(currentQuestion-1);
@@ -120,7 +126,7 @@ function MultipleQuizz () {
 
       <ul className='multiple-box'>
         {questionList[currentQuestion].options.map((option) => {
-            return printAnswer(option);
+            return (printAnswer(option));
         })}    
         </ul>
     </div>

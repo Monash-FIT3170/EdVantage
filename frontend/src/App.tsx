@@ -5,6 +5,7 @@ import Public from './components/Public'
 import Login1 from './components/Login1'
 import Login2 from './components/Login2'
 import MultipleQuizz from './components/quizz/MultipleQuizz'
+import QuizWindow from './components/quizz/QuizWindow'
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="style1" element={<Login1 />} />
           <Route path="style2" element={<Login2 />} />
         </Route> */}
-        <Route index element={<MultipleQuizz />} />
+        <Route index element={<QuizWindow />} />
       </Route>
     </Routes>
   )
