@@ -10,7 +10,8 @@ import {
   ButtonGroup,
   Button,
 } from '@chakra-ui/react';
-import VideoPlayer from '@/components/VideoPlayer';
+import VideoPlayer from './VideoPlayer';
+import Quiz from './Quiz';
 
 const VideoPane = () => {
   return (
@@ -37,12 +38,10 @@ const VideoPane = () => {
               with a sprinkle of vintage design.
             </Text>
             <ButtonGroup spacing="2">
-              <Button variant="solid" colorScheme="blue">
-                Quiz
-              </Button>
               <Button variant="outline" colorScheme="blue">
                 Comment
               </Button>
+              <Quiz />
             </ButtonGroup>
           </Stack>
         </CardFooter>
