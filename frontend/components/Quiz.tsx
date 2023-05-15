@@ -11,6 +11,7 @@ import {
   DrawerContent,
   Textarea,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
 const Quiz = () => {
@@ -31,12 +32,18 @@ const Quiz = () => {
         onClose={onClose}
         finalFocusRef={btnRef}
         placement={'right'}
+        size={'md'}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader>Quiz</DrawerHeader>
           <DrawerBody>
-            <Textarea />
+            <VStack alignItems={'flex-start'}>
+              <Text as={'b'} fontSize={'lg'}>
+                1. Hey guys, Scarce here, what&apos;s up?
+              </Text>
+              <Textarea />
+            </VStack>
           </DrawerBody>
           <DrawerFooter>
             <ButtonGroup spacing={2}>
