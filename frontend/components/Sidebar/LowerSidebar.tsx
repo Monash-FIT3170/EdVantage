@@ -1,10 +1,30 @@
-import { Stack, Button, Divider, Avatar, Box, Text } from '@chakra-ui/react';
-import { FiHelpCircle, FiSettings } from 'react-icons/fi';
+import {
+  Stack,
+  Button,
+  Divider,
+  Avatar,
+  Box,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
+import { FiHelpCircle, FiSettings, FiSun, FiMoon } from 'react-icons/fi';
 
 const LowerSidebar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDarkMode = colorMode === 'dark';
   return (
     <Stack spacing={6}>
       <Stack>
+        <Button
+          onClick={toggleColorMode}
+          variant={'ghost'}
+          leftIcon={isDarkMode ? <FiSun /> : <FiMoon />}
+          h={10}
+          minW={10}
+          justifyContent={'start'}
+        >
+          Toggle {isDarkMode ? 'Light' : 'Dark'}
+        </Button>
         <Button
           variant={'ghost'}
           leftIcon={<FiHelpCircle />}
