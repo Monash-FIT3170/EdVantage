@@ -5,12 +5,12 @@ import Sidebar from '@/components/Sidebar/Sidebar';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <main>
-        <Flex flexDir={'row'}>
-          <Sidebar />
+      <Flex>
+        <Sidebar />
+        <main>
           <Component {...pageProps} />
-        </Flex>
-      </main>
+        </main>
+      </Flex>
     </ChakraProvider>
   );
 }

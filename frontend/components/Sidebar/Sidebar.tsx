@@ -5,8 +5,10 @@ import LowerSidebar from './LowerSidebar';
 const Sidebar = () => {
   return (
     <Flex
-      as="section"
-      minH={'100vh'}
+      as="aside"
+      h={'100vh'}
+      position={'sticky'}
+      top={0}
       background={'gray.50'}
       borderStyle={'solid'}
       borderColor={'gray.200'}
