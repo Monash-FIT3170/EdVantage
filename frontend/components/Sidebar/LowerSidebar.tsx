@@ -23,7 +23,7 @@ const LowerSidebar = () => {
           minW={10}
           justifyContent={'start'}
         >
-          Toggle {isDarkMode ? 'Light' : 'Dark'}
+          {isDarkMode ? 'Light' : 'Dark'} Mode
         </Button>
         <Button
           variant={'ghost'}
@@ -53,7 +53,11 @@ const LowerSidebar = () => {
         paddingInlineStart={2}
         marginInline={0}
       >
-        <Avatar name="Barack Obama" size="sm"></Avatar>
+        <Avatar
+          src="https://img001.prntscr.com/file/img001/bCZkTHGYQ7G8BOqmZ8mW9Q.png"
+          name="Barack Obama"
+          size="sm"
+        />
         <Box ml={3}>
           <Text fontSize={'sm'} fontWeight={'medium'}>
             Barack Obama
