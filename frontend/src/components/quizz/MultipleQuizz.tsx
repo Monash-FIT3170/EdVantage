@@ -26,7 +26,7 @@ function MultipleQuizz () {
         type: "single-multiple",
         morethanoneans:false,
         options:[
-            {id:0, text:"very much", isChoosen:false},
+            {id:0, text:"very much", isChoosen:true},
             {id:1, text:"a lot", isChoosen:false},
             {id:2, text:" they alway working on the project", isChoosen:false},
             {id:3, text:"1000 out of 10", isChoosen:false},
