@@ -3,7 +3,6 @@ import {
   Container,
   Card,
   CardBody,
-  Image,
   Stack,
   Heading,
   Text,
@@ -39,6 +38,14 @@ export default function Home() {
                 inspired spaces, earthy toned spaces and for people who love a
                 chic design with a sprinkle of vintage design.
               </Text>
+              <ButtonGroup spacing="2">
+                <Button variant="solid" colorScheme="blue">
+                  Quiz
+                </Button>
+                <Button variant="outline" colorScheme="blue">
+                  Comment
+                </Button>
+              </ButtonGroup>
             </Stack>
           </CardFooter>
         </Card>
