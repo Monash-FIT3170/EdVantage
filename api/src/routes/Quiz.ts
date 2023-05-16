@@ -89,6 +89,7 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
   }
 
   const quiz: Quiz = quizResp[0];
+  quiz.questions = [];
 
   const quizQuestions: QuizQuestion[] = await postgresClient.query(`SELECT * FROM quiz_questions WHERE quiz_id = ${id}`);
   for (let i=0; i < quizQuestions.length; i++) {
