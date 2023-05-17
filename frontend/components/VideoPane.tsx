@@ -11,7 +11,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
-import Quiz from './Quiz/QuizDrawerButton';
+import QuizDrawerButton from './Quiz/QuizDrawerButton';
 
 const VideoPane = () => {
   return (
@@ -41,7 +41,7 @@ const VideoPane = () => {
               <Button variant="outline" colorScheme="blue">
                 Comment
               </Button>
-              <Quiz />
+              <QuizDrawerButton id={'1'} />
             </ButtonGroup>
           </Stack>
         </CardFooter>

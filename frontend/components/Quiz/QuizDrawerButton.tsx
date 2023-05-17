@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import type { Quiz } from '../../../api/src/routes/QuizTypes';
+
+import { useRef, useEffect, useState } from 'react';
 import {
   ButtonGroup,
   Button,
@@ -9,14 +11,32 @@ import {
   DrawerOverlay,
   useDisclosure,
   DrawerContent,
-  Textarea,
-  Text,
   VStack,
+  Center,
+  Spinner,
 } from '@chakra-ui/react';
+import QuizQuestion from './QuizQuestion';
+import ApiClient from '@/utils/api-client';
 
-const Quiz = () => {
+const QuizDrawerButton = ({ id }: { id: string }) => {
+  const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [isLoading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
+
+  useEffect(() => {
+    setLoading(true);
+    const apiClient = new ApiClient();
+    apiClient
+      .get(`quiz/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setQuiz(data);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
+
   return (
     <>
       <Button
@@ -36,15 +56,28 @@ const Quiz = () => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader>Quiz</DrawerHeader>
-          <DrawerBody>
-            <VStack alignItems={'flex-start'}>
-              <Text as={'b'} fontSize={'lg'}>
-                1. Hey guys, Scarce here, what&apos;s up?
-              </Text>
-              <Textarea />
-            </VStack>
-          </DrawerBody>
+          {isLoading ? (
+            <Center h="100%">
+              <Spinner size={'xl'} />
+            </Center>
+          ) : (
+            <>
+              <DrawerHeader>{quiz?.title}</DrawerHeader>
+              <DrawerBody>
+                <VStack alignItems={'flex-start'}>
+                  {quiz?.questions.map((question) => (
+                    <QuizQuestion
+                      key={question.question_id}
+                      questionTitle={question.question}
+                      questionAnswers={question.choices}
+                      questionType={question.question_type}
+                    />
+                  ))}
+                </VStack>
+              </DrawerBody>
+            </>
+          )}
+
           <DrawerFooter>
             <ButtonGroup spacing={2}>
               <Button onClick={onClose} variant={'outline'}>
@@ -61,4 +94,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default QuizDrawerButton;
