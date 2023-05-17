@@ -1,31 +1,30 @@
-import bodyParser from "body-parser"
-import express from "express"
-import pg from "pg"
+import express, { Express, RequestHandler } from "express"
+import PostgresClient from "./persistence/PostgresClient";
+import cors from "cors"
+import { quizRouter } from "./routes/Quiz"
 
-// Connect to the database using the DATABASE_URL environment
-//   variable injected by Railway
-const pool = new pg.Pool()
+const postgresClient = new PostgresClient();
 
-const app = express()
+const app: Express = express()
+app.use(express.json() as RequestHandler)
+app.use(cors())
 const port = process.env.PORT || 3333
 
-app.use(bodyParser.json())
-app.use(bodyParser.raw({ type: "application/vnd.custom-type" }))
-app.use(bodyParser.text({ type: "text/html" }))
+app.use(quizRouter)
 
 app.get("/", async (req, res) => {
-  const { rows } = await pool.query("SELECT NOW()")
+  const rows = await postgresClient.query("SELECT NOW()")
   res.send(`Hello, World! The time from the DB is ${rows[0].now}`)
 })
 
 app.get('/authors', async (req, res) => {
-  const { rows } = await pool.query("SELECT * FROM authors")
+  const rows = await postgresClient.query("SELECT * FROM authors")
 
   res.json(rows)
 })
 
 app.get('/jokes', async (req, res) => {
-  const { rows } = await pool.query("SELECT * FROM jokes")
+  const rows = await postgresClient.query("SELECT * FROM jokes")
 
   res.json(rows)
 })
