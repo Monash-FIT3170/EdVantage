@@ -11,7 +11,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
-import Quiz from './Quiz';
+import Quiz from './Quiz/QuizDrawerButton';
 
 const VideoPane = () => {
   return (
