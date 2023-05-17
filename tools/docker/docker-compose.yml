@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: "edvantage-postgres"
+    container_name: "edvantage-postgres"
+    environment:
+      POSTGRES_DB: "edvantage"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data"
+    volumes:
+      - edvantagedb:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  edvantage-backend:
+    image: "edvantage-backend"
+    container_name: "edvantage-backend"
+    environment:
+      NODE_ENV: "docker"
+    ports:
+      - "3333:3333"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+  edvantage-frontend:
+    image: "edvantage-frontend"
+    container_name: "edvantage-frontend"
+    environment:
+      NODE_ENV: "docker"
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - edvantage-backend
+
+volumes:
+  edvantagedb:
+    external: true
