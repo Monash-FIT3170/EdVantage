@@ -1,23 +1,26 @@
 import { useRef, useEffect, useState } from 'react';
 import {
-  ButtonGroup,
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerOverlay,
-  useDisclosure,
-  DrawerContent,
-  VStack,
-  Center,
-  Spinner,
+    ButtonGroup,
+    Button,
+    Drawer,
+    DrawerBody,
+    DrawerHeader,
+    DrawerFooter,
+    DrawerOverlay,
+    useDisclosure,
+    DrawerContent,
+    Center,
+    Spinner,
+    Stack,
 } from '@chakra-ui/react';
-import QuizQuestion from './QuizQuestion';
 import ApiClient from '@/utils/api-client';
+import {Select} from "chakra-react-select";
+import Quiz from "@/components/Quiz/Quiz";
 
 const QuizDrawerButton = ({ id }: { id: string }) => {
+  const [quizzes, setQuizzes] = useState<any>(null);
   const [quiz, setQuiz] = useState<any>(null);
+
   const [isLoading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
@@ -26,14 +29,22 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
     setLoading(true);
     const apiClient = new ApiClient();
     apiClient
-      .get(`quiz/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setQuiz(data);
-        setLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
+        .get(`quiz`)
+        .then((res) => res.json())
+        .then((data) => {
+          const quizResponses = [];
+          for (const i in data) {
+            const currQuiz: any = {};
+            currQuiz.label = data[i].title;
+            currQuiz.value = data[i].quiz_id;
+            currQuiz.questions = data[i].questions;
+            quizResponses.push(currQuiz);
+          }
+          setQuizzes(quizResponses);
+          setLoading(false);
+        })
+        .catch((err) => console.error(err));
+  }, [])
 
   return (
     <>
@@ -60,18 +71,19 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
             </Center>
           ) : (
             <>
-              <DrawerHeader>{quiz?.title}</DrawerHeader>
+              <DrawerHeader as={"b"} fontSize={"xl"}>Test your knowledge!</DrawerHeader>
               <DrawerBody>
-                <VStack alignItems={'flex-start'}>
-                  {quiz?.questions.map((question: any) => (
-                    <QuizQuestion
-                      key={question.question_id}
-                      questionTitle={question.question}
-                      questionAnswers={question.choices}
-                      questionType={question.question_type}
-                    />
-                  ))}
-                </VStack>
+                <Stack>
+                  <Select
+                    name="quizzes"
+                    options={quizzes}
+                    placeholder="Select a quiz..."
+                    closeMenuOnSelect={true}
+                    onChange={setQuiz}
+                    value={quiz}
+                    size="sm"/>
+                  <div>{quiz && <Quiz quiz={quiz}/>}</div>
+                </Stack>
               </DrawerBody>
             </>
           )}

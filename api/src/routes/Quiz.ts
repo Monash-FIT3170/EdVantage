@@ -12,6 +12,22 @@ import {
 const quizRouter = Router();
 const postgresClient = new PostgresClient();
 
+// Define a route to get all quizzes
+quizRouter.get('/quiz', async (req: Request, res: Response) => {
+  let i = 1, quizzes = [], quiz = await buildQuiz(i);
+  while (i < 10 && quiz) {
+    quizzes.push(quiz);
+    i++;
+    quiz = await buildQuiz(i);
+  }
+
+  if (quizzes.length > 0) {
+    res.status(200).send(quizzes);
+  } else {
+    res.status(404).send('No quizzes found');
+  }
+});
+
 // Define a route to get a quiz by ID
 quizRouter.get('/quiz/:id', async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
