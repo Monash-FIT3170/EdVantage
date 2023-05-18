@@ -1,5 +1,3 @@
-import type { Quiz } from '../../../api/src/routes/QuizTypes';
-
 import { useRef, useEffect, useState } from 'react';
 import {
   ButtonGroup,
@@ -19,7 +17,7 @@ import QuizQuestion from './QuizQuestion';
 import ApiClient from '@/utils/api-client';
 
 const QuizDrawerButton = ({ id }: { id: string }) => {
-  const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [quiz, setQuiz] = useState<any>(null);
   const [isLoading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
@@ -65,7 +63,7 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
               <DrawerHeader>{quiz?.title}</DrawerHeader>
               <DrawerBody>
                 <VStack alignItems={'flex-start'}>
-                  {quiz?.questions.map((question) => (
+                  {quiz?.questions.map((question: any) => (
                     <QuizQuestion
                       key={question.question_id}
                       questionTitle={question.question}

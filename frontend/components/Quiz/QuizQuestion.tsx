@@ -1,13 +1,9 @@
-import type {
-  QuestionType,
-  QuizOption,
-} from '../../../api/src/routes/QuizTypes';
 import { Text, Textarea, RadioGroup, Radio, VStack } from '@chakra-ui/react';
 
 type QuizQuestionProps = {
   questionTitle: string;
-  questionAnswers: QuizOption[] | undefined;
-  questionType: QuestionType;
+  questionAnswers: any[] | undefined;
+  questionType: any;
 };
 
 const QuizQuestion = ({
