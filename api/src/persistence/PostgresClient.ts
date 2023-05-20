@@ -7,12 +7,6 @@ export default class PostgresClient {
     private pool: pg.Pool;
 
     constructor() {
-        console.log(postgresConfig.database)
-        console.log(postgresConfig.host)
-        console.log(postgresConfig.port)
-        console.log(postgresConfig.user)
-        console.log(postgresConfig.user)
-        console.log(postgresConfig.databaseURL)
         this.pool = new pg.Pool({
             database: postgresConfig.database,
             user: postgresConfig.user,
