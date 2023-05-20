@@ -24,6 +24,7 @@ module.exports = {
         sslEnabled: false
     },
     prod: {
+        databaseURL: process.env.DATABASE_URL,
         database: process.env.PGDATABASE,
         host: process.env.PGHOST,
         port: process.env.PGPORT,
