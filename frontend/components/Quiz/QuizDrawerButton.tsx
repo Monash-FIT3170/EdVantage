@@ -1,20 +1,21 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from "react";
 import {
-    ButtonGroup,
-    Button,
-    Drawer,
-    DrawerBody,
-    DrawerHeader,
-    DrawerFooter,
-    DrawerOverlay,
-    useDisclosure,
-    DrawerContent,
-    Center,
-    Spinner,
-    Stack,
-} from '@chakra-ui/react';
-import ApiClient from '@/utils/api-client';
-import {Select} from "chakra-react-select";
+  ButtonGroup,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerOverlay,
+  useDisclosure,
+  DrawerContent,
+  Center,
+  Spinner,
+  Stack,
+  Box,
+} from "@chakra-ui/react";
+import ApiClient from "@/utils/api-client";
+import { Select } from "chakra-react-select";
 import Quiz from "@/components/Quiz/Quiz";
 
 const QuizDrawerButton = ({ id }: { id: string }) => {
@@ -29,29 +30,29 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
     setLoading(true);
     const apiClient = new ApiClient();
     apiClient
-        .get(`quiz`)
-        .then((res) => res.json())
-        .then((data) => {
-          const quizResponses = [];
-          for (const i in data) {
-            const currQuiz: any = {};
-            currQuiz.label = data[i].title;
-            currQuiz.value = data[i].quiz_id;
-            currQuiz.questions = data[i].questions;
-            quizResponses.push(currQuiz);
-          }
-          setQuizzes(quizResponses);
-          setLoading(false);
-        })
-        .catch((err) => console.error(err));
-  }, [])
+      .get(`quiz`)
+      .then((res) => res.json())
+      .then((data) => {
+        const quizResponses = [];
+        for (const i in data) {
+          const currQuiz: any = {};
+          currQuiz.label = data[i].title;
+          currQuiz.value = data[i].quiz_id;
+          currQuiz.questions = data[i].questions;
+          quizResponses.push(currQuiz);
+        }
+        setQuizzes(quizResponses);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <>
       <Button
         ref={btnRef}
         onClick={onOpen}
-        variant={'solid'}
+        variant={"solid"}
         colorScheme="blue"
       >
         Quiz
@@ -60,20 +61,22 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
         isOpen={isOpen}
         onClose={onClose}
         finalFocusRef={btnRef}
-        placement={'right'}
-        size={'md'}
+        placement={"right"}
+        size={"md"}
       >
         <DrawerOverlay />
         <DrawerContent>
           {isLoading ? (
             <Center h="100%">
-              <Spinner size={'xl'} />
+              <Spinner size={"xl"} />
             </Center>
           ) : (
             <>
-              <DrawerHeader as={"b"} fontSize={"xl"}>Test your knowledge!</DrawerHeader>
+              <DrawerHeader as={"b"} fontSize={"xl"}>
+                Test your knowledge!
+              </DrawerHeader>
               <DrawerBody>
-                <Stack>
+                <Stack spacing={4}>
                   <Select
                     name="quizzes"
                     options={quizzes}
@@ -81,8 +84,9 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
                     closeMenuOnSelect={true}
                     onChange={setQuiz}
                     value={quiz}
-                    size="sm"/>
-                  <div>{quiz && <Quiz quiz={quiz}/>}</div>
+                    size="lg"
+                  />
+                  <Box>{quiz && <Quiz quiz={quiz} />}</Box>
                 </Stack>
               </DrawerBody>
             </>
@@ -90,10 +94,10 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
 
           <DrawerFooter>
             <ButtonGroup spacing={2}>
-              <Button onClick={onClose} variant={'outline'}>
+              <Button onClick={onClose} variant={"outline"}>
                 Close
               </Button>
-              <Button variant={'solid'} colorScheme="blue">
+              <Button variant={"solid"} colorScheme="blue">
                 Submit
               </Button>
             </ButtonGroup>
