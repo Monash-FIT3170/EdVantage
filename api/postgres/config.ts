@@ -30,6 +30,6 @@ module.exports = {
         port: process.env.PGPORT,
         user: process.env.PGUSER,
         password: process.env.PGPASSWORD,
-        sslEnabled: true
+        sslEnabled: false
     }
 }

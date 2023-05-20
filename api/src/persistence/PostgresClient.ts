@@ -3,8 +3,6 @@ import pg from "pg"
 var env = process.env.NODE_ENV || 'local'
 var postgresConfig = require('../../postgres/config')[env]
 
-process.env.PGSSLMODE = 'no-verify'
-
 export default class PostgresClient {
     private pool: pg.Pool;
 
