@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Box, Center, Heading, VStack } from '@chakra-ui/react';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { AuthContext } from '@/utils/auth';
-import styles from './login.module.css';
+import styles from './Login.module.css';
 
 const Login = () => {
   const auth = useContext(AuthContext);
