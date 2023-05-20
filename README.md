@@ -3,6 +3,17 @@ Educational Video Platform with a GPT Recommendation Engine
 
 Shared Google Drive: https://drive.google.com/drive/folders/1iQphjeupXE0J5FsgBP2wPTk_dsTTGSHW
 
+## Index
+
+- [EdVantage](#edvantage)
+  - [Index](#index)
+  - [Project Description](#project-description)
+    - [Main Features](#main-features)
+    - [Additional Features](#additional-features)
+- [Developer Setup](#developer-setup)
+  - [Overview](#overview)
+  - [Docker](#docker)
+
 ## Project Description
 Client: Riordan Alfredo
 
@@ -27,12 +38,25 @@ and opens quizzes about the video content.
 
 * ChatGPT integration to recommend certain simulation videos.
 
-## Basic Requirements
+# Developer Setup
 
-- Build a platform to upload and view videos
-- Add student and teacher account authentication
-- Students can find and watch simulation videos
-- Location tracking during simulation
-- Popup quiz during simulation
-- Teachers can view quiz results
-- Analytics to for teachers to understand which topics needed the most help
+## Overview
+
+This project is structured as a monorepo with a backend component under `/api` and a frontend component under `/frontend`.
+
+The **backend** component consists of 2 parts: a Postgres database and an Express application that exposes API endpoints for the frontend to consume. This is continuously deployed on [Railway](https://railway.app/).
+
+The **frontend** component is a Next.js web application containing the user interface and logic for fetching from the backend. This is continuously deployed and hosted on [Amplify](https://ap-southeast-2.console.aws.amazon.com/amplify/home?region=ap-southeast-2#/).
+
+## Docker
+
+**Prerequisite**: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+The easiest way to begin development is to run the shell scripts under `/tools` which will setup Docker containers that run components of the project.
+
+| Script | Services |
+| --- | --- |
+| [`/start.sh`](tools/start.sh) | Starts all 3 components: database, API and frontend |
+| [`/start_backend.sh`](tools/start_backend.sh) | Starts backend components: database and API |
+| [`/start_database.sh`](tools/start_database.sh) | Starts only the database |
+| [`/stop.sh`](tools/stop.sh) | Stops any component started by the scripts above |
