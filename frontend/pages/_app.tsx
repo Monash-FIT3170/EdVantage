@@ -1,11 +1,12 @@
-import type { AppProps } from 'next/app';
-import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import theme from '@/utils/theme';
 import { AuthContext } from '@/utils/auth';
+import '../styles/global.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

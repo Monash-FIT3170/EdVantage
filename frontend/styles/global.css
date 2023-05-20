@@ -21,3 +21,15 @@ body {
   border-style: solid;
   box-sizing: border-box;
 }
+
+@supports (width: -webkit-fill-available) {
+  main {
+    width: -webkit-fill-available;
+  }
+}
+
+@supports (width: -moz-available) {
+  main {
+    width: -moz-available;
+  }
+}
