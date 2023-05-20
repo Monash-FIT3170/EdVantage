@@ -1,19 +1,11 @@
 import type { AppProps } from 'next/app';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
-import Sidebar from '@/components/Sidebar/Sidebar';
-import theme from '@/utils/theme';
-
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
-interface AuthContextInterface {
-  isLoggedIn: boolean;
-  login: () => void;
-  logout: () => void;
-}
-
-export const AuthContext = createContext<AuthContextInterface | null>(null);
+import Sidebar from '@/components/Sidebar/Sidebar';
+import theme from '@/utils/theme';
+import { AuthContext } from '@/utils/auth';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,8 +13,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const showSidebar = router.pathname !== '/login';
 
   useEffect(() => {
-    if (!isLoggedIn && router.pathname !== "/login") {
-      router.push("/login");
+    if (!isLoggedIn && router.pathname !== '/login') {
+      router.push('/login');
     }
   }, [isLoggedIn, router]);
 
@@ -47,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </main>
           </AuthContext.Provider>
         </Flex>
-    </ChakraProvider>
+      </ChakraProvider>
     </GoogleOAuthProvider>
   );
 }
