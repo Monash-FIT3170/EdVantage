@@ -6,13 +6,33 @@ Shared Google Drive: https://drive.google.com/drive/folders/1iQphjeupXE0J5FsgBP2
 ## Project Description
 Client: Riordan Alfredo
 
-Description: Automated Query Engine integrated with ChatGPT to query for more in depth explanation or examples when students are stuck on some concepts when watching an educational video. 
-* Students can ask for recommendations from the video (or a “recommend me” button, if automation is too advanced)
-*  There should be a system to extract recent conversation in the video (within 5-10 seconds before & after the pause) -> query it to GPT-3, and return an explanation/examples/summary to promote self-regulated learning
-*  Students need to create a video platform, where teachers can add videos/contents, see some analytics, and students can view and learn.
+Description: A nursing simulation app which plays simulation videos, tracks students' locations during the simulation,
+and opens quizzes about the video content.
+
+### Main Features
+
+* Students and teachers are authenticated to their accounts in the app.
+
+* Nursing simulation videos are provided by the client and played on the app.
+
+* The students' locations are tracked during the simulation video.
+
+* There is a popup quiz throughout the video with questions the teacher/s have written.
+
+* Teachers can see the students' answers to the quizzes.
+
+### Additional Features
+
+* ChatGPT integration to generate more questions about the simulation videos.
+
+* ChatGPT integration to recommend certain simulation videos.
 
 ## Basic Requirements
+
 - Build a platform to upload and view videos
-- Query the text before and after the pause to find related topics 
-- Display them to the student neatly 
+- Add student and teacher account authentication
+- Students can find and watch simulation videos
+- Location tracking during simulation
+- Popup quiz during simulation
+- Teachers can view quiz results
 - Analytics to for teachers to understand which topics needed the most help
