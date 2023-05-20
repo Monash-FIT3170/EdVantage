@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   Box,
   Card,
@@ -12,8 +13,11 @@ import {
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
 import QuizDrawerButton from './Quiz/QuizDrawerButton';
+import { AuthContext } from '@/utils/auth';
 
 const VideoPane = () => {
+  const auth = useContext(AuthContext);
+
   return (
     <Box maxW={'lg'}>
       <Card my={6} variant={'outline'}>
@@ -38,6 +42,13 @@ const VideoPane = () => {
               with a sprinkle of vintage design.
             </Text>
             <ButtonGroup spacing="2">
+              <Button
+                onClick={() => auth?.logout()}
+                variant="outline"
+                colorScheme="blue"
+              >
+                Log Out
+              </Button>
               <Button variant="outline" colorScheme="blue">
                 Comment
               </Button>
