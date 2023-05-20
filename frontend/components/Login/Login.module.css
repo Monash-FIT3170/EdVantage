@@ -1,0 +1,42 @@
+.loginContainer {
+  background: linear-gradient(225deg, #ede342, #ff51eb);
+  background-size: 400% 400%;
+
+  -webkit-animation: LoginPageAnimation 16s ease infinite;
+  -moz-animation: LoginPageAnimation 16s ease infinite;
+  animation: LoginPageAnimation 16s ease infinite;
+}
+
+@-webkit-keyframes LoginPageAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes LoginPageAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes LoginPageAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
