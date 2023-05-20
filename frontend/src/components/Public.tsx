@@ -3,39 +3,49 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import ApiClient from "../api/ApiClient";
 
 
 const Public = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [fetchURL, setFetchURL] = useState(backendUrl + "authors")
+    const apiClient = new ApiClient();
 
     const [authors, setAuthors] = useState<Author[]>([]);
     const [jokes, setJokes] = useState<Joke[]>([]);
 
-    interface Author {
+    type Author = {
         id: number;
         first_name: string;
         last_name: string;
         email: string;
     }
-    interface Joke {
+    type Joke = {
         id: number;
         setup: string;
         punchline: string;
     }
 
     useEffect(() => {
-        fetch(backendUrl + "authors")
+        apiClient.get("authors")
             .then((response) => response.json())
             .then((data) => setAuthors(data))
             .catch((error) => console.error(error));
     }, []);
+
     useEffect(() => {
-        fetch(backendUrl + "jokes")
+        apiClient.get("jokes")
             .then((response) => response.json())
             .then((data) => setJokes(data))
             .catch((error) => console.error(error));
     }, []);
+
+    useEffect(() => {
+        apiClient.get("quiz/1")
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error));
+    }, [])
 
     return (
         <div className="App">
