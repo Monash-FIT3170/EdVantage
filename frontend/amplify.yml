@@ -4,10 +4,10 @@ applications:
       phases:
         preBuild:
           commands:
-            - yarn install --frozen-lockfile
+            - npx pnpm install --frozen-lockfile
         build:
           commands:
-            - yarn run build
+            - npx pnpm build
       artifacts:
         baseDirectory: /.next
         files:
