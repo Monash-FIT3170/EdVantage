@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { Box } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import type { MediaSource } from '@/utils/types';
@@ -31,9 +30,15 @@ type MediaCarouselProps = {
 export default function MediaCarousel({ images }: MediaCarouselProps) {
   return (
     <Box>
-      <Carousel responsive={responsive} className="carousel-container">
+      <Carousel
+        className="carousel-container"
+        responsive={responsive}
+        draggable
+        keyBoardControl
+        ssr
+      >
         {images.map(({ src, alt }) => (
-          <Image key={src} src={src} alt={alt} width={628} height={396} />
+          <Image key={src} src={src} alt={alt} width={'100%'} height={'auto'} />
         ))}
       </Carousel>
     </Box>
