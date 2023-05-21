@@ -1,24 +1,26 @@
 import { useContext } from 'react';
-import { Box, Center, Heading, VStack } from '@chakra-ui/react';
-import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
+import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
+import { FaGoogle } from 'react-icons/fa';
+import { useGoogleLogin } from '@react-oauth/google';
 import { AuthContext } from '@/utils/auth';
 import styles from './Login.module.css';
 
 const Login = () => {
   const auth = useContext(AuthContext);
-
-  const onSuccess = (res: CredentialResponse) => {
-    console.log('Login Passed');
-    try {
-      auth?.login();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const onError = () => {
-    console.error('Login Failed');
-  };
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      try {
+        console.log(tokenResponse);
+        auth?.login();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    onError: (errorResponse) =>
+      console.error(
+        `Login failed: ${errorResponse.error} ${errorResponse.error_description}`
+      ),
+  });
 
   return (
     <Box
@@ -57,8 +59,21 @@ const Login = () => {
             backdropBlur={'8px'}
           >
             <VStack spacing={8}>
-              <Heading size="xl">EdVantage</Heading>
-              <GoogleLogin onSuccess={onSuccess} onError={onError} />
+              <Heading size="2xl">EdVantage</Heading>
+              <Button
+                onClick={() => login()}
+                leftIcon={<FaGoogle />}
+                colorScheme="purple"
+                size={'lg'}
+                transition={'ease 0.4s'}
+                _hover={{
+                  boxShadow: 'md',
+                  background: 'purple.300',
+                }}
+              >
+                Sign in with Google
+              </Button>
+              {/* <GoogleLogin onSuccess={onSuccess} onError={onError} /> */}
             </VStack>
           </Box>
         </Center>
