@@ -33,3 +33,7 @@ body {
     width: -moz-available;
   }
 }
+
+.react-multi-carousel-item {
+  display: flex;
+}

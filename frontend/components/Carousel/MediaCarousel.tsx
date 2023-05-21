@@ -38,7 +38,14 @@ export default function MediaCarousel({ images }: MediaCarouselProps) {
         ssr
       >
         {images.map(({ src, alt }) => (
-          <Image key={src} src={src} alt={alt} width={'100%'} height={'auto'} />
+          <Image
+            key={src}
+            src={src}
+            alt={alt}
+            width={'100%'}
+            height={'auto'}
+            objectFit={'contain'}
+          />
         ))}
       </Carousel>
     </Box>
