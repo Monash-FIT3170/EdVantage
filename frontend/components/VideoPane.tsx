@@ -16,8 +16,8 @@ import QuizDrawerButton from './Quiz/QuizDrawerButton';
 
 const VideoPane = () => {
   return (
-    <Box maxW={'lg'}>
-      <Card my={6} variant={'outline'}>
+    <Box maxW={'lg'} position={'sticky'} top={6}>
+      <Card variant={'outline'}>
         <CardBody>
           <VideoPlayer link="https://dkkxc50nup77a.cloudfront.net/laughing.mp4" />
           <Stack mt="6" spacing="3">

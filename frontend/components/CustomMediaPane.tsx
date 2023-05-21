@@ -1,24 +1,12 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  Stack,
-  Heading,
-  Text,
-  Divider,
-  CardFooter,
-  ButtonGroup,
-  Button,
-  Image,
-} from '@chakra-ui/react';
+import { Box, Card, CardBody, Stack, Heading } from '@chakra-ui/react';
 import CustomCarousel from './Carousel/Carousel';
 
 const CustomMediaPane = () => {
   return (
     <Box maxW={'2xl'}>
-      <Card my={6} variant={'outline'}>
+      <Card variant={'outline'}>
         <CardBody>
-          <CustomCarousel></CustomCarousel>
+          <CustomCarousel />
           <Stack mt="6" spacing="3">
             <Heading size="lg">Custom Carousel</Heading>
           </Stack>
