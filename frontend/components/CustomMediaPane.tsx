@@ -20,7 +20,7 @@ const CustomMediaPane = () => {
         <CardBody>
           <CustomCarousel></CustomCarousel>
           <Stack mt="6" spacing="3">
-            <Heading size="lg">Custom Media Content</Heading>
+            <Heading size="lg">Custom Carousel</Heading>
           </Stack>
         </CardBody>
       </Card>
