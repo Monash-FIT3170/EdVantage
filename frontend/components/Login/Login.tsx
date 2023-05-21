@@ -5,19 +5,27 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { AuthContext } from '@/utils/auth';
 import styles from './Login.module.css';
 
-
 const Login = () => {
   const auth = useContext(AuthContext);
   const login = useGoogleLogin({
-    scope: "profile",
+    scope: 'profile',
     onSuccess: async (tokenResponse) => {
       try {
-        const response = await fetch('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + tokenResponse.access_token);
-        const json = await response.json();
-        console.log(json);
+        console.log(tokenResponse);
+        const response = await fetch(
+          'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' +
+            tokenResponse.access_token
+        );
+        const userInfo = await response.json();
+        console.log(userInfo);
         auth?.login();
+        auth?.setUser({
+          name: userInfo.name,
+          email: userInfo.email,
+          picture: userInfo.picture,
+        });
       } catch (err) {
-          console.error(err);
+        console.error(err);
       }
     },
     onError: (errorResponse) =>

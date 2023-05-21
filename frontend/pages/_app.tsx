@@ -6,13 +6,14 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Inter } from 'next/font/google';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import theme from '@/utils/theme';
-import { AuthContext } from '@/utils/auth';
+import { AuthContext, type UserInfo } from '@/utils/auth';
 import '../styles/global.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<UserInfo>();
   const router = useRouter();
   const showSidebar = router.pathname !== '/login';
 
@@ -42,14 +43,16 @@ export default function App({ Component, pageProps }: AppProps) {
         `}
       </style>
       <ChakraProvider theme={theme}>
-        <Flex>
-          <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        <AuthContext.Provider
+          value={{ isLoggedIn, login, logout, user, setUser }}
+        >
+          <Flex>
             {showSidebar && <Sidebar />}
             <main>
               <Component {...pageProps} />
             </main>
-          </AuthContext.Provider>
-        </Flex>
+          </Flex>
+        </AuthContext.Provider>
       </ChakraProvider>
     </GoogleOAuthProvider>
   );
