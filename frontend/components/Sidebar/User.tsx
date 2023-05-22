@@ -22,7 +22,6 @@ const User = () => {
       mb={0}
       direction={'row'}
       alignItems={'center'}
-      paddingInlineStart={2}
       marginInline={0}
     >
       <Menu>
@@ -45,7 +44,11 @@ const User = () => {
           {name || ''}
         </Text>
         <Text fontSize={'sm'}>
-          {email && email.length > 20 ? email.substring(0, 20) + '...' : ''}
+          {email && email.length > 20
+            ? email.substring(0, 20) + '...'
+            : email
+            ? email
+            : ''}
         </Text>
       </Box>
     </Stack>
