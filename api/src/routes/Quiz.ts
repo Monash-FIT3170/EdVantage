@@ -64,11 +64,12 @@ quizRouter.post(
     if (!question) res.status(404).send('Quiz question not found');
 
     const isCorrect = checkAnswer(question!, answer.answer);
+    console.log(question, answer, isCorrect)
 
     if (isCorrect) {
-      res.status(200).send('Answer is correct');
+      res.status(200).send(true);
     } else {
-      res.status(200).send('Answer is incorrect');
+      res.status(200).send(false);
     }
   }
 );

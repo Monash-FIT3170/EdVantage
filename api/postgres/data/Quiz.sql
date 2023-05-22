@@ -46,7 +46,7 @@ VALUES
 INSERT INTO
     question_choices (question_id, option, is_correct)
 VALUES
-    (1, '2', false), (1, '3', false), (1, '4', true);
+    (1, '2', false), (1, '4', false), (1, '4', true);
 
 INSERT INTO
     question_answers (question_id, answer)

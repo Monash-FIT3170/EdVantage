@@ -57,7 +57,7 @@ export default class ApiClient {
     return this.request({ method: 'GET', url, query, ...options });
   }
 
-  async post(url: string, query?: string, body?: string, options?: any) {
+  async post(url: string, query?: string, body?: any, options?: any) {
     return this.request({ method: 'POST', url, body, ...options });
   }
 
