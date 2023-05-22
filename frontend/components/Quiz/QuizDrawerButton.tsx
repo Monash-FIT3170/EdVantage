@@ -97,9 +97,6 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
               <Button onClick={onClose} variant={"outline"}>
                 Close
               </Button>
-              <Button variant={"solid"} colorScheme="blue">
-                Submit
-              </Button>
             </ButtonGroup>
           </DrawerFooter>
         </DrawerContent>

@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import {Button, VStack} from '@chakra-ui/react';
 import QuizQuestion from '@/components/Quiz/QuizQuestion';
 
 const Quiz = ({ quiz }: any) => {
@@ -12,6 +12,9 @@ const Quiz = ({ quiz }: any) => {
           questionType={question.question_type}
         />
       ))}
+      <Button variant={"solid"} colorScheme="blue" onClick={}>
+        Submit
+      </Button>
     </VStack>
   );
 };
