@@ -14,10 +14,10 @@ import {
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
 import QuizDrawerButton from './Quiz/QuizDrawerButton';
-// import QuizDialog from "./Quiz/QuizDialog";
+import QuizDialog from "./Quiz/QuizDialog";
 
 const VideoPane = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -44,12 +44,12 @@ const VideoPane = () => {
                   Comment
                 </Button>
                 {/* <QuizDrawerButton id={'1'} /> */}
-                <Button onClick={() => console.log("Quiz button pressed")} colorScheme="blue">Quiz</Button>
+                {/* <Button onClick={() => onOpen} colorScheme="blue">Quiz</Button> */}
+                <QuizDialog />
               </ButtonGroup>
             </Stack>
           </CardFooter>
         </Card>
-        {/* <QuizDialog isOpen={isOpen} onClose={onClose} /> */}
       </Box>
     </>
   );
