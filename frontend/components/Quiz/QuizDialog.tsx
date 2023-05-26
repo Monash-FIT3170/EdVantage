@@ -8,21 +8,16 @@ import {
     Button,
     useDisclosure
 } from "@chakra-ui/react";
-import {useRef} from "react";
+import {useRef, FC} from "react";
 
-// export default function App() {
-//     const {isOpen, onOpen, onClose} = useDisclosure();
+interface QuizDialogProps {
+    isOpen: boolean,
+    onOpen: () => void,
+    onClose: () => void
+}
 
-//     return (
-//         <>
-//             <Button colorScheme="blue" onClick={onOpen}>Click on me!</Button>
-//             <Dialog isOpen={isOpen} onClose={onClose}/>
-//         </>
-//     );
-// }
-
-export default function QuizDialog() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+export default function QuizDialog({isOpen , onOpen, onClose}) {
+    // const {isOpen, onOpen, onClose} = useDisclosure();
     const cancelRef = useRef();
 
     return (
@@ -32,14 +27,14 @@ export default function QuizDialog() {
                 <AlertDialogOverlay>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            Alert!
+                            Open Quiz
                         </AlertDialogHeader>
                         <AlertDialogBody>
-                            This is an alert!
+                            Are you sure you want to open the quiz?
                         </AlertDialogBody>
                         <AlertDialogFooter>
-                            <Button ref={cancelRef} onClick={onClose}>No!</Button>
-                            <Button colorScheme="blue" onClick={onClose}>Yes!</Button>
+                            <Button ref={cancelRef} onClick={onClose}>No</Button>
+                            <Button colorScheme="blue" onClick={onClose}>Yes</Button>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialogOverlay>
