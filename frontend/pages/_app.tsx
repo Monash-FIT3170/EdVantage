@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar/Sidebar';
+import { AuthContext, type UserInfo } from '@/utils/auth';
+import theme from '@/utils/theme';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
-import Sidebar from '@/components/Sidebar/Sidebar';
-import theme from '@/utils/theme';
-import { AuthContext, type UserInfo } from '@/utils/auth';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import '../styles/global.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -18,8 +19,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const showSidebar = router.pathname !== '/login';
 
   useEffect(() => {
-    if (!isLoggedIn && router.pathname !== '/login') {
-      router.push('/login');
+    if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'local') {
+      if (!isLoggedIn && router.pathname !== '/login') {
+        router.push('/login');
+      }
     }
   }, [isLoggedIn, router]);
 
@@ -49,6 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Flex>
             {showSidebar && <Sidebar />}
             <main>
+              <Navbar />
               <Component {...pageProps} />
             </main>
           </Flex>
