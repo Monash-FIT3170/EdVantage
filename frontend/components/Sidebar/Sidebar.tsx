@@ -1,6 +1,6 @@
 import { Flex, Stack, useColorModeValue } from '@chakra-ui/react';
-import UpperSidebar from './UpperSidebar';
 import LowerSidebar from './LowerSidebar';
+import UpperSidebar from './UpperSidebar';
 
 const Sidebar = () => {
   return (

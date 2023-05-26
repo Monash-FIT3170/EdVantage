@@ -14,7 +14,12 @@ import { AuthContext } from '@/utils/auth';
 
 const User = () => {
   const auth = useContext(AuthContext);
-  const { name, email, picture } = auth?.user || {};
+  const { name, email, picture } = auth?.user || {
+    name: 'Barack Obama',
+    email: 'barack.obama@us.gov',
+    picture:
+      'https://img001.prntscr.com/file/img001/bCZkTHGYQ7G8BOqmZ8mW9Q.png',
+  };
 
   return (
     <Stack
@@ -40,7 +45,7 @@ const User = () => {
         </MenuList>
       </Menu>
       <Box ml={3}>
-        <Text fontSize={'sm'} fontWeight={'medium'}>
+        <Text fontSize={'sm'} fontWeight={'medium'} noOfLines={1}>
           {name || ''}
         </Text>
         <Text fontSize={'sm'}>

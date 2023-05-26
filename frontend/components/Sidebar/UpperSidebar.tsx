@@ -1,5 +1,6 @@
-import { Stack, Heading, Button, Text } from '@chakra-ui/react';
-import { FiHome, FiStar, FiList } from 'react-icons/fi';
+import { Button, Heading, Stack, Text } from '@chakra-ui/react';
+import Link from 'next/link';
+import { FiHome, FiList, FiStar } from 'react-icons/fi';
 
 const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
 
@@ -38,16 +39,17 @@ const UpperSidebar = () => {
         </Text>
         {enrolledUnits.map((unit) => {
           return (
-            <Button
-              key={unit}
-              variant={'ghost'}
-              leftIcon={<FiList />}
-              h={10}
-              minW={10}
-              justifyContent={'start'}
-            >
-              {unit}
-            </Button>
+            <Link key={unit} href={`/unit/${unit}`} passHref>
+              <Button
+                variant={'ghost'}
+                leftIcon={<FiList />}
+                h={10}
+                w={'full'}
+                justifyContent={'start'}
+              >
+                {unit}
+              </Button>
+            </Link>
           );
         })}
       </Stack>

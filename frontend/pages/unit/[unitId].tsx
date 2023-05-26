@@ -1,7 +1,9 @@
+import UnitCard from '@/components/VideoCard';
 import {
   Button,
   Container,
   Divider,
+  Flex,
   Heading,
   Stack,
   Text,
@@ -9,6 +11,25 @@ import {
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FiBookOpen, FiLink, FiMail } from 'react-icons/fi';
+
+const videos = [
+  {
+    heading:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed tellus et libero lacinia laoreet sit amet eget lorem. Quisque cursus auctor lorem nec malesuada. ',
+  },
+  {
+    heading:
+      'In nec sapien sem. Praesent blandit tristique ex consequat aliquam. Vivamus vitae risus laoreet, pellentesque nunc quis, iaculis tellus.',
+  },
+  {
+    heading:
+      'Integer diam quam, blandit sit amet tortor eu, interdum fringilla dolor.',
+  },
+  {
+    heading:
+      'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ',
+  },
+];
 
 const UnitPage: NextPage = () => {
   const router = useRouter();
@@ -34,6 +55,11 @@ const UnitPage: NextPage = () => {
         </Stack>
         <Divider />
       </Stack>
+      <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
+        {videos.map(({ heading }) => (
+          <UnitCard key={heading} heading={heading} />
+        ))}
+      </Flex>
     </Container>
   );
 };
