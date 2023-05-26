@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
 import QuizDrawerButton from './Quiz/QuizDrawerButton';
-import QuizDialog from "./Quiz/QuizDialog";
+// import QuizDialog from "./Quiz/QuizDialog";
 
 const VideoPane = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,7 +44,7 @@ const VideoPane = () => {
                   Comment
                 </Button>
                 {/* <QuizDrawerButton id={'1'} /> */}
-                <Button onClick={console.log("Quiz button pressed")} colorScheme="blue">Quiz</Button>
+                <Button onClick={() => console.log("Quiz button pressed")} colorScheme="blue">Quiz</Button>
               </ButtonGroup>
             </Stack>
           </CardFooter>
