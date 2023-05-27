@@ -11,12 +11,12 @@ import {
 import {useRef, FC} from "react";
 
 interface QuizDialogProps {
-    isOpen: boolean,
-    onOpen: () => void,
-    onClose: () => void
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
 }
 
-export default function QuizDialog({isOpen , onOpen, onClose}) {
+export default function QuizDialog({isOpen , onOpen, onClose}: QuizDialogProps) {
     // const {isOpen, onOpen, onClose} = useDisclosure();
     const cancelRef = useRef();
 
