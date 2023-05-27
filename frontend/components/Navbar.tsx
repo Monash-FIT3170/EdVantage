@@ -12,11 +12,15 @@ const Navbar = () => {
     <Flex
       w={'full'}
       py={3}
-      px={32}
+      px={{ base: 4, lg: 32 }}
       justifyContent={'center'}
       boxShadow={useColorModeValue('base', 'dark-lg')}
     >
-      <InputGroup minW={'lg'} maxW={'container.md'} size={'lg'}>
+      <InputGroup
+        minW={{ base: 'min-content', lg: 'lg' }}
+        maxW={'container.md'}
+        size={'lg'}
+      >
         <InputLeftElement pointerEvents={'none'}>
           <FiSearch color="gray.300" />
         </InputLeftElement>

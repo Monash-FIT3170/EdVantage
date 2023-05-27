@@ -1,6 +1,7 @@
 import UnitCard from '@/components/VideoCard';
 import {
   Button,
+  ButtonGroup,
   Container,
   Divider,
   Flex,
@@ -37,12 +38,21 @@ const UnitPage: NextPage = () => {
 
   return (
     <Container maxW={'container.xl'} mt={6} centerContent>
-      <Stack maxH={'sm'} w={'full'} p={6} spacing={3} alignItems={'center'}>
-        <Heading fontSize={'6xl'}>{unitId?.toString().toUpperCase()}</Heading>
+      <Stack
+        maxH={'sm'}
+        w={'full'}
+        p={{ base: 3, lg: 6 }}
+        spacing={3}
+        alignItems={'center'}
+      >
+        <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+          {unitId?.toString().toUpperCase()}
+        </Heading>
         <Text fontSize={'larger'}>
           Software engineering: Architecture and design
         </Text>
-        <Stack direction={'row'} spacing={3}>
+
+        <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
           <Button variant={'ghost'} leftIcon={<FiMail />}>
             Unit Email
           </Button>
@@ -52,7 +62,8 @@ const UnitPage: NextPage = () => {
           <Button variant={'ghost'} leftIcon={<FiBookOpen />}>
             Assessments
           </Button>
-        </Stack>
+        </ButtonGroup>
+
         <Divider />
       </Stack>
       <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
