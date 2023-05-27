@@ -8,7 +8,7 @@ import {
     Button,
     useDisclosure
 } from "@chakra-ui/react";
-import {useRef, FC} from "react";
+import {useRef} from "react";
 
 interface QuizDialogProps {
     isOpen: boolean;
@@ -17,7 +17,6 @@ interface QuizDialogProps {
 }
 
 export default function QuizDialog({isOpen , onOpen, onClose}: QuizDialogProps) {
-    // const {isOpen, onOpen, onClose} = useDisclosure();
     const cancelRef = useRef();
 
     return (
