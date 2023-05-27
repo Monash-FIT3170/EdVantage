@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import { AuthContext, type UserInfo } from '@/utils/auth';
 import theme from '@/utils/theme';
-import { ChakraProvider, Flex, Show } from '@chakra-ui/react';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<UserInfo>();
   const router = useRouter();
-  const showSidebar = router.pathname !== '/login';
+  const isLoginPage = router.pathname !== '/login';
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'local') {
@@ -50,13 +50,9 @@ export default function App({ Component, pageProps }: AppProps) {
           value={{ isLoggedIn, login, logout, user, setUser }}
         >
           <Flex>
-            {showSidebar && (
-              <Show above="lg">
-                <Sidebar />
-              </Show>
-            )}
+            {isLoginPage && <Sidebar />}
             <main>
-              <Navbar />
+              {isLoginPage && <Navbar />}
               <Component {...pageProps} />
             </main>
           </Flex>

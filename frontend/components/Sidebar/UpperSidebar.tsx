@@ -14,15 +14,17 @@ const UpperSidebar = () => {
         EdVantage
       </Heading>
       <Stack>
-        <Button
-          variant={'ghost'}
-          leftIcon={<FiHome />}
-          h={10}
-          minW={10}
-          justifyContent={'start'}
-        >
-          Home
-        </Button>
+        <Link href={'/'} passHref>
+          <Button
+            variant={'ghost'}
+            leftIcon={<FiHome />}
+            h={10}
+            w={'full'}
+            justifyContent={'start'}
+          >
+            Home
+          </Button>
+        </Link>
         <Button
           variant={'ghost'}
           leftIcon={<FiStar />}

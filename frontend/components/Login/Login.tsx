@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
-import { FaGoogle } from 'react-icons/fa';
-import { useGoogleLogin } from '@react-oauth/google';
 import { AuthContext } from '@/utils/auth';
+import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useContext } from 'react';
+import { FaGoogle } from 'react-icons/fa';
 import styles from './Login.module.css';
 
 const Login = () => {
@@ -39,7 +39,7 @@ const Login = () => {
       className={styles.loginContainer}
       position={'relative'}
       w={'100vw'}
-      h={'100vh'}
+      h={'100dvh'}
     >
       <Box
         position={'absolute'}
@@ -51,7 +51,7 @@ const Login = () => {
         <Center h={'full'}>
           <Heading
             as={'h1'}
-            fontSize="9xl"
+            fontSize={{ base: '7xl', lg: '9xl' }}
             bgGradient={'linear(to right, #EDE342, #FF51EB)'}
             bgClip={'text'}
           >
