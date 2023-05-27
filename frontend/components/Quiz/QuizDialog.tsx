@@ -16,8 +16,9 @@ interface QuizDialogProps {
     onClose: () => void;
 }
 
-export default function QuizDialog({isOpen , onOpen, onClose}: QuizDialogProps) {
-    const cancelRef = useRef();
+export default function QuizDialog() {
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const cancelRef = useRef<HTMLButtonElement>(null);
 
     return (
         <>
