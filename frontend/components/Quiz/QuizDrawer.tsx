@@ -18,12 +18,19 @@ import ApiClient from "@/utils/api-client";
 import { Select } from "chakra-react-select";
 import Quiz from "@/components/Quiz/Quiz";
 
-const QuizDrawerButton = ({ id }: { id: string }) => {
+interface QuizDrawerProps {
+  id: string;
+  drawerState: boolean;
+  closeDrawer: () => void;
+}
+
+const QuizDrawer = ({ id, drawerState, closeDrawer }: QuizDrawerProps) => {
   const [quizzes, setQuizzes] = useState<any>(null);
+
   const [quiz, setQuiz] = useState<any>(null);
 
   const [isLoading, setLoading] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const btnRef = useRef(null);
 
   useEffect(() => {
@@ -49,19 +56,11 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
 
   return (
     <>
-      <Button
-        ref={btnRef}
-        onClick={onOpen}
-        variant={"solid"}
-        colorScheme="blue"
-      >
-        Quiz
-      </Button>
       <Drawer
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={drawerState}
+        onClose={closeDrawer}
         finalFocusRef={btnRef}
-        placement={"right"}
+        placement={"left"}
         size={"md"}
       >
         <DrawerOverlay />
@@ -94,7 +93,7 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
 
           <DrawerFooter>
             <ButtonGroup spacing={2}>
-              <Button onClick={onClose} variant={"outline"}>
+              <Button onClick={closeDrawer} variant={"outline"}>
                 Close
               </Button>
             </ButtonGroup>
@@ -105,4 +104,4 @@ const QuizDrawerButton = ({ id }: { id: string }) => {
   );
 };
 
-export default QuizDrawerButton;
+export default QuizDrawer;

@@ -6,24 +6,23 @@ import {
     AlertDialogBody,
     AlertDialogFooter,
     Button,
+    ButtonGroup,
     useDisclosure
 } from "@chakra-ui/react";
-import {useRef} from "react";
+import { useRef, useState } from "react";
 
 interface QuizDialogProps {
-    isOpen: boolean;
-    onOpen: () => void;
-    onClose: () => void;
+    dialogState: boolean;
+    closeDialog: () => void;
+    openDrawer: () => void;
 }
 
-export default function QuizDialog() {
-    const {isOpen, onOpen, onClose} = useDisclosure();
+export default function QuizDialog({ dialogState, closeDialog, openDrawer }: QuizDialogProps) {
     const cancelRef = useRef<HTMLButtonElement>(null);
 
     return (
         <>
-            <Button onClick={onOpen} colorScheme="blue">Quiz</Button>
-            <AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={cancelRef}>
+            <AlertDialog isOpen={dialogState} onClose={closeDialog} leastDestructiveRef={cancelRef}>
                 <AlertDialogOverlay>
                     <AlertDialogContent>
                         <AlertDialogHeader>
@@ -33,8 +32,10 @@ export default function QuizDialog() {
                             Are you sure you want to open the quiz?
                         </AlertDialogBody>
                         <AlertDialogFooter>
-                            <Button ref={cancelRef} onClick={onClose}>No</Button>
-                            <Button colorScheme="blue" onClick={onClose}>Yes</Button>
+                            <ButtonGroup spacing={1}>
+                                <Button ref={cancelRef} onClick={closeDialog}>No</Button>
+                                <Button colorScheme="blue" onClick={() => { closeDialog(); openDrawer(); }}>Yes</Button>
+                            </ButtonGroup>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialogOverlay>

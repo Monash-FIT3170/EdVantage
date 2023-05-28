@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Card,
@@ -13,11 +13,17 @@ import {
   useDisclosure
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
-import QuizDrawerButton from './Quiz/QuizDrawerButton';
+import QuizDrawer from './Quiz/QuizDrawer';
 import QuizDialog from "./Quiz/QuizDialog";
 
 const VideoPane = () => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const [dialogState, setDialogState] = useState(false);
+  function openDialog() { setDialogState(true); }
+  function closeDialog() { setDialogState(false); }
+
+  const [drawerState, setDrawerState] = useState(false);
+  function openDrawer() { setDrawerState(true); }
+  function closeDrawer() { setDrawerState(false); }
 
   return (
     <>
@@ -43,9 +49,11 @@ const VideoPane = () => {
                 <Button variant="outline" colorScheme="blue">
                   Comment
                 </Button>
-                {/* <QuizDrawerButton id={'1'} /> */}
-                {/* <Button onClick={() => onOpen} colorScheme="blue">Quiz</Button> */}
-                <QuizDialog />
+                <Button onClick={openDialog} colorScheme="blue">
+                  Quiz
+                </Button>
+                <QuizDialog dialogState={dialogState} closeDialog={closeDialog} openDrawer={openDrawer}/>
+                <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer}/>
               </ButtonGroup>
             </Stack>
           </CardFooter>
