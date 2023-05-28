@@ -22,9 +22,10 @@ interface QuizDrawerProps {
   id: string;
   drawerState: boolean;
   closeDrawer: () => void;
+  openDialog: () => void;
 }
 
-const QuizDrawer = ({ id, drawerState, closeDrawer }: QuizDrawerProps) => {
+const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProps) => {
   const [quizzes, setQuizzes] = useState<any>(null);
 
   const [quiz, setQuiz] = useState<any>(null);
@@ -96,6 +97,7 @@ const QuizDrawer = ({ id, drawerState, closeDrawer }: QuizDrawerProps) => {
               <Button onClick={closeDrawer} variant={"outline"}>
                 Close
               </Button>
+              <Button onClick={openDialog} colorScheme="blue">Submit Quiz</Button>
             </ButtonGroup>
           </DrawerFooter>
         </DrawerContent>

@@ -14,16 +14,21 @@ import {
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
 import QuizDrawer from './Quiz/QuizDrawer';
-import QuizDialog from "./Quiz/QuizDialog";
+import QuizOpenDialog from "./Quiz/QuizOpenDialog";
+import QuizSubmitDialog from './Quiz/QuizSubmissionDialog';
 
 const VideoPane = () => {
-  const [dialogState, setDialogState] = useState(false);
-  function openDialog() { setDialogState(true); }
-  function closeDialog() { setDialogState(false); }
+  const [startDialogState, setStartDialogState] = useState(false);
+  function openStartDialog() { setStartDialogState(true); }
+  function closeStartDialog() { setStartDialogState(false); }
 
   const [drawerState, setDrawerState] = useState(false);
   function openDrawer() { setDrawerState(true); }
   function closeDrawer() { setDrawerState(false); }
+
+  const [submitDialogState, setSubmitDialogState] = useState(false);
+  function openSubmitDialog() { setSubmitDialogState(true); }
+  function closeSubmitDialog() { setSubmitDialogState(false); }
 
   return (
     <>
@@ -49,11 +54,12 @@ const VideoPane = () => {
                 <Button variant="outline" colorScheme="blue">
                   Comment
                 </Button>
-                <Button onClick={openDialog} colorScheme="blue">
+                <Button onClick={openStartDialog} colorScheme="blue">
                   Quiz
                 </Button>
-                <QuizDialog dialogState={dialogState} closeDialog={closeDialog} openDrawer={openDrawer}/>
-                <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer}/>
+                <QuizOpenDialog dialogState={startDialogState} closeDialog={closeStartDialog} openDrawer={openDrawer}/>
+                <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog}/>
+                <QuizSubmitDialog dialogState={submitDialogState} closeDialog={closeSubmitDialog} closeDrawer={closeDrawer}/>
               </ButtonGroup>
             </Stack>
           </CardFooter>

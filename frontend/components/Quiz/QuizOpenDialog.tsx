@@ -6,18 +6,17 @@ import {
     AlertDialogBody,
     AlertDialogFooter,
     Button,
-    ButtonGroup,
-    useDisclosure
+    ButtonGroup
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-interface QuizDialogProps {
+interface QuizOpenDialogProps {
     dialogState: boolean;
     closeDialog: () => void;
     openDrawer: () => void;
 }
 
-export default function QuizDialog({ dialogState, closeDialog, openDrawer }: QuizDialogProps) {
+export default function QuizOpenDialog({ dialogState, closeDialog, openDrawer }: QuizOpenDialogProps) {
     const cancelRef = useRef<HTMLButtonElement>(null);
 
     return (
