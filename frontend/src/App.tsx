@@ -4,6 +4,8 @@ import Layout from './components/Layout'
 import Public from './components/Public'
 import Login1 from './components/Login1'
 import Login2 from './components/Login2'
+import MultipleQuizz from './components/quizz/MultipleQuizz'
+import QuizWindow from './components/quizz/QuizWindow'
 
 function App() {
   return (
