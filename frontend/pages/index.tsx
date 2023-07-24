@@ -2,7 +2,8 @@ import { Container, Stack, Box } from '@chakra-ui/react';
 import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
-
+import { useState } from 'react';
+import QuizCreationPage from '@/components/Quiz/QuizCreationPage';
 const mediaOne: MediaSource[] = [
   {
     src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/3.jpg',
@@ -34,27 +35,33 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
+  const [page, setPage] = useState('quiz_creation_page');
   return (
-    <Container maxW={'container.xl'} centerContent>
-      <Stack direction={'row'} my={6}>
-        <Box>
-          <Stack>
-            <MediaPane
-              title="Interesting Graphs"
-              type={'image'}
-              media={mediaTwo}
-            />
-            <MediaPane
-              title="Discussion Questions"
-              type={'image'}
-              media={mediaOne}
-            />
+    <div>
+      {page === 'home' ? (
+        <Container maxW={'container.xl'} centerContent>
+          <Stack direction={'row'} my={6}>
+            <Box>
+              <Stack>
+                <MediaPane
+                  title="Interesting Graphs"
+                  type={'image'}
+                  media={mediaTwo}
+                />
+                <MediaPane
+                  title="Discussion Questions"
+                  type={'image'}
+                  media={mediaOne}
+                />
+              </Stack>
+            </Box>
+            <Box>
+              <VideoPane />
+            </Box>
           </Stack>
-        </Box>
-        <Box>
-          <VideoPane />
-        </Box>
-      </Stack>
-    </Container>
+        </Container>
+      ) : null}
+      {page === 'quiz_creation_page' ? <QuizCreationPage /> : null}
+    </div>
   );
 }
