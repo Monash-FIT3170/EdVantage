@@ -1,6 +1,8 @@
 import { Box, Card, CardBody, Stack, Heading } from '@chakra-ui/react';
 import MediaCarousel from './Carousel/MediaCarousel';
 import type { MediaSource } from '@/utils/types';
+import Upload from './Uploads/Upload'; // Import the Upload component
+
 
 type MediaPaneProps = {
   title: string;
@@ -14,6 +16,7 @@ const MediaPane = ({ title, type, media }: MediaPaneProps) => {
       <Card variant={'outline'}>
         <CardBody>
           {type === 'image' ? <MediaCarousel images={media} /> : ''}
+          <Upload /> {/* Include the Upload component */}
           <Stack mt="6" spacing="3">
             <Heading size="lg">{title}</Heading>
           </Stack>
