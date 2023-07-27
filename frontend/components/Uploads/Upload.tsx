@@ -1,11 +1,12 @@
 // EdVantage/frontend/components/uploadComponent.tsx
 import React, { ChangeEvent } from 'react';
 import { Button, Input } from '@chakra-ui/react';
-import uploadFileToS3 from '../../../api/s3Handler'; // Import the S3 handler from the API directory
+import uploadFileToS3 from '../s3Handler'; // Import the S3 handler from the API directory
 
 export default function UploadComponent() {
   const handleFileUpload = (file: File) => {
     // Call the S3 handler function to upload the file to S3
+    console.log("1")
     uploadFileToS3(file)
       .then((response) => {
         console.log('File uploaded successfully:', response);
@@ -15,7 +16,7 @@ export default function UploadComponent() {
         console.error('Error uploading file:', error);
         // Handle error cases (if needed)
       });
-  };
+  }
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
