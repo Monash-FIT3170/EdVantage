@@ -3,7 +3,7 @@ import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
 import { useState } from 'react';
-import QuizCreationPage from '@/components/Quiz/QuizCreationPage';
+import QuizCreationPage from '@/components/Quiz/QuizCreation/QuizCreationPage';
 const mediaOne: MediaSource[] = [
   {
     src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/3.jpg',
