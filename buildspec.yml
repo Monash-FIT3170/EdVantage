@@ -6,7 +6,7 @@ phases:
       nodejs: 18
     commands:
       - echo Installing source code dependencies...
-      - cd backend
+      - cd api
       - npm install
 
   build:
@@ -21,4 +21,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'backend/dist'
+  base-directory: 'api/dist'
