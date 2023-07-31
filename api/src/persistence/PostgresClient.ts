@@ -1,7 +1,7 @@
 import pg from "pg"
 
 var env = process.env.NODE_ENV || 'local'
-var postgresConfig = require('../../postgres/config')[env]
+var postgresConfig = require('./config')[env]
 
 export default class PostgresClient {
     private pool: pg.Pool;
