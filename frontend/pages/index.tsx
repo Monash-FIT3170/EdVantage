@@ -3,7 +3,7 @@ import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
 import { useState } from 'react';
-import QuizCreationPage from '@/components/Quiz/QuizCreation/QuizCreationPage';
+import QuizCreationPage from '@/pages/QuizCreationPage';
 const mediaOne: MediaSource[] = [
   {
     src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/3.jpg',
@@ -35,7 +35,7 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
-  const [page, setPage] = useState('quiz_creation_page');
+  const [page, setPage] = useState('home');
   return (
     <div>
       {page === 'home' ? (

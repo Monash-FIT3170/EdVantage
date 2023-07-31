@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Stack, Select } from '@chakra-ui/react';
 import { useRef, useEffect, useState } from 'react';
 
-import QuestionCard from './QuestionCard';
+import QuestionCard from '../components/Quiz/QuizCreation/QuestionCard';
 import ApiClient from '@/utils/api-client';
 
 const QuizCreationPage = () => {

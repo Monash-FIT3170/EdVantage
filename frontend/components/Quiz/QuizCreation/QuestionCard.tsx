@@ -1,6 +1,7 @@
 import ShortAnswerCreate from './ShortAnswerCreate';
 import { useEffect, useState } from 'react';
 import { Stack, Radio, RadioGroup } from '@chakra-ui/react';
+import MultipleChoiceQuestionCreate from './MultipleChoiceQuestionCreate';
 type questionCardProp = {
   id: number;
   quizId: number;
@@ -30,7 +31,7 @@ const QuestionCard = (props: questionCardProp) => {
         {questionType === 'short-answer' ? (
           <ShortAnswerCreate />
         ) : (
-          <div>hehe</div>
+          <MultipleChoiceQuestionCreate />
         )}
       </div>
     </div>
