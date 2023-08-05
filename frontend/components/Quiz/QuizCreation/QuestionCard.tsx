@@ -38,6 +38,7 @@ const QuestionCard = (props: questionCardProp) => {
         <div>
           <Button
             colorScheme="blue"
+            size="xs"
             style={{ marginLeft: '10px' }}
             onClick={handleDelete}
           >

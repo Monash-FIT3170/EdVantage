@@ -29,14 +29,14 @@ const MultipleChoiceQuestionCreate = () => {
     );
   };
   return (
-    <div>
+    <div style={{ marginLeft: '10px' }}>
       <div style={{ width: '50%' }}>
         <Input placeholder="Enter your question" />
       </div>
       <RadioGroup onChange={setOptionDelete} value={optionDelete}>
         <Stack direction="row">{OptionSet}</Stack>
       </RadioGroup>
-      <div style={{ width: '50%' }}>
+      <div style={{ width: '50%', marginTop: '5px' }}>
         <Input placeholder="Enter your option" onChange={onChange} />
       </div>
       <div style={{ display: 'flex', padding: '10px', marginTop: '5px' }}>
@@ -44,10 +44,11 @@ const MultipleChoiceQuestionCreate = () => {
           onClick={addOption}
           style={{ marginRight: '10px' }}
           colorScheme="blue"
+          size="sm"
         >
           Add Option
         </Button>
-        <Button onClick={deleteOption} colorScheme="blue">
+        <Button onClick={deleteOption} colorScheme="blue" size="sm">
           Delete Option
         </Button>
       </div>

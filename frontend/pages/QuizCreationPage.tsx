@@ -1,4 +1,11 @@
-import { Button, ButtonGroup, Stack, Select } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Stack,
+  Select,
+  Input,
+  Flex,
+} from '@chakra-ui/react';
 import { useRef, useEffect, useState } from 'react';
 
 import QuestionCard from '../components/Quiz/QuizCreation/QuestionCard';
@@ -48,6 +55,10 @@ const QuizCreationPage = () => {
 
   return (
     <div>
+      <div style={{ display: 'Flex ', margin: '10px' }}>
+        <div style={{ marginTop: '5px' }}>Quiz Name: </div>
+        <Input style={{ width: '70%' }} required />
+      </div>
       {questionSet.map((question) => question)}
       <Button
         onClick={addQuestion}
