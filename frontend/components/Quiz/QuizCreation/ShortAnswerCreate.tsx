@@ -1,9 +1,19 @@
 import { Input, Button, Flex } from '@chakra-ui/react';
-const ShortAnswerCreate = () => {
+type questionCardProp = {
+  id: number;
+  quizId: number;
+  question: string;
+  // question_type: string;
+  correct_answer: [];
+};
+const ShortAnswerCreate = (prop: questionCardProp) => {
   return (
     <div style={{ marginBottom: '10px', display: 'flex' }}>
       <div style={{ width: '50%', marginLeft: '10px' }}>
-        <Input placeholder="Enter your question" required />
+        <Input
+          placeholder={prop.question ? prop.question : 'Enter your question'}
+          required
+        />
       </div>
     </div>
   );
