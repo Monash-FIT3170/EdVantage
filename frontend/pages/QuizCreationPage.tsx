@@ -27,14 +27,20 @@ const QuizCreationPage = () => {
       })
       .catch((err) => console.error(err));
   }, []);
+  const deleteQuestion = (questionId: number) => {
+    setQuestionSet((prevQuestionSet) =>
+      prevQuestionSet.filter((question) => question.props.id !== questionId)
+    );
+  };
   const addQuestion = () => {
-    // Create a new QuestionCard object (not JSX) and add it to the existing list of components
     setQuestionSet([
       ...questionSet,
       <QuestionCard
         key={questionSet.length}
         id={questionSet.length}
         quizId={quizID}
+        setQuestion={setQuestionSet}
+        deleteAction={deleteQuestion}
       />,
     ]);
     console.log(quizzes);
@@ -43,8 +49,19 @@ const QuizCreationPage = () => {
   return (
     <div>
       {questionSet.map((question) => question)}
-      <Button onClick={addQuestion} colorScheme="blue">
+      <Button
+        onClick={addQuestion}
+        colorScheme="blue"
+        style={{ marginLeft: '10px' }}
+      >
         Add Question
+      </Button>
+      <Button
+        onClick={addQuestion}
+        colorScheme="blue"
+        style={{ marginLeft: '10px' }}
+      >
+        Submit
       </Button>
     </div>
   );

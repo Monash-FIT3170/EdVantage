@@ -9,9 +9,6 @@ const MultipleChoiceQuestionCreate = () => {
     setOptionAdd(e.currentTarget.value);
   };
   const addOption = () => {
-    console.log(optionAdd.toString());
-    console.log(optionAdd.toString() == '');
-
     if (optionAdd == 'Enter your option' || optionAdd == '') {
       return;
     }
@@ -33,16 +30,26 @@ const MultipleChoiceQuestionCreate = () => {
   };
   return (
     <div>
-      <Input placeholder="Enter your question" />
+      <div style={{ width: '50%' }}>
+        <Input placeholder="Enter your question" />
+      </div>
       <RadioGroup onChange={setOptionDelete} value={optionDelete}>
         <Stack direction="row">{OptionSet}</Stack>
       </RadioGroup>
-      <div>
+      <div style={{ width: '50%' }}>
         <Input placeholder="Enter your option" onChange={onChange} />
       </div>
       <div style={{ display: 'flex', padding: '10px', marginTop: '5px' }}>
-        <Button onClick={addOption}>Add Option</Button>
-        <Button onClick={deleteOption}>Delete Option</Button>
+        <Button
+          onClick={addOption}
+          style={{ marginRight: '10px' }}
+          colorScheme="blue"
+        >
+          Add Option
+        </Button>
+        <Button onClick={deleteOption} colorScheme="blue">
+          Delete Option
+        </Button>
       </div>
     </div>
   );
