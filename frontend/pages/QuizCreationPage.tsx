@@ -20,7 +20,7 @@ interface questionProp {
   question: string;
   question_type: string;
   choices: choiceProp[];
-  correct_answer: [];
+  correct_answers: string[];
 }
 type choiceProp = {
   option_id: number;
@@ -28,6 +28,7 @@ type choiceProp = {
   option: string;
   is_correct: boolean;
 };
+
 const QuizCreationPage = () => {
   const [questionSet, setQuestionSet] = useState<JSX.Element[]>([]);
   const [currentQuizzQuestion, setCurrentQuizzQuestion] = useState<
@@ -65,7 +66,7 @@ const QuizCreationPage = () => {
           question={currentQuizzQuestion[i].question}
           question_type={currentQuizzQuestion[i].question_type}
           choices={currentQuizzQuestion[i].choices}
-          correct_answer={currentQuizzQuestion[i].correct_answer}
+          correct_answer={currentQuizzQuestion[i].correct_answers}
           quizId={quiz}
           setQuestion={setQuestionSet}
           deleteAction={deleteQuestion}
@@ -112,7 +113,6 @@ const QuizCreationPage = () => {
         deleteAction={deleteQuestion}
       />,
     ]);
-    console.log(quizzes);
   };
 
   return (

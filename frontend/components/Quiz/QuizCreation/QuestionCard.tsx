@@ -15,7 +15,7 @@ type questionCardProp = {
   question: string;
   question_type: string;
   choices: choiceProp[];
-  correct_answer: [];
+  correct_answer: string[];
   setQuestion: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
   deleteAction: (id: number) => void;
 };
@@ -71,14 +71,14 @@ const QuestionCard = (props: questionCardProp) => {
             id={props.id}
             quizId={props.quizId}
             question={props.question}
-            correct_answer={props.correct_answer}
+            correct_answers={props.correct_answer}
           />
         ) : (
           <MultipleChoiceQuestionCreate
             id={props.id}
             quizId={props.quizId}
             question={props.question}
-            correct_answer={props.correct_answer}
+            correct_answers={props.correct_answer}
             choices={props.choices}
           />
         )}

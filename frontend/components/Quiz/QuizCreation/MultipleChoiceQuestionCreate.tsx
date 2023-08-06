@@ -5,7 +5,7 @@ type questionCardProp = {
   quizId: number;
   question: string;
   choices: choiceProp[];
-  correct_answer: [];
+  correct_answers: string[];
 };
 type choiceProp = {
   option_id: number;
@@ -28,6 +28,7 @@ const MultipleChoiceQuestionCreate = (props: questionCardProp) => {
         </Radio>,
       ]);
     }
+    setOptionDelete(props.correct_answers[0]);
   }, []);
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
