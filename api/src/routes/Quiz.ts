@@ -54,9 +54,10 @@ quizRouter.get('/quiz/question/:id', async (req: Request, res: Response) => {
 
 // Define a route to post a quiz answer
 quizRouter.post(
-  '/quiz/question/:id/answer',
+  '/quiz/question/:id/answer/:attempt_id',
   async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
+    const attempt_id = parseInt(req.params.attempt_id);
     const answer: QuizAnswer = req.body;
 
     // Find the corresponding quiz question
@@ -64,6 +65,9 @@ quizRouter.post(
     if (!question) res.status(404).send('Quiz question not found');
 
     const isCorrect = checkAnswer(question!, answer.answer);
+    await postgresClient.query(
+        `INSERT INTO question_results(attempt_id, question_id, answer, result) VALUES (${attempt_id}, ${id}, ${answer.answer}, ${isCorrect});`
+    );
     console.log(question, answer, isCorrect)
 
     if (isCorrect) {
@@ -72,6 +76,20 @@ quizRouter.post(
       res.status(200).send(false);
     }
   }
+);
+
+quizRouter.post(
+    '/quiz/start',
+    async (req: Request, res: Response) => {
+      const params: {u_id: number, q_id: number} = req.body;
+      console.log(params);
+
+      var id = await postgresClient.query(
+          `INSERT INTO quiz_attempts(user_id, quiz_id) VALUES (${params.u_id}, ${params.q_id}) RETURNING attempt_id;`
+      );
+
+      res.status(200).send({attempt_id: id});
+    }
 );
 
 // Define a helper function to check a quiz answer
@@ -99,7 +117,7 @@ async function buildQuestion(id: number): Promise<Question | null> {
 
       for (let i = 0; i < choices.length; i++) {
         if (choices[i].is_correct) {
-          question.correct_answers.push(choices[i].option_id.toString());
+          question.correct_answers.push(choices[i].option.toString());
         }
       }
 

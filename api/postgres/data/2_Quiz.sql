@@ -28,6 +28,21 @@ CREATE TABLE question_choices (
     is_correct BOOLEAN NOT NULL
 );
 
+CREATE TABLE quiz_attempts (
+    attempt_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE question_results (
+    result_id SERIAL PRIMARY KEY,
+    attempt_id INTEGER NOT NULL REFERENCES quiz_attempts(attempt_id),
+    question_id INTEGER NOT NULL REFERENCES questions(question_id),
+    answer TEXT NOT NULL,
+    result BOOLEAN
+);
+
 INSERT INTO
     quizzes (title, description)
 VALUES

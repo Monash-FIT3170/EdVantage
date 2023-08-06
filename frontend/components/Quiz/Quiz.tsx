@@ -17,12 +17,16 @@ const Quiz = ({ quiz }: any) => {
     e.preventDefault();
 
     console.log(userAnswers);
-    console.log(quiz.questions.length);
     setScore(0);
+
+    // Using example user 8 for results testing while User integration is WIP
+    const attempt_params = {u_id: 8, q_id: quiz.value};
+    const attempt_resp = await api.post(`quiz/start`, '', attempt_params);
+    const attempt_id = await attempt_resp.json();
 
     const responses = Object.entries(userAnswers).map(([key, value], id) => {
       const answer = { question_id: key, answer: value };
-      return api.post(`quiz/question/${key}/answer`, '', answer);
+      return api.post(`quiz/question/${key}/answer/${attempt_id['attempt_id'][0]['attempt_id']}`, '', answer);
     });
 
     const fulfilled = await Promise.all(responses);
