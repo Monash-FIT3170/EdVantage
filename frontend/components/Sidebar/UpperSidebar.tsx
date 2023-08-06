@@ -27,7 +27,6 @@ const UpperSidebar = () => {
         </Link>
 
         <Link href={'/QuizCreationPage'}>
-          {' '}
           <Button variant={'ghost'} h={10} minW={10} justifyContent={'start'}>
             Create Quiz
           </Button>
