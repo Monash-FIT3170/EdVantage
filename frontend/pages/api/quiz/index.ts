@@ -6,7 +6,7 @@ import {
   QuizAnswer,
   QuizOption,
   QuizQuestion,
-} from '../../../utils/QuizTypes';
+} from '@/utils/QuizTypes';
 import PostgresClient from '@/utils/PostgresClient';
 
 const postgresClient = new PostgresClient();

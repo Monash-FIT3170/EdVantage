@@ -3,6 +3,7 @@ import PostgresClient from "./persistence/PostgresClient";
 import cors from "cors"
 import { quizRouter } from "./routes/Quiz"
 import { authRouter } from "./routes/Auth"
+import { userRouter } from "./routes/User";
 
 const postgresClient = new PostgresClient();
 
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3333
 
 app.use(quizRouter)
 app.use(authRouter)
+app.use(userRouter)
 
 app.get("/", async (req, res) => {
   const rows = await postgresClient.query("SELECT NOW()")
