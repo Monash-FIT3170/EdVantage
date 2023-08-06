@@ -3,13 +3,21 @@ DROP TABLE IF EXISTS class_enrolments CASCADE;
 DROP TABLE IF EXISTS classes CASCADE;
 DROP TABLE IF EXISTS units CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
+DROP TABLE IF EXISTS roles CASCADE;
 
 -- CREATE TABLES
+CREATE TABLE roles
+(
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE
+);
+
 CREATE TABLE users
 (
     user_id    SERIAL PRIMARY KEY,
-    user_email VARCHAR(50) NOT NULL UNIQUE
+    user_email VARCHAR(50) NOT NULL UNIQUE,
+    role_id    INTEGER NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES roles (role_id)
 );
 
 CREATE TABLE units
@@ -37,16 +45,24 @@ CREATE TABLE class_enrolments
 
 
 -- INSERT DATA
--- Insert users
-INSERT INTO users (user_email)
-VALUES ('student1@example.com'),
-       ('student2@example.com'),
-       ('student3@example.com'),
-       ('student4@example.com'),
-       ('student5@example.com'),
-       ('student6@example.com'),
-       ('student7@example.com'),
-       ('student8@example.com');
+-- Insert roles
+INSERT INTO roles (role_name)
+VALUES ('student'),
+       ('teacher'),
+       ('admin');
+       
+-- Insert users with role_id
+INSERT INTO users (user_email, role_id)
+VALUES ('student1@example.com', 1),
+       ('student2@example.com', 1),
+       ('student3@example.com', 1),
+       ('student4@example.com', 1),
+       ('student5@example.com', 1),
+       ('student6@example.com', 1),
+       ('student7@example.com', 1),
+       ('student8@example.com', 1),
+       ('teacher1@example.com', 2),
+       ('admin1@example.com', 3);
 
 -- Insert units
 INSERT INTO units (unit_code)
