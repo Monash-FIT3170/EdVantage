@@ -1,13 +1,6 @@
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 import PostgresClient from '../persistence/PostgresClient';
-import {
-  Question,
-  QuestionType,
-  Quiz,
-  QuizAnswer,
-  QuizOption,
-  QuizQuestion,
-} from './QuizTypes';
+import {Question, QuestionType, Quiz, QuizAnswer, QuizAttempt, QuizOption, QuizQuestion,} from './QuizTypes';
 
 const quizRouter = Router();
 const postgresClient = new PostgresClient();
@@ -79,7 +72,7 @@ quizRouter.post(
 );
 
 quizRouter.post(
-    '/quiz/start',
+    '/quiz/attempt',
     async (req: Request, res: Response) => {
       const params: {u_id: number, q_id: number} = req.body;
       console.log(params);
@@ -91,6 +84,33 @@ quizRouter.post(
       res.status(200).send({attempt_id: id});
     }
 );
+
+quizRouter.post(
+    '/quiz/attempt/:attempt_id',
+    async (req: Request, res: Response) => {
+      const attempt_id = parseInt(req.params.attempt_id);
+
+      const params: {score: number} = req.body;
+      console.log(params);
+
+      await postgresClient.query(
+          `UPDATE quiz_attempts SET percentage=${params.score} WHERE attempt_id=${attempt_id};`
+      );
+
+      res.status(200);
+    }
+);
+
+quizRouter.get(
+    '/quiz/results/:student_id',
+    async (req: Request, res: Response) => {
+      const id = parseInt(req.params.student_id);
+      const attempts = await buildAttempts(id);
+
+      console.log(attempts);
+      res.status(200).send(attempts);
+    }
+)
 
 // Define a helper function to check a quiz answer
 function checkAnswer(question: Question, answer: string): boolean {
@@ -157,6 +177,17 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
   }
 
   return quiz;
+}
+
+async function buildAttempts(id: number): Promise<QuizAttempt[] | null> {
+    const attemptResp = await postgresClient.query(
+        `SELECT * from quiz_attempts WHERE user_id = ${id}`
+    );
+    if (attemptResp.length == 0) {
+        return null;
+    }
+
+    return attemptResp;
 }
 
 export default quizRouter;

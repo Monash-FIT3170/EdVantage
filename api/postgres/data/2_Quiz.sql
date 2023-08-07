@@ -32,6 +32,7 @@ CREATE TABLE quiz_attempts (
     attempt_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(user_id),
     quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
+    percentage FLOAT,
     timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
