@@ -28,4 +28,20 @@ const uploadFileToS3 = (file: File): Promise<AWS.S3.ManagedUpload.SendData> => {
   });
 };
 
-export default uploadFileToS3;
+//function to delete a file from an S3 bucket
+const deleteFileFromS3 = (fileName: string): Promise<AWS.S3.ManagedUpload.SendData> => {
+  const params: AWS.S3.PutObjectRequest = {
+    Bucket: 'edvantage-video',
+    Key: fileName
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.deleteObject(params, (err: Error) => {
+      if (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+export {uploadFileToS3, deleteFileFromS3};
