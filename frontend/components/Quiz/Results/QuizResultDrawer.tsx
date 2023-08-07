@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from "react";
 import ApiClient from "@/utils/api-client";
 import {
-    Button, ButtonGroup,
+    Button, ButtonGroup, Card, CardBody, CardHeader, Text,
     Center,
     Drawer,
     DrawerBody,
     DrawerContent, DrawerFooter,
     DrawerHeader,
-    DrawerOverlay,
-    Spinner
+    DrawerOverlay, Heading,
+    Spinner, Stack
 } from "@chakra-ui/react";
 
 interface QuizResultDrawerProps {
@@ -33,6 +33,7 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
             .then((data) => {
                 console.log(data);
                 fetchData(data);
+                setAttempts(data);
                 setLoading(false);
             })
             .catch((err) => console.error(err));
@@ -56,10 +57,22 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
                     ) : (
                         <>
                             <DrawerHeader as={"b"} fontSize={"xl"}>
-                                Test your knowledge!
+                                Your Results
                             </DrawerHeader>
-                            <DrawerBody>
-                            </DrawerBody>
+                            {attempts && (<DrawerBody>
+                                <Stack spacing='4'>
+                                    {attempts.map((attempt: any) => (
+                                        <Card key={attempt.quiz_id} variant='elevated'>
+                                            <CardHeader>
+                                                <Heading size='md'> {attempt.title}</Heading>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text>Score: {attempt.percentage}%</Text>
+                                            </CardBody>
+                                        </Card>
+                                    ))}
+                                </Stack>
+                            </DrawerBody>)}
                         </>
                     )}
 

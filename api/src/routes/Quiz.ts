@@ -179,12 +179,12 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
   return quiz;
 }
 
-async function buildAttempts(id: number): Promise<QuizAttempt[] | null> {
+async function buildAttempts(id: number): Promise<QuizAttempt[]> {
     const attemptResp = await postgresClient.query(
-        `SELECT * from quiz_attempts WHERE user_id = ${id}`
+        `SELECT qa.*, q.title FROM quiz_attempts qa JOIN quizzes q ON qa.quiz_id = q.quiz_id WHERE qa.user_id = ${id}`
     );
     if (attemptResp.length == 0) {
-        return null;
+        return [];
     }
 
     return attemptResp;

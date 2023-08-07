@@ -40,6 +40,7 @@ type QuizAttempt = {
   attempt_id: number;
   user_id: number;
   quiz_id: number;
+  title: string;
   percentage: number;
   timestamp: Date;
 }
