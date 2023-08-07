@@ -1,13 +1,13 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import {
+import PostgresClient from '@/utils/PostgresClient';
+import type {
   Question,
-  QuestionType,
   Quiz,
   QuizAnswer,
   QuizOption,
   QuizQuestion,
 } from '@/utils/QuizTypes';
-import PostgresClient from '@/utils/PostgresClient';
+import { QuestionType } from '@/utils/QuizTypes';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const postgresClient = new PostgresClient();
 
@@ -53,7 +53,6 @@ export default async function handler(
     res.status(405).end();
   }
 }
-
 
 // Define a helper function to check a quiz answer
 function checkAnswer(question: Question, answer: string): boolean {
