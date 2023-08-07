@@ -22,6 +22,7 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.3.0",
     "framer-motion": "^10.12.2",
+    "google-auth-library": "^9.0.0",
     "next": "13.3.0",
     "pg": "^8.5.1",
     "postcss": "8.4.21",
