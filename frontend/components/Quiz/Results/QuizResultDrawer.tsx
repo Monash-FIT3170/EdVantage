@@ -10,6 +10,7 @@ import {
     DrawerOverlay, Heading,
     Spinner, Stack
 } from "@chakra-ui/react";
+import Timestamp from "react-timestamp";
 
 interface QuizResultDrawerProps {
     drawerState: boolean;
@@ -66,8 +67,9 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
                                             <CardHeader>
                                                 <Heading size='md'> {attempt.title}</Heading>
                                             </CardHeader>
-                                            <CardBody>
-                                                <Text>Score: {attempt.percentage}%</Text>
+                                            <CardBody style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                                                <Text style={{textAlign: 'left'}}>Score: {attempt.percentage}%</Text>
+                                                <Timestamp style={{fontWeight: "bold", textAlign: 'right'}} date={attempt.timestamp}></Timestamp>
                                             </CardBody>
                                         </Card>
                                     ))}
