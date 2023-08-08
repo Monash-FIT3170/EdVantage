@@ -77,3 +77,9 @@ VALUES
     (1, 1), (1, 2),
     (2, 1), (2, 2), (2, 3),
     (3, 4);
+
+INSERT INTO
+    quiz_attempts (user_id, quiz_id, percentage)
+VALUES
+    (8, 1, 0.0),
+    (8, 1, 100.0);

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ApiClient from "@/utils/api-client";
 import {
     Button, ButtonGroup, Card, CardBody, CardHeader, Text,
@@ -11,6 +11,8 @@ import {
     Spinner, Stack
 } from "@chakra-ui/react";
 import Timestamp from "react-timestamp";
+import QuizAttemptDrawer from "@/components/Quiz/Results/QuizAttemptDrawer";
+
 
 interface QuizResultDrawerProps {
     drawerState: boolean;
@@ -24,6 +26,14 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
     const [isLoading, setLoading] = useState(false);
 
     const btnRef = useRef(null);
+
+    const [isAttemptOpen, setIsAttemptOpen] = useState(false);
+    const [attemptData, setAttemptData] = useState<any>(null);
+    function openAttemptDrawer(attemptId: any) {
+        setAttemptData(attemptId);
+        setIsAttemptOpen(true);
+    }
+    function closeAttemptDrawer() { setIsAttemptOpen(false); }
 
     useEffect(() => {
         setLoading(true);
@@ -63,7 +73,13 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
                             {attempts && (<DrawerBody>
                                 <Stack spacing='4'>
                                     {attempts.map((attempt: any) => (
-                                        <Card key={attempt.quiz_id} variant='elevated'>
+                                        <Card
+                                            key={attempt.attempt_id}
+                                            variant='elevated'
+                                            onClick={() => openAttemptDrawer(attempt)}
+                                            _hover={{ bg: "#e8eaed", cursor: "pointer" }}
+                                            _focus={{ boxShadow: "outline" }}
+                                        >
                                             <CardHeader>
                                                 <Heading size='md'> {attempt.title}</Heading>
                                             </CardHeader>
@@ -86,6 +102,15 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
                         </ButtonGroup>
                     </DrawerFooter>
                 </DrawerContent>
+
+                {isAttemptOpen && (
+                    <QuizAttemptDrawer
+                        drawerState={isAttemptOpen}
+                        closeDrawer={closeAttemptDrawer}
+                        fetchData={setAttemptData}
+                        attemptData={attemptData}
+                    />
+                )}
             </Drawer>
         </>
     );
