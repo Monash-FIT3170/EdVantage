@@ -44,4 +44,26 @@ const deleteFileFromS3 = (fileName: string): Promise<AWS.S3.ManagedUpload.SendDa
   });
 }
 
-export {uploadFileToS3, deleteFileFromS3};
+//function to get list of files in a folder of a bucket
+const listFilesFromS3 = (folderName: string): Promise<string[]> => {
+  const params: AWS.S3.ListObjectsV2Request = {
+    Bucket: 'edvantage-video',
+    Prefix: folderName
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.listObjects(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        var files: string[] = [];
+        data.Contents?.forEach(file => {
+          files.push(file.Key || "");
+        })
+        resolve(files);
+      }
+    });
+  });
+}
+
+export {uploadFileToS3, deleteFileFromS3, listFilesFromS3};
