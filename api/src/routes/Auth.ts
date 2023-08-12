@@ -23,6 +23,25 @@ authRouter.get('/auth/userRole', async (req, res) => {
     }
 });
 
+authRouter.post('/login', async (req, res) => {
+    try {
+        const { email, name } = req.body;
+
+        // Validate the required parameters
+        if (!email || !name) {
+            return res.status(400).send('Email and name are required');
+        }
+
+        // Call your upsert function
+        await upsertUser(email, name);
+
+        res.status(200).send('User logged in successfully');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
 async function getUserRoleByEmail(email: string) {
     const query = `
         SELECT roles.role_name
@@ -33,6 +52,19 @@ async function getUserRoleByEmail(email: string) {
     const values = [email];
     const roleResp = await postgresClient.query(query, values);
     return roleResp.length > 0 ? roleResp[0].role_name : null;
+}
+
+async function upsertUser(email: string, name: string) {
+    const query = `
+      INSERT INTO users (user_email, user_name) 
+      VALUES ($1, $2) 
+      ON CONFLICT (user_email) 
+      DO UPDATE SET 
+        user_name = EXCLUDED.user_name;
+    `;
+
+    const values = [email, name];
+    await postgresClient.query(query, values);
 }
 
 export default authRouter;
