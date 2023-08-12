@@ -1,4 +1,6 @@
-import { Container, Stack, Box } from '@chakra-ui/react';
+import { AuthContext } from '@/utils/auth';
+import { useContext } from 'react';
+import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
 import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
@@ -34,7 +36,10 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
-  return (
+
+  const auth = useContext(AuthContext);
+
+  const studentView = (
     <Container maxW={'container.xl'} centerContent>
       <Stack direction={'row'} my={6}>
         <Box>
@@ -56,5 +61,39 @@ export default function Home() {
         </Box>
       </Stack>
     </Container>
-  );
+  )
+
+  const teacherView = (
+    <Container maxW={'container.xl'} centerContent>
+      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+        Welcome Teacher!
+      </Heading>
+      <Text fontSize={'larger'}>
+        This is the teacher home page view.
+      </Text>
+    </Container>
+  )
+
+  const adminView = (
+    <Container maxW={'container.xl'} centerContent>
+      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+        Welcome Admin!
+      </Heading>
+      <Text fontSize={'larger'}>
+        This is the admin home page view.
+      </Text>
+    </Container>
+  )
+
+  switch (auth?.user?.role) {
+    case "student":
+      return studentView;
+    case "teacher":
+      return teacherView;
+    case "admin":
+      return adminView;
+    default:
+      return studentView;
+  }
+
 }
