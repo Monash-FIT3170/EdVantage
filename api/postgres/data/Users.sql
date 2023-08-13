@@ -16,7 +16,8 @@ CREATE TABLE users
 (
     user_id    SERIAL PRIMARY KEY,
     user_email VARCHAR(50) NOT NULL UNIQUE,
-    role_id    INTEGER NOT NULL,
+    user_name  VARCHAR(50), -- Full name of user
+    role_id    INTEGER NOT NULL DEFAULT 1, -- Default to 1, which is student
     FOREIGN KEY (role_id) REFERENCES roles (role_id)
 );
 
@@ -52,17 +53,17 @@ VALUES ('student'),
        ('admin');
        
 -- Insert users with role_id
-INSERT INTO users (user_email, role_id)
-VALUES ('student1@example.com', 1),
-       ('student2@example.com', 1),
-       ('student3@example.com', 1),
-       ('student4@example.com', 1),
-       ('student5@example.com', 1),
-       ('student6@example.com', 1),
-       ('student7@example.com', 1),
-       ('student8@example.com', 1),
-       ('teacher1@example.com', 2),
-       ('admin1@example.com', 3);
+INSERT INTO users (user_email, user_name, role_id)
+VALUES ('student1@example.com', 'Student 1', 1),
+       ('student2@example.com', 'Student 2', 1),
+       ('student3@example.com', 'Student 3', 1),
+       ('student4@example.com', 'Student 4', 1),
+       ('student5@example.com', 'Student 5', 1),
+       ('student6@example.com', 'Student 6', 1),
+       ('student7@example.com', 'Student 7', 1),
+       ('student8@example.com', 'Student 8', 1),
+       ('teacher1@example.com', 'Teacher 1', 2),
+       ('admin1@example.com', 'Admin 1', 3);
 
 -- Insert units
 INSERT INTO units (unit_code)

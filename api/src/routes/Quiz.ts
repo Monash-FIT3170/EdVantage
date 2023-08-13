@@ -64,7 +64,7 @@ quizRouter.post(
     if (!question) res.status(404).send('Quiz question not found');
 
     const isCorrect = checkAnswer(question!, answer.answer);
-    console.log(question, answer, isCorrect)
+    // console.log(question, answer, isCorrect)
 
     if (isCorrect) {
       res.status(200).send(true);
@@ -133,7 +133,7 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
     const nextQuestion = await buildQuestion(quizQuestions[i].question_id);
     if (!nextQuestion) continue;
 
-    console.log(nextQuestion);
+    // console.log(nextQuestion);
 
     quiz.questions.push(nextQuestion);
   }
