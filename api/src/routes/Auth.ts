@@ -32,7 +32,7 @@ authRouter.post('/login', async (req, res) => {
             return res.status(400).send('Email and name are required');
         }
 
-        // Call your upsert function
+        // Call upsert function
         await upsertUser(email, name);
 
         res.status(200).send('User logged in successfully');

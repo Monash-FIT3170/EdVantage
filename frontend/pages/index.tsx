@@ -1,5 +1,6 @@
 import { AuthContext } from '@/utils/auth';
 import { useContext } from 'react';
+import { UserRole } from '@/utils/types';
 import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
 import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
@@ -86,14 +87,30 @@ export default function Home() {
   )
 
   switch (auth?.user?.role) {
-    case "student":
+    case UserRole.Student:
       return studentView;
-    case "teacher":
+    case UserRole.Teacher:
       return teacherView;
-    case "admin":
+    case UserRole.Admin:
       return adminView;
     default:
       return studentView;
   }
+
+  // if (!auth?.user?.role) {
+  //   // Redirect or show an error message, depending on your requirements
+  //   return <Redirect to="/login" />; // some kind of redirection
+  // }
+  //
+  // switch (auth.user.role) {
+  //   case UserRole.Student:
+  //     return studentView;
+  //   case UserRole.Teacher:
+  //     return teacherView;
+  //   case UserRole.Admin:
+  //     return adminView;
+  //   default:
+  //     return <ErrorComponent message="Unknown role" />; // some kind of error component
+  // }
 
 }
