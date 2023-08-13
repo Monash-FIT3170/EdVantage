@@ -22,7 +22,7 @@ const Login = () => {
         const userInfo = await response.json();
         console.log(userInfo);
 
-        // Call the login endpoint to create or update the user
+        // Call the login endpoint to create or update the user - user role defaults to student in Postgres
         await apiClient.post(`login`, '', {
           email: userInfo.email,
           name: userInfo.name,
@@ -32,13 +32,18 @@ const Login = () => {
         const { role } = await roleResponse.json();
         console.log(role);
 
-        auth?.login();
-        auth?.setUser({
-          name: userInfo.name,
-          email: userInfo.email,
-          picture: userInfo.picture,
-          role: role as UserRole,
-        });
+        if (!Object.values(UserRole).includes(role)) {
+          console.error('Invalid user role:', role);
+          // Handle the error of invalid role
+        } else {
+          auth?.login();
+          auth?.setUser({
+            name: userInfo.name,
+            email: userInfo.email,
+            picture: userInfo.picture,
+            role: role as UserRole,
+          });
+        }
       } catch (err) {
         console.error(err);
       }
