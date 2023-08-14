@@ -20,9 +20,9 @@ export default class PostgresClient {
         });
     }
 
-    async query(queryText: string): Promise<any> {
+    async query(queryText: string, values?: any[]): Promise<any> {
         try {
-            const result = await this.pool.query(queryText);
+            const result = await this.pool.query(queryText, values);
             return result.rows;
         } catch (err) {
             throw err;
