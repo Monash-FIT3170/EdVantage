@@ -9,5 +9,8 @@ docker build -t edvantage-backend ../api
 echo "Building EdVantage Frontend"
 docker build -t edvantage-frontend ../frontend
 
+echo "Building Whisper Server"
+docker build -t edvantage-whisper ../whisper
+
 echo "Starting Docker Containers"
 docker-compose -f ./docker/docker-compose.yml up -d
