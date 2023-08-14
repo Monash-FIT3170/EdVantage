@@ -5,7 +5,7 @@ import {
     Input
 } from '@chakra-ui/react';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import QuestionCard from '../components/Quiz/Creation/QuestionCard';
 import ApiClient from '@/utils/api-client';
@@ -123,6 +123,12 @@ const QuizCreationPage = () => {
         ]);
     };
 
+    const submitNewQuiz = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        console.log(questionSet);
+    };
+
     return (
         <div>
             <Stack
@@ -160,7 +166,7 @@ const QuizCreationPage = () => {
                 Add Question
             </Button>
             <Button
-                onClick={addQuestion}
+                onClick={submitNewQuiz}
                 colorScheme="blue"
                 style={{ marginLeft: '10px' }}
             >

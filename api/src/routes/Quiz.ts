@@ -29,6 +29,11 @@ quizRouter.get('/quiz', async (req: Request, res: Response) => {
   }
 });
 
+// Define a route to create a quiz
+quizRouter.post('/quiz', async (req: Request, res: Response) => {
+   let questions = req.body;
+});
+
 // Define a route to get a quiz by ID
 quizRouter.get('/quiz/:id', async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
