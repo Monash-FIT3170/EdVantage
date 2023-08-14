@@ -40,7 +40,7 @@ CREATE TABLE question_results (
     result_id SERIAL PRIMARY KEY,
     attempt_id INTEGER NOT NULL REFERENCES quiz_attempts(attempt_id),
     question_id INTEGER NOT NULL REFERENCES questions(question_id),
-    answer TEXT NOT NULL,
+    user_answer TEXT NOT NULL,
     result BOOLEAN
 );
 
@@ -67,6 +67,7 @@ VALUES
 INSERT INTO
     question_answers (question_id, answer)
 VALUES
+    (1, '4'),
     (2, '8'),
     (3, '1/(x * log(10))'),
     (4, 'Large'), (4, 'Huge'), (4, 'Massive');

@@ -37,9 +37,9 @@ const Quiz = ({ quiz }: any) => {
       }
     }
 
-    await api.post(`quiz/attempt/${attempt_id}`, '', {score: (score * 100) / quiz.questions.length});
     setScore(score);
     setAnswered(true);
+    await api.post(`quiz/attempt/${attempt_id}`, '', {score: (score * 100) / quiz.questions.length});
   };
 
   return (
@@ -58,7 +58,7 @@ const Quiz = ({ quiz }: any) => {
       <Button variant={'solid'} colorScheme="blue" onClick={submitAnswers}>
         Submit
       </Button>
-      {answered && <div>{(score * 100) / quiz.questions.length}%</div>}
+      {answered && (<div>{(score * 100) / quiz.questions.length}%</div>)}
     </VStack>
   );
 };

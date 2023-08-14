@@ -84,7 +84,7 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
                                                 <Heading size='md'> {attempt.title}</Heading>
                                             </CardHeader>
                                             <CardBody style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                                                <Text style={{textAlign: 'left'}}>Score: {attempt.percentage}%</Text>
+                                                <Text style={{textAlign: 'left'}}>Score: {Math.round(attempt.percentage * 100) / 100}%</Text>
                                                 <Timestamp style={{fontWeight: "bold", textAlign: 'right'}} date={attempt.timestamp}></Timestamp>
                                             </CardBody>
                                         </Card>

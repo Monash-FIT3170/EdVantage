@@ -45,4 +45,15 @@ type QuizAttempt = {
   timestamp: Date;
 }
 
-export { Question, QuestionType, Quiz, QuizQuestion, QuizOption, QuizAnswer, QuizAttempt };
+type QuizQuestionResult = {
+  result_id: number;
+  attempt_id: number;
+  question_id: number;
+  user_answer: string;
+  array_agg: string;
+  result: boolean;
+  question: string;
+  question_type: QuestionType;
+}
+
+export { Question, QuestionType, Quiz, QuizQuestion, QuizOption, QuizAnswer, QuizAttempt, QuizQuestionResult };
