@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { UserRole } from '@/utils/types';
 
 interface AuthContextInterface {
   isLoggedIn: boolean;
@@ -12,6 +13,7 @@ type UserInfo = {
   name: string;
   email: string;
   picture: string;
+  role: UserRole;
 };
 
 const AuthContext = createContext<AuthContextInterface | null>(null);

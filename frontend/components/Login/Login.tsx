@@ -1,11 +1,14 @@
 import { AuthContext } from '@/utils/auth';
+import ApiClient from '@/utils/api-client';
 import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import styles from './Login.module.css';
+import { UserRole } from '@/utils/types';
 
 const Login = () => {
+  const apiClient = new ApiClient();
   const auth = useContext(AuthContext);
   const login = useGoogleLogin({
     scope: 'profile',
@@ -14,16 +17,33 @@ const Login = () => {
         console.log(tokenResponse);
         const response = await fetch(
           'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' +
-            tokenResponse.access_token
+          tokenResponse.access_token
         );
         const userInfo = await response.json();
         console.log(userInfo);
-        auth?.login();
-        auth?.setUser({
-          name: userInfo.name,
+
+        // Call the login endpoint to create or update the user - user role defaults to student in Postgres
+        await apiClient.post(`login`, '', {
           email: userInfo.email,
-          picture: userInfo.picture,
+          name: userInfo.name,
         });
+
+        const roleResponse = await apiClient.get(`auth/userRole`, `email=${userInfo.email}`);
+        const { role } = await roleResponse.json();
+        console.log(role);
+
+        if (!Object.values(UserRole).includes(role)) {
+          console.error('Invalid user role:', role);
+          // Handle the error of invalid role
+        } else {
+          auth?.login();
+          auth?.setUser({
+            name: userInfo.name,
+            email: userInfo.email,
+            picture: userInfo.picture,
+            role: role as UserRole,
+          });
+        }
       } catch (err) {
         console.error(err);
       }

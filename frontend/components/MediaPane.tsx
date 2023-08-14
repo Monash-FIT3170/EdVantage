@@ -1,6 +1,10 @@
 import { Box, Card, CardBody, Stack, Heading } from '@chakra-ui/react';
 import MediaCarousel from './Carousel/MediaCarousel';
 import type { MediaSource } from '@/utils/types';
+import Upload from './Uploads/Upload'; // Import the Upload component
+import DeleteComponent from './Uploads/Deletion';
+import ListFilesComponent from './Uploads/Retrieval';
+
 
 type MediaPaneProps = {
   title: string;
@@ -17,6 +21,10 @@ const MediaPane = ({ title, type, media }: MediaPaneProps) => {
           <Stack mt="6" spacing="3">
             <Heading size="lg">{title}</Heading>
           </Stack>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody>
         </CardBody>
       </Card>
     </Box>
