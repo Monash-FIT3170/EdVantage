@@ -25,15 +25,11 @@ const UpperSidebar = () => {
             Home
           </Button>
         </Link>
-        <Button
-          variant={'ghost'}
-          leftIcon={<FiStar />}
-          h={10}
-          minW={10}
-          justifyContent={'start'}
-        >
-          Favourites
-        </Button>
+        <Link href={'/QuizCreationPage'}>
+            <Button variant={'ghost'} h={10} minW={10} justifyContent={'start'}>
+                Create Quiz
+            </Button>
+        </Link>
       </Stack>
       <Stack>
         <Text size="xs" color={'gray.500'}>
