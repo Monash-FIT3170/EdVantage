@@ -1,3 +1,13 @@
+-- DROP TABLES
+DROP TABLE IF EXISTS quizzes CASCADE;
+DROP TABLE IF EXISTS questions CASCADE;
+DROP TABLE IF EXISTS quiz_questions CASCADE;
+DROP TABLE IF EXISTS question_answers CASCADE;
+DROP TABLE IF EXISTS question_choices CASCADE;
+DROP TABLE IF EXISTS quiz_attempts CASCADE;
+DROP TABLE IF EXISTS question_results CASCADE;
+
+-- CREATE TABLES
 CREATE TABLE quizzes (
     quiz_id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
@@ -44,6 +54,7 @@ CREATE TABLE question_results (
     result BOOLEAN
 );
 
+-- INSERT DATA
 INSERT INTO
     quizzes (title, description)
 VALUES
