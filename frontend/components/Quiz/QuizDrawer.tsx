@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   ButtonGroup,
   Button,
@@ -7,7 +7,6 @@ import {
   DrawerHeader,
   DrawerFooter,
   DrawerOverlay,
-  useDisclosure,
   DrawerContent,
   Center,
   Spinner,
@@ -17,6 +16,7 @@ import {
 import ApiClient from "@/utils/api-client";
 import { Select } from "chakra-react-select";
 import Quiz from "@/components/Quiz/Quiz";
+import QuizResultDrawer from "@/components/Quiz/Results/QuizResultDrawer";
 
 interface QuizDrawerProps {
   id: string;
@@ -31,6 +31,11 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
   const [quiz, setQuiz] = useState<any>(null);
 
   const [isLoading, setLoading] = useState(false);
+
+  const [isResultsOpen, setIsResultsOpen] = useState(false);
+  const [resultsData, setResultsData] = useState(null);
+  function openResultsDrawer() { setIsResultsOpen(true); }
+  function closeResultsDrawer() { setIsResultsOpen(false); }
 
   const btnRef = useRef(null);
 
@@ -94,13 +99,23 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
 
           <DrawerFooter>
             <ButtonGroup spacing={2}>
+              <Button variant={"outline"} colorScheme="blue" onClick={openResultsDrawer}>
+                Results
+              </Button>
               <Button onClick={closeDrawer} variant={"outline"}>
                 Close
               </Button>
-              <Button onClick={openDialog} colorScheme="blue">Submit Quiz</Button>
             </ButtonGroup>
           </DrawerFooter>
         </DrawerContent>
+
+        {isResultsOpen && (
+            <QuizResultDrawer
+                drawerState={isResultsOpen}
+                closeDrawer={closeResultsDrawer}
+                fetchData={setResultsData}
+            />
+        )}
       </Drawer>
     </>
   );
