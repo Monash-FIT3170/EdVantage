@@ -33,14 +33,6 @@ services:
     depends_on:
       - postgres
       - edvantage-backend
-  edvantage-whisper:
-    image: "edvantage-whisper"
-    container_name: "edvantage-whisper"
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
-    depends_on:
-      - edvantage-backend
 
 volumes:
   edvantagedb:

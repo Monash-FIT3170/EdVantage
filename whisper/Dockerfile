@@ -10,6 +10,11 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
+# Install ffmpeg on container for whisper package
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get install -y ffmpeg
+
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 

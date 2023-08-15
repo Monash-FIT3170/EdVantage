@@ -1,0 +1,7 @@
+services:
+  edvantage-whisper:
+    image: "edvantage-whisper"
+    container_name: "edvantage-whisper"
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
