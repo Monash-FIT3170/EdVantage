@@ -1,8 +1,14 @@
 from flask import Flask, request
 import whisper
+import os
+import boto3
 
+env_var = os.environ
 app = Flask(__name__)
 model = whisper.load_model("small.en")
+
+s3 = boto3.resource('s3', aws_access_key_id=env_var['AWS_ACCESS_ID'], aws_secret_access_key=env_var['AWS_ACCESS_KEY'])
+s3_bucket = 'edvantage-video'
 
 @app.route('/')
 def hello():
@@ -10,13 +16,21 @@ def hello():
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
-    filename = request.json.get('filename')
-    print("Downloading file from S3 Base Url/" + filename, flush=True)
-    print("Downloaded file to " + filename, flush=True)
+    filename = request.json.get('filename').split('.')
+    video_fn = filename[0] + "-video." + filename[1]
+    transcription_fn = filename[0] + '-transcription.txt'
 
-    result = model.transcribe('audio.mp3')
-    print("Transcribed " + filename, flush=True)
-    print("Pushing transcription back to S3 Base Url/" + filename + "-transcription", flush=True)
+    print("Downloading file from S3 Base Url/" + ".".join(filename), flush=True)
+    s3.Bucket(s3_bucket).download_file(".".join(filename), video_fn)
+    print("Downloaded file to " + video_fn, flush=True)
+
+    result = model.transcribe(video_fn)
+    print("Transcribed " + video_fn, flush=True)
+    print("Pushing transcription back to S3 Base Url/" + transcription_fn, flush=True)
+    transcription = open(transcription_fn,"w+")
+    transcription.write(str(result))
+    transcription.close()
+    s3.Bucket(s3_bucket).upload_file(transcription_fn, transcription_fn)
 
     return result
 

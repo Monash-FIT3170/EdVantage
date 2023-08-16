@@ -5,3 +5,6 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
+    environment:
+      AWS_ACCESS_ID: xxx
+      AWS_ACCESS_KEY: xxx
