@@ -35,7 +35,7 @@ const QuizCreationPage = () => {
     questionProp[]
   >([]);
   const [quizzes, setQuizzes] = useState<quizzesProp[]>([]);
-  const quizID = 1; // will be dynamid later
+  const [quizID, setQuizID] = useState(1); // will be dynamid later
   const [isAdd, setIsAdd] = useState(true);
   const [quiz, setQuiz] = useState(0);
   useEffect(() => {
@@ -49,6 +49,7 @@ const QuizCreationPage = () => {
           const currQuiz: any = {};
           currQuiz.label = data[i].title;
           currQuiz.value = data[i].quiz_id;
+          // setQuizID((preQuizID) => data[i].quiz_id);
           currQuiz.questions = data[i].questions;
           quizResponses.push(currQuiz);
         }
@@ -102,8 +103,8 @@ const QuizCreationPage = () => {
     setQuestionSet([
       ...questionSet,
       <QuestionCard
-        key={questionSet.length}
-        id={questionSet.length}
+        key={questionSet.length + 1}
+        id={questionSet.length + 1}
         question={''}
         question_type={'short_answer'}
         choices={[]}
