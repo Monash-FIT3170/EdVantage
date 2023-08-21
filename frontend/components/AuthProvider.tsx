@@ -18,7 +18,7 @@ type UserInfo = {
   role: UserRole;
 };
 
-export const AuthContext = createContext<AuthContextInterface | null>(null);
+export const AuthContext = createContext<Partial<AuthContextInterface>>({});
 
 export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,5 +51,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({ chi
     </AuthContext.Provider>
   )
 }
+
+export const useAuth = () => React.useContext(AuthContext)
 
 export type { UserInfo, AuthContextInterface };
