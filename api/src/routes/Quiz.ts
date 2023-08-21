@@ -15,13 +15,18 @@ const postgresClient = new PostgresClient();
 
 // Define a route to get all quizzes
 quizRouter.get('/quiz', async (req: Request, res: Response) => {
-  let i = 1,
-    quizzes = [],
-    quiz = await buildQuiz(i);
-  while (i < 10 && quiz) {
-    quizzes.push(quiz);
-    i++;
-    quiz = await buildQuiz(i);
+  let quizzes = [];
+
+  if (req.query.unit_code != null) {
+    quizzes = await buildQuizByUnit(req.query.unit_code.toString());
+  } else {
+    let i = 1, quiz = await buildQuiz(i);
+
+    while (i < 10 && quiz) {
+      quizzes.push(quiz);
+      i++;
+      quiz = await buildQuiz(i);
+    }
   }
 
   if (quizzes.length > 0) {
@@ -199,12 +204,41 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
     const nextQuestion = await buildQuestion(quizQuestions[i].question_id);
     if (!nextQuestion) continue;
 
-    // console.log(nextQuestion);
-
     quiz.questions.push(nextQuestion);
   }
 
   return quiz;
+}
+
+async function buildQuizByUnit(unit_code: string): Promise<Quiz[]> {
+  console.log(unit_code)
+  const quizResp = await postgresClient.query(
+      `SELECT * FROM quizzes WHERE unit_code = $1`,
+      [unit_code]
+  );
+  console.log(quizResp)
+
+  for (let i = 0; i < quizResp.length; i++) {
+    let currQuiz = quizResp[i];
+    currQuiz.questions = [];
+
+    const quizQuestions: QuizQuestion[] = await postgresClient.query(
+        `SELECT * FROM quiz_questions WHERE quiz_id = $1`,
+        [currQuiz.quiz_id]
+    );
+
+    for (let j = 0; j < quizQuestions.length; j++) {
+      const nextQuestion = await buildQuestion(quizQuestions[j].question_id);
+      if (!nextQuestion) continue;
+
+      currQuiz.questions.push(nextQuestion);
+    }
+
+    quizResp[i] = currQuiz;
+  }
+
+  console.log(quizResp)
+  return quizResp;
 }
 
 // Define a helper function to build a user's quiz attempts
