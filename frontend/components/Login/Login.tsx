@@ -24,6 +24,7 @@ const Login = () => {
 
         // Call the login endpoint to create or update the user - user role defaults to student in Postgres
         await apiClient.post(`login`, '', {
+          id: userInfo.id,
           email: userInfo.email,
           name: userInfo.name,
         });
@@ -38,6 +39,7 @@ const Login = () => {
         } else {
           auth?.login();
           auth?.setUser({
+            userId: userInfo.id,
             name: userInfo.name,
             email: userInfo.email,
             picture: userInfo.picture,

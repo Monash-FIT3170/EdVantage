@@ -1,0 +1,4 @@
+flask
+openai-whisper
+boto3
+flask_cors
