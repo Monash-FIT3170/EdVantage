@@ -40,7 +40,7 @@ CREATE TABLE question_choices (
 
 CREATE TABLE quiz_attempts (
     attempt_id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    user_id VARCHAR(50) NOT NULL REFERENCES users(user_id),
     quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
     percentage FLOAT,
     timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -93,5 +93,5 @@ VALUES
 INSERT INTO
     quiz_attempts (user_id, quiz_id, percentage)
 VALUES
-    (8, 1, 0.0),
-    (8, 1, 100.0);
+    ('823456789012345678908', 1, 0.0),
+    ('823456789012345678908', 1, 100.0);
