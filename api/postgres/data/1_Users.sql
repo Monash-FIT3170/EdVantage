@@ -14,7 +14,7 @@ CREATE TABLE roles
 
 CREATE TABLE users
 (
-    user_id    SERIAL PRIMARY KEY,
+    user_id    VARCHAR(50) PRIMARY KEY, -- ID given from monash google account
     user_email VARCHAR(50) NOT NULL UNIQUE,
     user_name  VARCHAR(50), -- Full name of user
     role_id    INTEGER NOT NULL DEFAULT 1, -- Default to 1, which is student
@@ -36,7 +36,7 @@ CREATE TABLE classes
 
 CREATE TABLE class_enrolments
 (
-    user_id   INTEGER     NOT NULL,
+    user_id   VARCHAR(50) NOT NULL,
     class_num INTEGER     NOT NULL,
     unit_code VARCHAR(50) NOT NULL,
     PRIMARY KEY (user_id, unit_code),
@@ -52,18 +52,19 @@ VALUES ('student'),
        ('teacher'),
        ('admin');
        
--- Insert users with role_id
-INSERT INTO users (user_email, user_name, role_id)
-VALUES ('student1@example.com', 'Student 1', 1),
-       ('student2@example.com', 'Student 2', 1),
-       ('student3@example.com', 'Student 3', 1),
-       ('student4@example.com', 'Student 4', 1),
-       ('student5@example.com', 'Student 5', 1),
-       ('student6@example.com', 'Student 6', 1),
-       ('student7@example.com', 'Student 7', 1),
-       ('student8@example.com', 'Student 8', 1),
-       ('teacher1@example.com', 'Teacher 1', 2),
-       ('admin1@example.com', 'Admin 1', 3);
+-- Insert users with role_id and fake Google-like IDs
+INSERT INTO users (user_id, user_email, user_name, role_id)
+VALUES 
+       ('123456789012345678901', 'student1@example.com', 'Student 1', 1),
+       ('223456789012345678902', 'student2@example.com', 'Student 2', 1),
+       ('323456789012345678903', 'student3@example.com', 'Student 3', 1),
+       ('423456789012345678904', 'student4@example.com', 'Student 4', 1),
+       ('523456789012345678905', 'student5@example.com', 'Student 5', 1),
+       ('623456789012345678906', 'student6@example.com', 'Student 6', 1),
+       ('723456789012345678907', 'student7@example.com', 'Student 7', 1),
+       ('823456789012345678908', 'student8@example.com', 'Student 8', 1),
+       ('923456789012345678909', 'teacher1@example.com', 'Teacher 1', 2),
+       ('023456789012345678900', 'admin1@example.com', 'Admin 1', 3);
 
 -- Insert units
 INSERT INTO units (unit_code)
