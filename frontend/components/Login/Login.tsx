@@ -1,4 +1,4 @@
-import { AuthContext } from '@/utils/auth';
+import { AuthContext } from '@/components/AuthProvider';
 import ApiClient from '@/utils/api-client';
 import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
