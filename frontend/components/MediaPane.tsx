@@ -25,6 +25,7 @@ const MediaPane = ({ title, type, media }: MediaPaneProps) => {
       </Card>
       <Card>
         <CardBody>
+          <Upload/>
         </CardBody>
       </Card>
     </Box>

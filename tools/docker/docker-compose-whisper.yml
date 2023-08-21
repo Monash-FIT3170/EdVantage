@@ -6,5 +6,5 @@ services:
       - "8000:8000"
     restart: unless-stopped
     environment:
-      AWS_ACCESS_ID: xxx
-      AWS_ACCESS_KEY: xxx
+      AWS_ACCESS_ID: AKIATPT5BS65E64KVRDV
+      AWS_ACCESS_KEY: vX7QPkrL4TwHujb3n8xCwjoGA4rXMgdbBDpEz+ny
