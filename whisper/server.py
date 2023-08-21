@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 import whisper
 import os
 import boto3
 
 env_var = os.environ
 app = Flask(__name__)
+CORS(app)
 model = whisper.load_model("small.en")
 
 s3 = boto3.resource('s3', aws_access_key_id=env_var['AWS_ACCESS_ID'], aws_secret_access_key=env_var['AWS_ACCESS_KEY'])
