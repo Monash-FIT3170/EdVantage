@@ -1,33 +1,26 @@
 import { Button, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
-import { FiHome, FiList, FiStar } from 'react-icons/fi';
+import { FiHome, FiList } from 'react-icons/fi';
+import { TfiWrite } from 'react-icons/tfi';
+
 
 const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
 
-const UpperSidebar = () => {
+
+export default function UpperSidebar() {
   return (
     <Stack spacing={6}>
-      <Heading
-        bgGradient={'linear(to right, #EDE342, #FF51EB)'}
-        bgClip={'text'}
-      >
+      <Heading bgGradient={'linear(to right, #EDE342, #FF51EB)'} bgClip={'text'}>
         EdVantage
       </Heading>
       <Stack>
         <Link href={'/'} passHref>
-          <Button
-            variant={'ghost'}
-            leftIcon={<FiHome />}
-            h={10}
-            w={'full'}
-            justifyContent={'start'}
-          >
+          <Button variant={'ghost'} leftIcon={<FiHome />} h={10} w={'full'} justifyContent={'start'}>
             Home
           </Button>
         </Link>
-
         <Link href={'/QuizCreationPage'}>
-          <Button variant={'ghost'} h={10} minW={10} justifyContent={'start'}>
+          <Button variant={'ghost'} leftIcon={<TfiWrite />} h={10} w={'full'} justifyContent={'start'}>
             Create Quiz
           </Button>
         </Link>
@@ -39,13 +32,7 @@ const UpperSidebar = () => {
         {enrolledUnits.map((unit) => {
           return (
             <Link key={unit} href={`/unit/${unit}`} passHref>
-              <Button
-                variant={'ghost'}
-                leftIcon={<FiList />}
-                h={10}
-                w={'full'}
-                justifyContent={'start'}
-              >
+              <Button variant={'ghost'} leftIcon={<FiList />} h={10} w={'full'} justifyContent={'start'}>
                 {unit}
               </Button>
             </Link>
@@ -55,5 +42,3 @@ const UpperSidebar = () => {
     </Stack>
   );
 };
-
-export default UpperSidebar;
