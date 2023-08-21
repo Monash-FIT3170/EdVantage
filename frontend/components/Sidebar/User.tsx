@@ -10,7 +10,7 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react';
-import { AuthContext } from '@/utils/auth';
+import { AuthContext } from '@/components/AuthProvider';
 
 const User = () => {
   const auth = useContext(AuthContext);
