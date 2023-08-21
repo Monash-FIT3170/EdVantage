@@ -26,6 +26,15 @@ CREATE TABLE units
     unit_code VARCHAR(50) PRIMARY KEY
 );
 
+CREATE TABLE unit_enrollment
+(
+    enrollment_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    unit_code VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (unit_code) REFERENCES units (unit_code)
+);
+
 CREATE TABLE classes
 (
     class_num INTEGER     NOT NULL,
@@ -51,7 +60,7 @@ INSERT INTO roles (role_name)
 VALUES ('student'),
        ('teacher'),
        ('admin');
-       
+
 -- Insert users with role_id
 INSERT INTO users (user_email, user_name, role_id)
 VALUES ('student1@example.com', 'Student 1', 1),
@@ -71,6 +80,27 @@ VALUES ('unit101'),
        ('unit102'),
        ('unit103'),
        ('unit104');
+
+-- Insert unit enrollments
+INSERT INTO unit_enrollment(user_id, unit_code)
+VALUES (1, 'unit101'),
+       (2, 'unit101'),
+       (3, 'unit101'),
+       (4, 'unit101'),
+       (5, 'unit101'),
+       (6, 'unit101'),
+       (7, 'unit101'),
+       (8, 'unit101'),
+       (9, 'unit101'),
+       (1, 'unit102'),
+       (2, 'unit102'),
+       (3, 'unit102'),
+       (4, 'unit102'),
+       (5, 'unit102'),
+       (6, 'unit102'),
+       (7, 'unit102'),
+       (8, 'unit102'),
+       (9, 'unit102');
 
 -- Insert classes
 INSERT INTO classes (class_num, unit_code)
