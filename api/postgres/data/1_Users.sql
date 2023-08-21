@@ -23,7 +23,8 @@ CREATE TABLE users
 
 CREATE TABLE units
 (
-    unit_code VARCHAR(50) PRIMARY KEY
+    unit_code VARCHAR(50) PRIMARY KEY,
+    unit_name VARCHAR(50)
 );
 
 CREATE TABLE unit_enrollment
@@ -75,11 +76,11 @@ VALUES ('student1@example.com', 'Student 1', 1),
        ('admin1@example.com', 'Admin 1', 3);
 
 -- Insert units
-INSERT INTO units (unit_code)
-VALUES ('unit101'),
-       ('unit102'),
-       ('unit103'),
-       ('unit104');
+INSERT INTO units (unit_code, unit_name)
+VALUES ('unit101', 'Easy Maths Unit'),
+       ('unit102', 'Hard Maths Unit'),
+       ('unit103', 'English Unit'),
+       ('unit104', 'Chemistry Unit');
 
 -- Insert unit enrollments
 INSERT INTO unit_enrollment(user_id, unit_code)
@@ -99,7 +100,7 @@ VALUES (1, 'unit101'),
        (5, 'unit102'),
        (6, 'unit102'),
        (7, 'unit102'),
-       (8, 'unit102'),
+       (8, 'unit103'),
        (9, 'unit102');
 
 -- Insert classes

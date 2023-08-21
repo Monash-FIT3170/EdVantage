@@ -77,7 +77,7 @@ const QuizAttemptDrawer = ({ drawerState, closeDrawer, fetchData, attemptData }:
                                             </CardHeader>
                                             <CardBody style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                                 <Text style={{textAlign: 'left'}}>Your Answer: {question.user_answer}</Text>
-                                                <Text title={`Other Answers: ${question.array_agg.toString()}`} style={{textAlign: 'left'}}>Correct Answer: {question.array_agg[0]} (?)</Text>
+                                                <Text title={`All Answers: ${question.array_agg.toString()}`} style={{textAlign: 'left'}}>Correct Answer: {question.array_agg[0]} (?)</Text>
                                             </CardBody>
                                         </Card>
                                     ))}
