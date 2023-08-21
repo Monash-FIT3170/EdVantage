@@ -38,6 +38,7 @@ const Login = () => {
         } else {
           auth?.login();
           auth?.setUser({
+            userId: userInfo.id,
             name: userInfo.name,
             email: userInfo.email,
             picture: userInfo.picture,

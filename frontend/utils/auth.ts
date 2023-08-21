@@ -10,6 +10,7 @@ interface AuthContextInterface {
 }
 
 type UserInfo = {
+  userId: string;
   name: string;
   email: string;
   picture: string;
