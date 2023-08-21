@@ -4,7 +4,7 @@ import { FiHome, FiList } from 'react-icons/fi';
 import { TfiWrite } from 'react-icons/tfi';
 
 
-const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
+const ENROLLED_UNITS = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
 
 
 export default function UpperSidebar() {
@@ -19,7 +19,7 @@ export default function UpperSidebar() {
             Home
           </Button>
         </Link>
-        <Link href={'/QuizCreationPage'}>
+        <Link href={'/QuizManagerPage'}>
           <Button variant={'ghost'} leftIcon={<TfiWrite />} h={10} w={'full'} justifyContent={'start'}>
             Create Quiz
           </Button>
@@ -29,7 +29,7 @@ export default function UpperSidebar() {
         <Text size="xs" color={'gray.500'}>
           Units
         </Text>
-        {enrolledUnits.map((unit) => {
+        {ENROLLED_UNITS.map((unit) => {
           return (
             <Link key={unit} href={`/unit/${unit}`} passHref>
               <Button variant={'ghost'} leftIcon={<FiList />} h={10} w={'full'} justifyContent={'start'}>

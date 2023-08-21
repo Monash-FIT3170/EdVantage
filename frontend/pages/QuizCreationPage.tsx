@@ -29,15 +29,14 @@ type choiceProp = {
   is_correct: boolean;
 };
 
-const QuizCreationPage = () => {
+export default function QuizCreationPage() {
   const [questionSet, setQuestionSet] = useState<JSX.Element[]>([]);
-  const [currentQuizzQuestion, setCurrentQuizzQuestion] = useState<
-    questionProp[]
-  >([]);
+  const [currentQuizzQuestion, setCurrentQuizzQuestion] = useState<questionProp[]>([]);
   const [quizzes, setQuizzes] = useState<quizzesProp[]>([]);
-  const [quizID, setQuizID] = useState(1); // will be dynamid later
+  const [quizID, setQuizID] = useState(1);  // Will be dynamic later
   const [isAdd, setIsAdd] = useState(true);
   const [quiz, setQuiz] = useState(0);
+
   useEffect(() => {
     const apiClient = new ApiClient();
     apiClient
@@ -45,6 +44,7 @@ const QuizCreationPage = () => {
       .then((res) => res.json())
       .then((data) => {
         const quizResponses = [];
+
         for (const i in data) {
           const currQuiz: any = {};
           currQuiz.label = data[i].title;
@@ -53,10 +53,12 @@ const QuizCreationPage = () => {
           currQuiz.questions = data[i].questions;
           quizResponses.push(currQuiz);
         }
+
         setQuizzes(quizResponses);
       })
       .catch((err) => console.error(err));
   }, []);
+
   useEffect(() => {
     for (let i = 0; i < currentQuizzQuestion.length; i++) {
       setQuestionSet((preQuestionSet) => [
@@ -81,6 +83,7 @@ const QuizCreationPage = () => {
       prevQuestionSet.filter((question) => question.props.id !== questionId)
     );
   };
+
   const selecQuiz = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setQuestionSet((preQuestionSet) => []);
 
@@ -99,6 +102,7 @@ const QuizCreationPage = () => {
       }
     }
   };
+  
   const addQuestion = () => {
     setQuestionSet([
       ...questionSet,
@@ -161,6 +165,4 @@ const QuizCreationPage = () => {
       </Button>
     </div>
   );
-};
-
-export default QuizCreationPage;
+}
