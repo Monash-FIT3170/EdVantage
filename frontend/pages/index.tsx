@@ -1,4 +1,4 @@
-import { AuthContext } from '@/utils/auth';
+import { AuthContext } from '@/components/AuthProvider';
 import { useContext } from 'react';
 import { UserRole } from '@/utils/types';
 import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
