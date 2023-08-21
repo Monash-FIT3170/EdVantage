@@ -27,8 +27,10 @@ interface QuizDrawerProps {
 
 const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProps) => {
   const [quizzes, setQuizzes] = useState<any>(null);
-
   const [quiz, setQuiz] = useState<any>(null);
+
+  const [units, setUnits] = useState<any>(null);
+  const [unit, setUnit] = useState<any>(null);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -39,25 +41,48 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
 
   const btnRef = useRef(null);
 
+  const getQuizzes = (value: any): void => {
+    setLoading(true);
+    setQuiz("")
+    setUnit(value);
+    const apiClient = new ApiClient();
+    apiClient
+        .get(`quiz`, "unit_code=" + value.value)
+        .then((res) => res.json())
+        .then((data) => {
+          const quizResponses = [];
+          for (const i in data) {
+            const currQuiz: any = {};
+            currQuiz.label = data[i].title;
+            currQuiz.value = data[i].quiz_id;
+            currQuiz.questions = data[i].questions;
+            quizResponses.push(currQuiz);
+          }
+          setQuizzes(quizResponses);
+          setLoading(false);
+        })
+        .catch((err) => console.error(err));
+  }
+
   useEffect(() => {
     setLoading(true);
     const apiClient = new ApiClient();
     apiClient
-      .get(`quiz`)
-      .then((res) => res.json())
-      .then((data) => {
-        const quizResponses = [];
-        for (const i in data) {
-          const currQuiz: any = {};
-          currQuiz.label = data[i].title;
-          currQuiz.value = data[i].quiz_id;
-          currQuiz.questions = data[i].questions;
-          quizResponses.push(currQuiz);
-        }
-        setQuizzes(quizResponses);
-        setLoading(false);
-      })
-      .catch((err) => console.error(err));
+        .get(`users/8/units`)
+        .then((res) => res.json())
+        .then((data) => {
+          const unitResponses = [];
+          for (const i in data) {
+            const currUnit: any = {};
+            currUnit.label = data[i].unit_code + ": " + data[i].unit_name;
+            currUnit.value = data[i].unit_code;
+            currUnit.name = data[i].unit_name;
+            unitResponses.push(currUnit)
+          }
+          setUnits(unitResponses);
+          setLoading(false);
+        })
+        .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -83,14 +108,24 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
               <DrawerBody>
                 <Stack spacing={4}>
                   <Select
-                    name="quizzes"
-                    options={quizzes}
-                    placeholder="Select a quiz..."
-                    closeMenuOnSelect={true}
-                    onChange={setQuiz}
-                    value={quiz}
-                    size="lg"
+                      name="units"
+                      options={units}
+                      placeholder="Select a unit..."
+                      closeMenuOnSelect={true}
+                      onChange={getQuizzes}
+                      value={unit}
+                      size="lg"
                   />
+
+                  {unit && (<Select
+                      name="quizzes"
+                      options={quizzes}
+                      placeholder="Select a quiz..."
+                      closeMenuOnSelect={true}
+                      onChange={setQuiz}
+                      value={quiz}
+                      size="lg"
+                  />)}
                   <Box>{quiz && <Quiz quiz={quiz} />}</Box>
                 </Stack>
               </DrawerBody>

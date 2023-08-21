@@ -162,11 +162,10 @@ async function getUserClasses(userId: number) {
 }
 
 async function getUserUnits(user_id: number) {
-    const query = `SELECT DISTINCT u.* FROM units u 
-                    JOIN classes c ON u.unit_code = c.unit_code 
-                    JOIN class_enrolments ce ON c.class_num = ce.class_num 
-                    AND c.unit_code = ce.unit_code 
-                    WHERE ce.user_id = $1`;
+    const query = `SELECT DISTINCT ue.unit_code, un.unit_name
+                    FROM users u JOIN unit_enrollment ue on u.user_id = ue.user_id
+                    JOIN units un ON ue.unit_code = un.unit_code
+                    WHERE u.user_id = $1`;
     const values = [user_id];
     const unitsResp = await postgresClient.query(query, values);
     return unitsResp;
