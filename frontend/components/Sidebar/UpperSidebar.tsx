@@ -1,7 +1,7 @@
 import { Button, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FiHome, FiList } from 'react-icons/fi';
-import { TfiWrite } from 'react-icons/tfi';
+import { BsPen } from 'react-icons/bs';
 
 
 const ENROLLED_UNITS = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
@@ -15,13 +15,13 @@ export default function UpperSidebar() {
       </Heading>
       <Stack>
         <Link href={'/'} passHref>
-          <Button variant={'ghost'} leftIcon={<FiHome />} h={10} w={'full'} justifyContent={'start'}>
+          <Button variant={'ghost'} leftIcon={<FiHome/>} h={10} w={'full'} justifyContent={'start'}>
             Home
           </Button>
         </Link>
         <Link href={'/QuizManagerPage'}>
-          <Button variant={'ghost'} leftIcon={<TfiWrite />} h={10} w={'full'} justifyContent={'start'}>
-            Create Quiz
+          <Button variant={'ghost'} leftIcon={<BsPen/>} h={10} w={'full'} justifyContent={'start'}>
+            Quiz Manager
           </Button>
         </Link>
       </Stack>

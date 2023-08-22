@@ -13,6 +13,7 @@ interface Quiz {
   title: string;
   description: string;
   id: number;
+  questions: any;
 }
 
 
@@ -51,7 +52,7 @@ export default function QuizManagerPage() {
                   <Heading as='h4' size='md'>{quiz.title}</Heading>
                   <Box>{`Description: ${quiz.description}`}</Box>
                   <Stack direction='row'>
-                    <Box>{`Question Count: 0`}</Box>
+                    <Box>{`Question Count: ${quiz.questions.length}`}</Box>
                     <Box>{`Time Limit: 0 m`}</Box>
                   </Stack>
                 </Stack>
