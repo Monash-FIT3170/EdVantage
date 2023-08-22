@@ -102,7 +102,7 @@ export default function QuizCreationPage() {
       }
     }
   };
-  
+
   const addQuestion = () => {
     setQuestionSet([
       ...questionSet,
