@@ -22,8 +22,26 @@ export const AuthContext = createContext<Partial<AuthContextInterface>>({});
 
 export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<UserInfo>();
+  const [user, setUserState] = useState<UserInfo>();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  const setUser = (user: UserInfo) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    setUserState(user);
+  }
+
+  useEffect(() => {
+    if (!user) {
+      const userString = localStorage.getItem('user');
+      if (userString) {
+        setUserState(JSON.parse(userString));
+        setIsLoggedIn(true);
+      }
+    }
+
+    setLoading(false)
+  }, [user])
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'local') {
@@ -44,6 +62,10 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({ chi
   };
 
   const value: AuthContextInterface = { isLoggedIn, login, logout, user, setUser }
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <AuthContext.Provider value={value}>
