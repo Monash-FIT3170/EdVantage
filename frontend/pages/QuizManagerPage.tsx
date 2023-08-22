@@ -1,10 +1,10 @@
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import {
-  AbsoluteCenter, Box, Button,
-  Card, CardHeader, CardBody, CardFooter, Center,
+  AbsoluteCenter, Box, Button, Card, CardBody, Center,
   Divider, Heading, IconButton, Spacer, Stack
 } from '@chakra-ui/react';
 import ApiClient from '@/utils/api-client';
+import { BiEdit } from 'react-icons/bi';
+import { MdDelete } from 'react-icons/md';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -33,8 +33,8 @@ export default function QuizManagerPage() {
   return (
     <Box margin='50px'>
       <Heading as='h3' size='lg' marginTop='40px' marginBottom='20px'>Quiz Manager</Heading>
-      <Link href='/QuizCreationPage' marginTop='20px' marginBottom='40px'>
-        <Button colorScheme='blue'>Create Quiz</Button>
+      <Link href='/QuizCreationPage'>
+        <Button marginTop='20px' marginBottom='40px' colorScheme='blue'>Create Quiz</Button>
       </Link>
       <Box position='relative'>
         <Divider borderWidth='1px'/>
@@ -44,30 +44,30 @@ export default function QuizManagerPage() {
       </Box>
       <Stack spacing='20px' marginTop='40px' marginBottom='40px'>
         {quizzes.map((quiz: Quiz) => (
-          <Card>
-          <CardBody>
-            <Stack direction='row'>
-              <Stack direction='column'>
-                <Heading as='h4' size='md'>{quiz.title}</Heading>
-                <Box>{`Description: ${quiz.description}`}</Box>
-                <Stack direction='row'>
-                  <Box>{`Question Count: 0`}</Box>
-                  <Box>{`Time Limit: 0 m`}</Box>
+          <Card key={quiz.id}>
+            <CardBody>
+              <Stack direction='row'>
+                <Stack direction='column'>
+                  <Heading as='h4' size='md'>{quiz.title}</Heading>
+                  <Box>{`Description: ${quiz.description}`}</Box>
+                  <Stack direction='row'>
+                    <Box>{`Question Count: 0`}</Box>
+                    <Box>{`Time Limit: 0 m`}</Box>
+                  </Stack>
                 </Stack>
+                <Spacer/>
+                <Center>
+                  <Stack direction='row'>
+                    <IconButton aria-label='Edit' icon={<BiEdit/>}/>
+                    <IconButton
+                        aria-label='Delete' icon={<MdDelete/>} background='red'
+                        color='white'
+                      />
+                  </Stack>
+                </Center>
               </Stack>
-              <Spacer/>
-              <Center>
-                <Stack direction='row'>
-                  <IconButton aria-label='Edit' icon={<EditIcon/>}/>
-                  <IconButton
-                      aria-label='Delete' icon={<DeleteIcon/>} background='red'
-                      color='white'
-                    />
-                </Stack>
-              </Center>
-            </Stack>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
         ))}
       </Stack>
     </Box>
