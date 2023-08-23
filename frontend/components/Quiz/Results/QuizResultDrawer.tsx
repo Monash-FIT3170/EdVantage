@@ -44,7 +44,6 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
             .get(`quiz/results/${auth?.user?.userId}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 fetchData(data);
                 setAttempts(data);
                 setLoading(false);
