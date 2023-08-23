@@ -9,5 +9,11 @@ enum UserRole {
   Admin = 'admin',
 };
 
+export const AllRoles: UserRole[] = [
+  UserRole.Student,
+  UserRole.Teacher,
+  UserRole.Admin,
+]
+
 export type { MediaSource };
 export { UserRole };

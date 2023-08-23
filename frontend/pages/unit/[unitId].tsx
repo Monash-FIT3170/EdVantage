@@ -1,4 +1,6 @@
+import ProtectedRoute from '@/components/ProtectedRoute';
 import UnitCard from '@/components/VideoCard';
+import { AllRoles } from '@/utils/types';
 import {
   Button,
   ButtonGroup,
@@ -37,41 +39,43 @@ const UnitPage: NextPage = () => {
   const { unitId } = router.query;
 
   return (
-    <Container maxW={'container.xl'} mt={6} centerContent>
-      <Stack
-        maxH={'sm'}
-        w={'full'}
-        p={{ base: 3, lg: 6 }}
-        spacing={3}
-        alignItems={'center'}
-      >
-        <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
-          {unitId?.toString().toUpperCase()}
-        </Heading>
-        <Text fontSize={'larger'}>
-          Software engineering: Architecture and design
-        </Text>
+    <ProtectedRoute allowedRoles={AllRoles}>
+      <Container maxW={'container.xl'} mt={6} centerContent>
+        <Stack
+          maxH={'sm'}
+          w={'full'}
+          p={{ base: 3, lg: 6 }}
+          spacing={3}
+          alignItems={'center'}
+        >
+          <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+            {unitId?.toString().toUpperCase()}
+          </Heading>
+          <Text fontSize={'larger'}>
+            Software engineering: Architecture and design
+          </Text>
 
-        <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
-          <Button variant={'ghost'} leftIcon={<FiMail />}>
-            Unit Email
-          </Button>
-          <Button variant={'ghost'} leftIcon={<FiLink />}>
-            Moodle
-          </Button>
-          <Button variant={'ghost'} leftIcon={<FiBookOpen />}>
-            Assessments
-          </Button>
-        </ButtonGroup>
+          <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
+            <Button variant={'ghost'} leftIcon={<FiMail />}>
+              Unit Email
+            </Button>
+            <Button variant={'ghost'} leftIcon={<FiLink />}>
+              Moodle
+            </Button>
+            <Button variant={'ghost'} leftIcon={<FiBookOpen />}>
+              Assessments
+            </Button>
+          </ButtonGroup>
 
-        <Divider />
-      </Stack>
-      <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
-        {videos.map(({ heading }) => (
-          <UnitCard key={heading} heading={heading} />
-        ))}
-      </Flex>
-    </Container>
+          <Divider />
+        </Stack>
+        <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
+          {videos.map(({ heading }) => (
+            <UnitCard key={heading} heading={heading} />
+          ))}
+        </Flex>
+      </Container>
+    </ProtectedRoute>
   );
 };
 

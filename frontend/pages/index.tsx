@@ -1,10 +1,12 @@
 import { AuthContext } from '@/components/AuthProvider';
 import { useContext } from 'react';
-import { UserRole } from '@/utils/types';
+import { AllRoles, UserRole } from '@/utils/types';
 import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
 import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
+import { useRouter } from 'next/router';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const mediaOne: MediaSource[] = [
   {
@@ -39,6 +41,7 @@ const mediaTwo: MediaSource[] = [
 export default function Home() {
 
   const auth = useContext(AuthContext);
+  const router = useRouter()
 
   const studentView = (
     <Container maxW={'container.xl'} centerContent>
@@ -86,15 +89,22 @@ export default function Home() {
     </Container>
   )
 
-  switch (auth?.user?.role) {
-    case UserRole.Student:
-      return studentView;
-    case UserRole.Teacher:
-      return teacherView;
-    case UserRole.Admin:
-      return adminView;
-    default:
-      return studentView;
+  const View = () => {
+    switch (auth?.user?.role) {
+      case UserRole.Student:
+        return studentView;
+      case UserRole.Teacher:
+        return teacherView;
+      case UserRole.Admin:
+        return adminView;
+    }
+
+
+    return (
+      <ProtectedRoute allowedRoles={AllRoles}>
+        <View />
+      </ProtectedRoute>
+    )
   }
 
   // if (!auth?.user?.role) {
