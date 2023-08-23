@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {useRef, useEffect, useState, useContext} from "react";
 import {
   ButtonGroup,
   Button,
@@ -17,7 +17,7 @@ import ApiClient from "@/utils/api-client";
 import { Select } from "chakra-react-select";
 import Quiz from "@/components/Quiz/Quiz";
 import QuizResultDrawer from "@/components/Quiz/Results/QuizResultDrawer";
-import { useAuth } from "../AuthProvider";
+import {AuthContext, useAuth} from "../AuthProvider";
 
 interface QuizDrawerProps {
   id: string;
@@ -43,6 +43,7 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
   const { isLoggedIn } = useAuth()
 
   const btnRef = useRef(null);
+  const auth = useContext(AuthContext);
 
   const getQuizzes = (value: any): void => {
     setLoading(true);
@@ -72,7 +73,7 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
     setLoading(true);
     const apiClient = new ApiClient();
     apiClient
-      .get(`users/8/units`)
+      .get(`users/${auth?.user?.userId}/units`)
       .then((res) => res.json())
       .then((data) => {
         const unitResponses = [];

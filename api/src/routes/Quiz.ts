@@ -137,10 +137,9 @@ quizRouter.get(
 quizRouter.get(
   '/quiz/results/:student_id',
   async (req: Request, res: Response) => {
-    const id = parseInt(req.params.student_id);
+    const id = req.params.student_id;
     const attempts = await buildAttempts(id);
 
-    console.log(attempts);
     res.status(200).send(attempts);
   }
 );
@@ -242,7 +241,7 @@ async function buildQuizByUnit(unit_code: string): Promise<Quiz[]> {
 }
 
 // Define a helper function to build a user's quiz attempts
-async function buildAttempts(id: number): Promise<QuizAttempt[]> {
+async function buildAttempts(id: string): Promise<QuizAttempt[]> {
   const attemptResp = await postgresClient.query(
     `SELECT qa.*, q.title FROM quiz_attempts qa JOIN quizzes q ON qa.quiz_id = q.quiz_id WHERE qa.user_id = $1`,
     [id]
