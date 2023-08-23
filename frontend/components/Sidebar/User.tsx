@@ -10,7 +10,7 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react';
-import { AuthContext } from '@/components/AuthProvider';
+import {AuthContext, AuthContextInterface} from '@/components/AuthProvider';
 
 const User = () => {
   const auth = useContext(AuthContext);
@@ -41,7 +41,7 @@ const User = () => {
           <Avatar size={'sm'} src={picture} name={name} />
         </MenuButton>
         <MenuList>
-          <MenuItem onClick={() => auth?.logout()}>Log Out</MenuItem>
+          <MenuItem onClick={() => auth?.logout?.()}>Log Out</MenuItem>
         </MenuList>
       </Menu>
       <Box ml={3}>

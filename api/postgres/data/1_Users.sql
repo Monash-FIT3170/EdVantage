@@ -30,7 +30,7 @@ CREATE TABLE units
 CREATE TABLE unit_enrollment
 (
     enrollment_id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
+    user_id VARCHAR(50) NOT NULL,
     unit_code VARCHAR(50) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (unit_code) REFERENCES units (unit_code)
@@ -85,24 +85,24 @@ VALUES ('unit101', 'Easy Maths Unit'),
 
 -- Insert unit enrollments
 INSERT INTO unit_enrollment(user_id, unit_code)
-VALUES (1, 'unit101'),
-       (2, 'unit101'),
-       (3, 'unit101'),
-       (4, 'unit101'),
-       (5, 'unit101'),
-       (6, 'unit101'),
-       (7, 'unit101'),
-       (8, 'unit101'),
-       (9, 'unit101'),
-       (1, 'unit102'),
-       (2, 'unit102'),
-       (3, 'unit102'),
-       (4, 'unit102'),
-       (5, 'unit102'),
-       (6, 'unit102'),
-       (7, 'unit102'),
-       (8, 'unit103'),
-       (9, 'unit102');
+VALUES ('123456789012345678901', 'unit101'),
+       ('223456789012345678902', 'unit101'),
+       ('323456789012345678903', 'unit101'),
+       ('423456789012345678904', 'unit101'),
+       ('523456789012345678905', 'unit101'),
+       ('623456789012345678906', 'unit101'),
+       ('723456789012345678907', 'unit101'),
+       ('823456789012345678908', 'unit101'),
+       ('923456789012345678909', 'unit101'),
+       ('123456789012345678901', 'unit102'),
+       ('223456789012345678902', 'unit102'),
+       ('323456789012345678903', 'unit102'),
+       ('423456789012345678904', 'unit102'),
+       ('523456789012345678905', 'unit102'),
+       ('623456789012345678906', 'unit102'),
+       ('723456789012345678907', 'unit102'),
+       ('823456789012345678908', 'unit103'),
+       ('923456789012345678909', 'unit102');
 
 -- Insert classes
 INSERT INTO classes (class_num, unit_code)

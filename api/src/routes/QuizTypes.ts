@@ -38,7 +38,7 @@ type QuizOption = {
 
 type QuizAttempt = {
   attempt_id: number;
-  user_id: number;
+  user_id: string;
   quiz_id: number;
   title: string;
   percentage: number;
