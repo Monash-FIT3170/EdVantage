@@ -11,7 +11,9 @@ DROP TABLE IF EXISTS question_results CASCADE;
 CREATE TABLE quizzes (
     quiz_id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
-    description TEXT
+    description TEXT,
+    unit_code VARCHAR(50) NOT NULL,
+    FOREIGN KEY (unit_code) REFERENCES units (unit_code)
 );
 
 CREATE TABLE questions (
@@ -56,11 +58,11 @@ CREATE TABLE question_results (
 
 -- INSERT DATA
 INSERT INTO
-    quizzes (title, description)
+    quizzes (title, description, unit_code)
 VALUES
-    ('Math Quiz (Easy)', 'A quiz about basic arithmetic.'),
-    ('Math Quiz (Hard)', 'A quiz about basic and challenging arithmetic.'),
-    ('English Quiz', 'A quiz about the English language');
+    ('Math Quiz (Easy)', 'A quiz about basic arithmetic.', 'unit101'),
+    ('Math Quiz (Hard)', 'A quiz about basic and challenging arithmetic.', 'unit102'),
+    ('English Quiz', 'A quiz about the English language', 'unit103');
 
 INSERT INTO
     questions (question, question_type)
@@ -89,9 +91,3 @@ VALUES
     (1, 1), (1, 2),
     (2, 1), (2, 2), (2, 3),
     (3, 4);
-
-INSERT INTO
-    quiz_attempts (user_id, quiz_id, percentage)
-VALUES
-    ('823456789012345678908', 1, 0.0),
-    ('823456789012345678908', 1, 100.0);

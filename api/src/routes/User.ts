@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import PostgresClient from '../persistence/PostgresClient';
+import {parse} from "ts-jest";
 
 const userRouter = Router();
 const postgresClient = new PostgresClient();
@@ -104,7 +105,7 @@ userRouter.get('/user/:id/classes', async (req: Request, res: Response) => {
 
 // Get all the units a user is enrolled in
 userRouter.get("/users/:id/units", async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const units = await getUserUnits(id);
 
     if (units) {
@@ -161,12 +162,13 @@ async function getUserClasses(userId: number) {
     return classesResp.length > 0 ? classesResp : null;
 }
 
-async function getUserUnits(user_id: number) {
-    const query = `SELECT DISTINCT u.* FROM units u 
-                    JOIN classes c ON u.unit_code = c.unit_code 
-                    JOIN class_enrolments ce ON c.class_num = ce.class_num 
-                    AND c.unit_code = ce.unit_code 
-                    WHERE ce.user_id = $1`;
+async function getUserUnits(user_id: string) {
+    const query = `SELECT DISTINCT ue.unit_code, un.unit_name
+                    FROM users u JOIN unit_enrollment ue on u.user_id = ue.user_id
+                    JOIN units un ON ue.unit_code = un.unit_code
+                    WHERE u.user_id = $1`;
+    console.log(query)
+    console.log(user_id)
     const values = [user_id];
     const unitsResp = await postgresClient.query(query, values);
     return unitsResp;

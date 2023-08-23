@@ -1,4 +1,4 @@
-import { AuthContext } from '@/components/AuthProvider';
+import {AuthContext, AuthContextInterface, AuthContextProvider} from '@/components/AuthProvider';
 import ApiClient from '@/utils/api-client';
 import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -37,8 +37,8 @@ const Login = () => {
           console.error('Invalid user role:', role);
           // Handle the error of invalid role
         } else {
-          auth?.login();
-          auth?.setUser({
+          auth?.login?.();
+          auth?.setUser?.({
             userId: userInfo.id,
             name: userInfo.name,
             email: userInfo.email,

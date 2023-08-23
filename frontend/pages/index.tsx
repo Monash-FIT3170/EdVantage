@@ -89,38 +89,22 @@ export default function Home() {
     </Container>
   )
 
-  const View = () => {
-    switch (auth?.user?.role) {
-      case UserRole.Student:
-        return studentView;
-      case UserRole.Teacher:
-        return teacherView;
-      case UserRole.Admin:
-        return adminView;
-    }
+  // const View = () => {
+  switch (auth?.user?.role) {
+    case UserRole.Student:
+      return studentView;
+    case UserRole.Teacher:
+      return teacherView;
+    case UserRole.Admin:
+      return adminView;
+    // }
 
 
-    return (
-      <ProtectedRoute allowedRoles={AllRoles}>
-        <View />
-      </ProtectedRoute>
-    )
+    // return (
+    //   <ProtectedRoute allowedRoles={AllRoles}>
+    //     <View />
+    //   </ProtectedRoute>
+    // )
   }
-
-  // if (!auth?.user?.role) {
-  //   // Redirect or show an error message, depending on your requirements
-  //   return <Redirect to="/login" />; // some kind of redirection
-  // }
-  //
-  // switch (auth.user.role) {
-  //   case UserRole.Student:
-  //     return studentView;
-  //   case UserRole.Teacher:
-  //     return teacherView;
-  //   case UserRole.Admin:
-  //     return adminView;
-  //   default:
-  //     return <ErrorComponent message="Unknown role" />; // some kind of error component
-  // }
 
 }

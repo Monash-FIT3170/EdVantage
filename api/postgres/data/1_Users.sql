@@ -23,7 +23,17 @@ CREATE TABLE users
 
 CREATE TABLE units
 (
-    unit_code VARCHAR(50) PRIMARY KEY
+    unit_code VARCHAR(50) PRIMARY KEY,
+    unit_name VARCHAR(50)
+);
+
+CREATE TABLE unit_enrollment
+(
+    enrollment_id SERIAL PRIMARY KEY,
+    user_id VARCHAR(50) NOT NULL,
+    unit_code VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (unit_code) REFERENCES units (unit_code)
 );
 
 CREATE TABLE classes
@@ -51,10 +61,10 @@ INSERT INTO roles (role_name)
 VALUES ('student'),
        ('teacher'),
        ('admin');
-       
+
 -- Insert users with role_id and fake Google-like IDs
 INSERT INTO users (user_id, user_email, user_name, role_id)
-VALUES 
+VALUES
        ('123456789012345678901', 'student1@example.com', 'Student 1', 1),
        ('223456789012345678902', 'student2@example.com', 'Student 2', 1),
        ('323456789012345678903', 'student3@example.com', 'Student 3', 1),
@@ -67,11 +77,32 @@ VALUES
        ('023456789012345678900', 'admin1@example.com', 'Admin 1', 3);
 
 -- Insert units
-INSERT INTO units (unit_code)
-VALUES ('unit101'),
-       ('unit102'),
-       ('unit103'),
-       ('unit104');
+INSERT INTO units (unit_code, unit_name)
+VALUES ('unit101', 'Easy Maths Unit'),
+       ('unit102', 'Hard Maths Unit'),
+       ('unit103', 'English Unit'),
+       ('unit104', 'Chemistry Unit');
+
+-- Insert unit enrollments
+INSERT INTO unit_enrollment(user_id, unit_code)
+VALUES ('123456789012345678901', 'unit101'),
+       ('223456789012345678902', 'unit101'),
+       ('323456789012345678903', 'unit101'),
+       ('423456789012345678904', 'unit101'),
+       ('523456789012345678905', 'unit101'),
+       ('623456789012345678906', 'unit101'),
+       ('723456789012345678907', 'unit101'),
+       ('823456789012345678908', 'unit101'),
+       ('923456789012345678909', 'unit101'),
+       ('123456789012345678901', 'unit102'),
+       ('223456789012345678902', 'unit102'),
+       ('323456789012345678903', 'unit102'),
+       ('423456789012345678904', 'unit102'),
+       ('523456789012345678905', 'unit102'),
+       ('623456789012345678906', 'unit102'),
+       ('723456789012345678907', 'unit102'),
+       ('823456789012345678908', 'unit103'),
+       ('923456789012345678909', 'unit102');
 
 -- Insert classes
 INSERT INTO classes (class_num, unit_code)
