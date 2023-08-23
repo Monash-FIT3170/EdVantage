@@ -35,6 +35,10 @@ const QuizAttemptDrawer = ({ drawerState, closeDrawer, fetchData, attemptData }:
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        dangerouslyAllowBrowser: true // Long-term, ensure secret credentials are not exposed with this method
+    });
 
     useEffect(() => {
         setLoading(true);
@@ -56,10 +60,6 @@ const QuizAttemptDrawer = ({ drawerState, closeDrawer, fetchData, attemptData }:
         setPopupLoading(true);
         setPopupData("");
         onOpen();
-        const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY,
-            dangerouslyAllowBrowser: true // Long-term, ensure secret credentials are not exposed with this method
-        });
         const chatGptUtils = new ChatGptUtils();
         const requestBody = chatGptUtils.buildChatGptQuizRequestBody(value.question, value.user_answer)
         const completion = await openai.chat.completions.create(requestBody);
