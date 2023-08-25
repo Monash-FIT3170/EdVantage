@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import { Request, Response, Router } from 'express';
 import PostgresClient from '../persistence/PostgresClient';
 
 const userRouter = Router();
@@ -117,14 +117,18 @@ userRouter.get("/users/:id/units", async (req: Request, res: Response) => {
 
 // Define a helper function to get classes that belong to a unit by unit code
 async function getClassesByUnit(unit_code: string) {
-    const query = `SELECT * FROM classes WHERE unit_code = ${unit_code}`;
-    return await postgresClient.query(query);
+    const query = `SELECT * FROM classes WHERE unit_code = $1`;
+    const values = [unit_code];
+    const classesResp = await postgresClient.query(query, values);
+    return classesResp;
 }
 
 // Define a helper function to get users enrolled in a unit by unit code
 async function getUsersByUnit(unit_code: string) {
-    const query = `SELECT DISTINCT u.* FROM users u JOIN class_enrolments ce ON u.user_id = ce.user_id WHERE ce.unit_code = ${unit_code}`;
-    return await postgresClient.query(query);
+    const query = `SELECT DISTINCT u.* FROM users u JOIN class_enrolments ce ON u.user_id = ce.user_id WHERE ce.unit_code = $1`;
+    const values = [unit_code];
+    const usersResp = await postgresClient.query(query, values);
+    return usersResp;
 }
 
 async function getUsersByClass(class_num: number, unit_code: string) {
@@ -132,14 +136,17 @@ async function getUsersByClass(class_num: number, unit_code: string) {
       SELECT u.*
       FROM users u
       JOIN class_enrolments ce ON u.user_id = ce.user_id
-      WHERE ce.class_num = ${class_num} AND ce.unit_code = ${unit_code}`;
-    return await postgresClient.query(query);
+      WHERE ce.class_num = $1 AND ce.unit_code = $2`;
+    const values = [class_num, unit_code];
+    const usersResp = await postgresClient.query(query, values);
+    return usersResp;
 }
 
 // Define a helper function to get a user by ID
 async function getUserById(id: number) {
-    const query = 'SELECT * FROM users WHERE user_id = ${id}';
-    const userResp = await postgresClient.query(query);
+    const query = 'SELECT * FROM users WHERE user_id = $1';
+    const values = [id];
+    const userResp = await postgresClient.query(query, values);
     return userResp.length > 0 ? userResp[0] : null;
 }
 
@@ -148,8 +155,9 @@ async function getUserClasses(userId: number) {
     const query = `SELECT ce.user_id, c.class_num, c.unit_code
                     FROM class_enrolments ce
                     JOIN classes c ON ce.class_num = c.class_num AND ce.unit_code = c.unit_code
-                    WHERE ce.user_id = ${userId}`;
-    const classesResp = await postgresClient.query(query);
+                    WHERE ce.user_id = $1`;
+    const values = [userId];
+    const classesResp = await postgresClient.query(query, values);
     return classesResp.length > 0 ? classesResp : null;
 }
 
@@ -158,8 +166,10 @@ async function getUserUnits(user_id: number) {
                     JOIN classes c ON u.unit_code = c.unit_code 
                     JOIN class_enrolments ce ON c.class_num = ce.class_num 
                     AND c.unit_code = ce.unit_code 
-                    WHERE ce.user_id = ${user_id}`;
-    return await postgresClient.query(query);
+                    WHERE ce.user_id = $1`;
+    const values = [user_id];
+    const unitsResp = await postgresClient.query(query, values);
+    return unitsResp;
 }
 
 

@@ -1,4 +1,7 @@
-import { Container, Stack, Box } from '@chakra-ui/react';
+import { AuthContext } from '@/utils/auth';
+import { useContext } from 'react';
+import { UserRole } from '@/utils/types';
+import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
 import VideoPane from '@/components/VideoPane';
 import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
@@ -34,7 +37,10 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
-  return (
+
+  const auth = useContext(AuthContext);
+
+  const studentView = (
     <Container maxW={'container.xl'} centerContent>
       <Stack direction={'row'} my={6}>
         <Box>
@@ -56,5 +62,55 @@ export default function Home() {
         </Box>
       </Stack>
     </Container>
-  );
+  )
+
+  const teacherView = (
+    <Container maxW={'container.xl'} centerContent>
+      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+        Welcome Teacher!
+      </Heading>
+      <Text fontSize={'larger'}>
+        This is the teacher home page view.
+      </Text>
+    </Container>
+  )
+
+  const adminView = (
+    <Container maxW={'container.xl'} centerContent>
+      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+        Welcome Admin!
+      </Heading>
+      <Text fontSize={'larger'}>
+        This is the admin home page view.
+      </Text>
+    </Container>
+  )
+
+  switch (auth?.user?.role) {
+    case UserRole.Student:
+      return studentView;
+    case UserRole.Teacher:
+      return teacherView;
+    case UserRole.Admin:
+      return adminView;
+    default:
+      return studentView;
+  }
+
+  // if (!auth?.user?.role) {
+  //   // Redirect or show an error message, depending on your requirements
+  //   return <Redirect to="/login" />; // some kind of redirection
+  // }
+  //
+  // switch (auth.user.role) {
+  //   case UserRole.Student:
+  //     return studentView;
+  //   case UserRole.Teacher:
+  //     return teacherView;
+  //   case UserRole.Admin:
+  //     return adminView;
+  //   default:
+  //     return <ErrorComponent message="Unknown role" />; // some kind of error component
+  // }
+
 }

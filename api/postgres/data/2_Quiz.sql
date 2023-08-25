@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS questions CASCADE;
 DROP TABLE IF EXISTS quiz_questions CASCADE;
 DROP TABLE IF EXISTS question_answers CASCADE;
 DROP TABLE IF EXISTS question_choices CASCADE;
+DROP TABLE IF EXISTS quiz_attempts CASCADE;
+DROP TABLE IF EXISTS question_results CASCADE;
 
 -- CREATE TABLES
 CREATE TABLE quizzes (
@@ -36,6 +38,22 @@ CREATE TABLE question_choices (
     is_correct BOOLEAN NOT NULL
 );
 
+CREATE TABLE quiz_attempts (
+    attempt_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    quiz_id INTEGER NOT NULL REFERENCES quizzes(quiz_id),
+    percentage FLOAT,
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE question_results (
+    result_id SERIAL PRIMARY KEY,
+    attempt_id INTEGER NOT NULL REFERENCES quiz_attempts(attempt_id),
+    question_id INTEGER NOT NULL REFERENCES questions(question_id),
+    user_answer TEXT NOT NULL,
+    result BOOLEAN
+);
+
 -- INSERT DATA
 INSERT INTO
     quizzes (title, description)
@@ -60,6 +78,7 @@ VALUES
 INSERT INTO
     question_answers (question_id, answer)
 VALUES
+    (1, '4'),
     (2, '8'),
     (3, '1/(x * log(10))'),
     (4, 'Large'), (4, 'Huge'), (4, 'Massive');
@@ -70,3 +89,9 @@ VALUES
     (1, 1), (1, 2),
     (2, 1), (2, 2), (2, 3),
     (3, 4);
+
+INSERT INTO
+    quiz_attempts (user_id, quiz_id, percentage)
+VALUES
+    (8, 1, 0.0),
+    (8, 1, 100.0);

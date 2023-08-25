@@ -9,8 +9,7 @@ import {
   Divider,
   CardFooter,
   ButtonGroup,
-  Button,
-  useDisclosure
+  Button
 } from '@chakra-ui/react';
 import VideoPlayer from './VideoPlayer';
 import QuizDrawer from './Quiz/QuizDrawer';

@@ -1,4 +1,4 @@
-import { Button, VStack } from '@chakra-ui/react';
+import {Button, ButtonGroup, VStack} from '@chakra-ui/react';
 import QuizQuestion from '@/components/Quiz/QuizQuestion';
 import { useEffect, useState } from 'react';
 import ApiClient from '@/utils/api-client';
@@ -16,29 +16,30 @@ const Quiz = ({ quiz }: any) => {
   const submitAnswers = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    console.log(userAnswers);
-    console.log(quiz.questions.length);
-    setScore(0);
+    // Using example user 8 for results testing while User integration is WIP
+    const attempt_params = {u_id: 8, q_id: quiz.value};
+    const attempt_resp = await api.post(`quiz/attempt`, '', attempt_params);
+    let attempt_id = await attempt_resp.json();
+    attempt_id = attempt_id['attempt_id'][0]['attempt_id'];
 
     const responses = Object.entries(userAnswers).map(([key, value], id) => {
       const answer = { question_id: key, answer: value };
-      return api.post(`quiz/question/${key}/answer`, '', answer);
+      return api.post(`quiz/question/${key}/answer/${attempt_id}`, '', answer);
     });
 
     const fulfilled = await Promise.all(responses);
 
-    let correct = true;
+    let score = 0;
     for (const res of fulfilled) {
       const answer = await res.json();
       if (answer == true) {
-        setScore((prevScore) => prevScore + 1);
+        score++;
       }
     }
 
-    if (Object.values(userAnswers).length < quiz.questions.length) {
-      correct = false;
-    }
+    setScore(score);
     setAnswered(true);
+    await api.post(`quiz/attempt/${attempt_id}`, '', {score: (score * 100) / quiz.questions.length});
   };
 
   return (
@@ -57,7 +58,7 @@ const Quiz = ({ quiz }: any) => {
       <Button variant={'solid'} colorScheme="blue" onClick={submitAnswers}>
         Submit
       </Button>
-      {answered && <div>{(score * 100) / quiz.questions.length}%</div>}
+      {answered && (<div>{(score * 100) / quiz.questions.length}%</div>)}
     </VStack>
   );
 };

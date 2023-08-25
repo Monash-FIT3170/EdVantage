@@ -36,5 +36,4 @@ type QuizOption = {
   is_correct: boolean;
 };
 
-export { QuestionType };
 export type { Question, Quiz, QuizAnswer, QuizOption, QuizQuestion };
