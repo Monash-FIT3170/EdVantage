@@ -5,6 +5,7 @@ export type VideoMetadata = {
   unit: string;
   bucket: string;
   bucketKey: string;
+  videoLocation: string;
   videoOwner: string;
   thumbnailLink: string;
   createdTimestamp: Date;

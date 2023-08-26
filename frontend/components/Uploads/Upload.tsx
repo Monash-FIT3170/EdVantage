@@ -41,6 +41,7 @@ export default function UploadComponent() {
       unit: '',
       bucket: 'edvantage-video',
       bucketKey: file.name,
+      videoLocation: result?.Location || '',
       videoOwner: user?.userId,
       thumbnailLink: ''
     }
