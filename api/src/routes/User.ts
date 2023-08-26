@@ -167,8 +167,6 @@ async function getUserUnits(user_id: string) {
                     FROM users u JOIN unit_enrollment ue on u.user_id = ue.user_id
                     JOIN units un ON ue.unit_code = un.unit_code
                     WHERE u.user_id = $1`;
-    console.log(query)
-    console.log(user_id)
     const values = [user_id];
     const unitsResp = await postgresClient.query(query, values);
     return unitsResp;

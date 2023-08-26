@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FiHome, FiList, FiStar } from 'react-icons/fi';
 import { BsPen } from 'react-icons/bs';
 
-const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
+const enrolledUnits = ['FIT3170', 'FIT3077', 'FIT3159', 'FIT3178'];
 
 const UpperSidebar = () => {
   return (

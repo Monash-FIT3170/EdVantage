@@ -61,7 +61,7 @@ export default function Home() {
           </Stack>
         </Box>
         <Box>
-          <VideoPane />
+          <VideoPane link="https://dkkxc50nup77a.cloudfront.net/X32dce7_D48.mp4" />
         </Box>
       </Stack>
     </Container>

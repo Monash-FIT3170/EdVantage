@@ -33,7 +33,6 @@ authRouter.post('/login', async (req, res) => {
         }
 
         // Call upsert function
-        console.log("Debug:", { id, email, name });
         await upsertUser(id, email, name);
 
         res.status(200).send('User logged in successfully');

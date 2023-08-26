@@ -15,28 +15,49 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FiBookOpen, FiLink, FiMail } from 'react-icons/fi';
 
-const videos = [
-  {
-    heading:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed tellus et libero lacinia laoreet sit amet eget lorem. Quisque cursus auctor lorem nec malesuada. ',
+const units = {
+  FIT3170: {
+    name: 'Software engineering practice',
+    videos: [
+      { heading: 'Agile Development Overview', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-Agile-Development-Overview.png' },
+      { heading: 'Semester 1 Week 8 Lecture UI/UX', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W8-Lecture-UI-UX.jpg' },
+      { heading: 'Semester 1 Week 10 Lecture Financial Consulting', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W10-Lecture-Financial-Consulting.jpg' },
+      { heading: 'Semester 1 Week 12 Group Presentations', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W12-Group-Presentations.jpg' },
+    ],
   },
-  {
-    heading:
-      'In nec sapien sem. Praesent blandit tristique ex consequat aliquam. Vivamus vitae risus laoreet, pellentesque nunc quis, iaculis tellus.',
+  FIT3077: {
+    name: 'Software engineering: Architecture and design',
+    videos: [
+      { heading: 'Design Patterns: A Deep Dive', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3077-Design-Patterns.jpg' },
+      { heading: 'Microservices Architecture', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3077-microservices-architecture.png' },
+      { heading: 'RESTful API Design', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3077-RESTful-API-Design.jpg' },
+      { heading: 'Frontend Architecture: MVC and MVVM', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3077-MVC-vs-MVP-vs-MVVM.jpg' },
+    ],
   },
-  {
-    heading:
-      'Integer diam quam, blandit sit amet tortor eu, interdum fringilla dolor.',
+  FIT3159: {
+    name: 'Computer architecture',
+    videos: [
+      { heading: 'Devices, Counters, Adders, Shifters, Sequential Logic', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Devices-Counters-Adders-Shifters-Sequential+Logic.jpg' },
+      { heading: 'Concurrency and Parallelism', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-concurrency-parallelism.jpg' },
+      { heading: 'Instruction Sets and Instruction Set Design', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Instruction-Sets-Instruction-Set-Design.jpg' },
+      { heading: 'Optimizing Code for Hardware', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Hardware-Software-optimization-process.png' },
+    ],
   },
-  {
-    heading:
-      'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ',
+  FIT3178: {
+    name: 'iOS app development',
+    videos: [
+      { heading: 'iOS Application Architecture', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3178-ios-application-architecture.jpg' },
+      { heading: 'Data Persistence', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3178-data-persistence.png' },
+      { heading: 'Firebase Cloud Platform', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3178-firebase-cloud-platform.jpg' },
+      { heading: 'Maps and Geolocation', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3178-maps-geolocation.jpg' },
+    ],
   },
-];
+}
 
 const UnitPage: NextPage = () => {
   const router = useRouter();
   const { unitId } = router.query;
+  const unitData = unitId ? units[unitId as keyof typeof units] : units.FIT3178;
 
   return (
     <ProtectedRoute allowedRoles={AllRoles}>
@@ -52,7 +73,7 @@ const UnitPage: NextPage = () => {
             {unitId?.toString().toUpperCase()}
           </Heading>
           <Text fontSize={'larger'}>
-            Software engineering: Architecture and design
+            {unitData.name}
           </Text>
 
           <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
@@ -69,9 +90,9 @@ const UnitPage: NextPage = () => {
 
           <Divider />
         </Stack>
-        <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
-          {videos.map(({ heading }) => (
-            <UnitCard key={heading} heading={heading} />
+        <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'left'} gap={6}>
+          {unitData.videos.map(({ heading, thumbnail }) => (
+            <UnitCard key={heading} heading={heading} thumbnail={thumbnail} />
           ))}
         </Flex>
       </Container>
