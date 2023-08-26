@@ -48,6 +48,19 @@ quizRouter.get('/quiz/:id', async (req: Request, res: Response) => {
   }
 });
 
+// Define a route to create a quiz and its questions
+quizRouter.post('/quiz', async (req: Request, res: Response) => {
+  const body: any = req.body;
+  const quiz_id = await createQuiz(body);
+
+  for (let i=0; i < body.questions.length; i++) {
+    console.log(body.questions[i])
+    await createQuestion(body.questions[i], quiz_id);
+  }
+
+  res.status(200).send(quiz_id);
+});
+
 // Define a route to get a quiz question by ID
 quizRouter.get('/quiz/question/:id', async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
@@ -264,6 +277,49 @@ async function buildResult(id: number): Promise<QuizQuestionResult[]> {
   }
 
   return resultResp;
+}
+
+// Define a helper function to add a quiz to DB from JSON
+async function createQuiz(body: any): Promise<number> {
+  return await postgresClient.query(
+      `INSERT INTO quizzes (title, description, unit_code)
+       VALUES ($1, $2, $3)
+       RETURNING quiz_id`,
+      [body.title, body.description, body.unit_code]
+  );
+}
+
+// Define a helper function to create a new question and attach it to a quiz
+async function createQuestion(body: any, quiz_id: any): Promise<void> {
+  let question_id = await postgresClient.query(
+      `INSERT INTO questions (question, question_type) 
+                VALUES ($1, $2)
+                RETURNING question_id`,
+      [body.title, body.type]
+  );
+  question_id = question_id[0]["question_id"]
+
+  if (body.type == "multiple_choice") {
+    for (let i=0; i < body.choices.length; i++) {
+      console.log(body.choices[i])
+      await postgresClient.query(
+          `INSERT INTO question_choices (question_id, option, is_correct) VALUES ($1, $2, $3)`,
+          [parseInt(question_id), body.choices[i].option, false]
+      )
+    }
+  }
+
+  for (let i=0; i < body.answers.length; i++) {
+    await postgresClient.query(
+        `INSERT INTO question_answers (question_id, answer) VALUES ($1, $2)`,
+        [parseInt(question_id), body.answers[i].answer]
+    )
+  }
+
+  await postgresClient.query(
+      `INSERT INTO quiz_questions (quiz_id, question_id) VALUES ($1, $2)`,
+      [parseInt(quiz_id[0]["quiz_id"]), parseInt(question_id)]
+  )
 }
 
 export default quizRouter;
