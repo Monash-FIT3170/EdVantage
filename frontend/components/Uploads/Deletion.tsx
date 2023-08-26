@@ -1,7 +1,7 @@
 //Button to delete file from Bucket
 import React, { ChangeEvent } from 'react';
 import {MenuItem} from '@chakra-ui/react';
-import {deleteFileFromS3} from '../s3Handler'; // Import the S3 handler from the API directory
+import {deleteFileFromS3} from '../../service/s3Handler'; // Import the S3 handler from the API directory
 import exp from 'constants';
 
 interface DeleteComponentProps {
