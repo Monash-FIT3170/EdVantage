@@ -16,7 +16,12 @@ import QuizDrawer from './Quiz/QuizDrawer';
 import QuizOpenDialog from "./Quiz/QuizOpenDialog";
 import QuizSubmitDialog from './Quiz/QuizSubmissionDialog';
 
-const VideoPane = () => {
+type VideoPaneProps = {
+  link: string;
+  vttLink?: string;  // Optional subtitle link
+};
+
+const VideoPane = ({ link, vttLink }: VideoPaneProps) => {
   const [startDialogState, setStartDialogState] = useState(false);
   function openStartDialog() { setStartDialogState(true); }
   function closeStartDialog() { setStartDialogState(false); }
@@ -34,7 +39,7 @@ const VideoPane = () => {
       <Box maxW={'lg'} position={'sticky'} top={6}>
         <Card variant={'outline'}>
           <CardBody>
-            <VideoPlayer link="https://dkkxc50nup77a.cloudfront.net/X32dce7_D48.mp4" />
+            <VideoPlayer link={link} vttLink={vttLink} />
             <Stack mt="6" spacing="3">
               <Heading size="lg">Why is 0! = 1?</Heading>
               <Text>© Eddie Woo. All rights reserved.</Text>
