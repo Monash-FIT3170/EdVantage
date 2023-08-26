@@ -132,6 +132,46 @@ export default function QuizCreationPage() {
     console.log("Question Set")
     console.log(questionSet)
     onOpen();
+    const apiClient = new ApiClient();
+    await apiClient.post(`quiz`, "", JSON.parse("{\n" +
+        "    \"title\": \"FIT3170 Demo Quiz\",\n" +
+        "    \"description\": \"Demo Description\",\n" +
+        "    \"unit_code\": \"unit101\",\n" +
+        "    \"questions\": [\n" +
+        "        {\n" +
+        "            \"title\": \"What is 2 + 2?\",\n" +
+        "            \"type\": \"multiple_choice\",\n" +
+        "            \"choices\": [\n" +
+        "                {\n" +
+        "                    \"option\": \"4\"\n" +
+        "                },\n" +
+        "                {\n" +
+        "                    \"option\": \"5\"\n" +
+        "                },\n" +
+        "                {\n" +
+        "                    \"option\": \"6\"\n" +
+        "                },\n" +
+        "                {\n" +
+        "                    \"option\": \"7\"\n" +
+        "                }\n" +
+        "            ],\n" +
+        "            \"answers\": [\n" +
+        "                {\n" +
+        "                    \"answer\": \"4\"\n" +
+        "                }\n" +
+        "            ]\n" +
+        "        },\n" +
+        "        {\n" +
+        "            \"title\": \"What is 4 + 4?\",\n" +
+        "            \"type\": \"short_answer\",\n" +
+        "            \"answers\": [\n" +
+        "                {\n" +
+        "                    \"answer\": \"8\"\n" +
+        "                }\n" +
+        "            ]\n" +
+        "        }\n" +
+        "    ]\n" +
+        "}"));
   }
 
   return (
