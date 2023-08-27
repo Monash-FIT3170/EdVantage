@@ -1,6 +1,5 @@
 import { Box, Card, CardBody, Stack, Heading } from '@chakra-ui/react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import WordCloudComponent from '@/components/Visualization/WordCloudComponent';
 
 const data = [
     { name: 'AI', mentions: 30 },
