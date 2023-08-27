@@ -17,4 +17,21 @@ export default class ChatGptUtils {
     body['messages'] = messages;
     return body;
   }
+
+  buildChatGptAssistantRequestBody(prompt: string) {
+    let body: any = {};
+    body['model'] = 'gpt-3.5-turbo';
+
+    let messages = [];
+    let messagesData: any = {};
+    messagesData['role'] = 'user'
+
+    messagesData['content'] = `Act as a personal tutor for this scenario. Students will be prompting you with questions as they" +
+        "are watching their lectures. Answer questions in a professional, learning way as if you were a teacher. Keep all responses less than 70 words. The prompt for this question is\n" +
+        "${prompt}`;
+    messages.push(messagesData);
+
+    body['messages'] = messages;
+    return body;
+  }
 }
