@@ -356,6 +356,6 @@ const UnitAnalytics: NextPage = () => {
 
         </Container>
     );
-  };
+};
 
-  export default UnitAnalytics;
+export default UnitAnalytics;
