@@ -41,12 +41,12 @@ videoRouter.post('/video', async (req, res) => {
   const result = await postgresClient.getPool().query(insertQuery, [
     videoData.title,
     videoData.videoDescription,
-    videoData.unit,
+    'FIT3170',
     'edvantage-video',
     videoData.bucketKey,
     videoData.videoLocation,
     videoData.videoOwner,
-    videoData.thumbnailLink
+    'https://dkkxc50nup77a.cloudfront.net/thumbnails/demo_thumbnail.png'
   ]).catch((err) => {
     console.error(err)
     res.sendStatus(500)
@@ -57,7 +57,7 @@ videoRouter.post('/video', async (req, res) => {
   if (result.rowCount === 0) {
     res.status(400).send('Failed to insert video metadata');
     return;
-  } 
+  }
 
   res.status(200).send(result.rows[0]);
 })
@@ -94,13 +94,17 @@ videoRouter.patch('/video/:id', async (req, res) => {
   if (result.rowCount === 0) {
     res.status(400).send('Failed to update video metadata');
     return;
-  } 
+  }
 
   res.status(200).send('Video metadata updated successfully');
 });
 
 videoRouter.get('/video', async (req, res) => {
+  const videoResp = await postgresClient.query(
+      `SELECT * FROM video_metadata LIMIT 1;`
+  )
 
+  res.status(200).send(videoResp);
 })
 
 function camelToSnake(str: string) {

@@ -60,9 +60,9 @@ CREATE TABLE question_results (
 INSERT INTO
     quizzes (title, description, unit_code)
 VALUES
-    ('Math Quiz (Easy)', 'A quiz about basic arithmetic.', 'unit101'),
-    ('Math Quiz (Hard)', 'A quiz about basic and challenging arithmetic.', 'unit102'),
-    ('English Quiz', 'A quiz about the English language', 'unit103');
+    ('Math Quiz (Easy)', 'A quiz about basic arithmetic.', 'FIT3170'),
+    ('Math Quiz (Hard)', 'A quiz about basic and challenging arithmetic.', 'FIT3077'),
+    ('English Quiz', 'A quiz about the English language', 'FIT3159');
 
 INSERT INTO
     questions (question, question_type)

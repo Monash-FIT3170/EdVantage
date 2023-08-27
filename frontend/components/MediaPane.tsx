@@ -1,7 +1,7 @@
 import { Box, Card, CardBody, Stack, Heading } from '@chakra-ui/react';
 import MediaCarousel from './Carousel/MediaCarousel';
 import type { MediaSource } from '@/utils/types';
-import Upload from './Uploads/Upload'; // Import the Upload component
+import Upload from './Uploads/Upload'; // Import the VideoUpload component
 import DeleteComponent from './Uploads/Deletion';
 import ListFilesComponent from './Uploads/Retrieval';
 

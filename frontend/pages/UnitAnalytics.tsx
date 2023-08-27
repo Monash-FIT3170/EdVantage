@@ -35,13 +35,13 @@ Chart.register(...registerables)
 
 // Fake data
 
-const units = ["Unit A", "Unit B", "Unit C", "Unit D"];
+const units = ["FIT3170", "FIT3077", "FIT3159", "FIT3178"];
 
 const videoAnalyticsData = [
-    { 
-        videoTitle: "Intro to Algebra", 
-        author: "Stevie Wonder", 
-        uploadDate: "2021-01-01", 
+    {
+        videoTitle: "Intro to Algebra",
+        author: "Stevie Wonder",
+        uploadDate: "2021-01-01",
         pieData: {
             labels: ['Finished', 'Attempted', 'Not Attempted'],
             datasets: [{
@@ -75,9 +75,9 @@ const videoAnalyticsData = [
             }]
         }
     },
-    { 
-        videoTitle: "Advanced Calculus", 
-        author: "Tom Brady", 
+    {
+        videoTitle: "Advanced Calculus",
+        author: "Tom Brady",
         uploadDate: "2020-12-15",
         pieData: {
             labels: ['Finished', 'Attempted', 'Not Attempted'],
@@ -137,7 +137,7 @@ const barData = {
 // Page
 
 const UnitAnalytics: NextPage = () => {
-    
+
     const router = useRouter();
 
     const videoModal = useDisclosure();
@@ -146,16 +146,16 @@ const UnitAnalytics: NextPage = () => {
     const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<any>(null);
     const [selectedStudent, setSelectedStudent] = useState<any>(null);
-  
+
     return (
         <Container maxW={'container.xl'} mt={6} centerContent>
             <Stack spacing={3} alignItems={'center'}>
                 <Heading fontSize='5xl'>Unit Analytics</Heading>
 
                 <Spacer/>
-                
-                <Select 
-                    placeholder="Select unit" 
+
+                <Select
+                    placeholder="Select unit"
                     value={selectedUnit || undefined}
                     onChange={(e) => setSelectedUnit(e.target.value)}  // Update state on selection change
                 >
@@ -210,8 +210,8 @@ const UnitAnalytics: NextPage = () => {
 
                             <Box m={4} width={['100%', '45%']} height={["200px", "400px"]}>
                                 <Bar
-                                    data={barData} 
-                                    options={{ 
+                                    data={barData}
+                                    options={{
                                         maintainAspectRatio: false,
                                         plugins: {
                                             title: {
@@ -231,7 +231,7 @@ const UnitAnalytics: NextPage = () => {
                                                 }
                                             }
                                         }
-                                    }} 
+                                    }}
                                 />
                             </Box>
 
@@ -286,9 +286,9 @@ const UnitAnalytics: NextPage = () => {
 
                             <center>
                                 <Box m={4} width={['100%', '45%']} height={["200px", "400px"]}>
-                                    <Pie 
-                                        data={selectedVideo.pieData} 
-                                        options={{ 
+                                    <Pie
+                                        data={selectedVideo.pieData}
+                                        options={{
                                             maintainAspectRatio: false,
                                             plugins: {
                                                 title: {
@@ -299,14 +299,14 @@ const UnitAnalytics: NextPage = () => {
                                                     }
                                                 }
                                             }
-                                        }} 
+                                        }}
                                     />
                                 </Box>
 
                                 <Box m={4} width={['100%', '45%']} height={["200px", "400px"]}>
                                     <Bar
-                                        data={selectedVideo.barResultData} 
-                                        options={{ 
+                                        data={selectedVideo.barResultData}
+                                        options={{
                                             maintainAspectRatio: false,
                                             plugins: {
                                                 title: {
@@ -317,14 +317,14 @@ const UnitAnalytics: NextPage = () => {
                                                     }
                                                 }
                                             },
-                                        }} 
+                                        }}
                                     />
                                 </Box>
 
                                 <Box m={4} width={['100%', '45%']} height={["200px", "400px"]}>
                                     <Bar
-                                        data={selectedVideo.barData} 
-                                        options={{ 
+                                        data={selectedVideo.barData}
+                                        options={{
                                             maintainAspectRatio: false,
                                             plugins: {
                                                 title: {
@@ -335,10 +335,10 @@ const UnitAnalytics: NextPage = () => {
                                                     }
                                                 }
                                             },
-                                        }} 
+                                        }}
                                     />
                                 </Box>
-                                
+
                                 <Box>
                                     <AudioHeatmap/>
                                 </Box>
@@ -357,5 +357,5 @@ const UnitAnalytics: NextPage = () => {
         </Container>
     );
   };
-  
+
   export default UnitAnalytics;

@@ -14,6 +14,7 @@ import {
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FiBookOpen, FiLink, FiMail } from 'react-icons/fi';
+import ApiClient from "@/utils/api-client";
 
 const units = {
   FIT3170: {
@@ -56,47 +57,65 @@ const units = {
 
 const UnitPage: NextPage = () => {
   const router = useRouter();
-  const { unitId } = router.query;
+  const {unitId} = router.query;
+
   const unitData = unitId ? units[unitId as keyof typeof units] : units.FIT3178;
 
+  const getVideo = (): void => {
+    const apiClient = new ApiClient();
+    apiClient
+        .get(`video`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.length != 0) {
+            unitData.videos.push({heading: data[0].title, thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/demo_thumbnail.png'})
+          }
+        })
+        .catch((err) => console.error(err));
+  }
+
+  if (unitId == 'FIT3170') {
+    getVideo();
+  }
+
   return (
-    <ProtectedRoute allowedRoles={AllRoles}>
-      <Container maxW={'container.xl'} mt={6} centerContent>
-        <Stack
-          maxH={'sm'}
-          w={'full'}
-          p={{ base: 3, lg: 6 }}
-          spacing={3}
-          alignItems={'center'}
-        >
-          <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
-            {unitId?.toString().toUpperCase()}
-          </Heading>
-          <Text fontSize={'larger'}>
-            {unitData.name}
-          </Text>
+      <ProtectedRoute allowedRoles={AllRoles}>
+        <Container maxW={'container.xl'} mt={6} centerContent>
+          <Stack
+              maxH={'sm'}
+              w={'full'}
+              p={{base: 3, lg: 6}}
+              spacing={3}
+              alignItems={'center'}
+          >
+            <Heading as="h1" fontSize={{base: '5xl', lg: '6xl'}}>
+              {unitId?.toString().toUpperCase()}
+            </Heading>
+            <Text fontSize={'larger'}>
+              {unitData.name}
+            </Text>
 
-          <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
-            <Button variant={'ghost'} leftIcon={<FiMail />}>
-              Unit Email
-            </Button>
-            <Button variant={'ghost'} leftIcon={<FiLink />}>
-              Moodle
-            </Button>
-            <Button variant={'ghost'} leftIcon={<FiBookOpen />}>
-              Assessments
-            </Button>
-          </ButtonGroup>
+            <ButtonGroup size={{base: 'sm', lg: 'md'}}>
+              <Button variant={'ghost'} leftIcon={<FiMail/>}>
+                Unit Email
+              </Button>
+              <Button variant={'ghost'} leftIcon={<FiLink/>}>
+                Moodle
+              </Button>
+              <Button variant={'ghost'} leftIcon={<FiBookOpen/>}>
+                Assessments
+              </Button>
+            </ButtonGroup>
 
-          <Divider />
-        </Stack>
-        <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'left'} gap={6}>
-          {unitData.videos.map(({ heading, thumbnail }) => (
-            <UnitCard key={heading} heading={heading} thumbnail={thumbnail} />
-          ))}
-        </Flex>
-      </Container>
-    </ProtectedRoute>
+            <Divider/>
+          </Stack>
+          <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
+            {unitData.videos.map(({heading, thumbnail}) => (
+                <UnitCard key={heading} heading={heading} thumbnail={thumbnail}/>
+            ))}
+          </Flex>
+        </Container>
+      </ProtectedRoute>
   );
 };
 

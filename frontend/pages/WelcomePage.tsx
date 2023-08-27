@@ -7,6 +7,7 @@ import UnitCard from "@/components/UnitCard";
 import {AuthContext} from "@/components/AuthProvider";
 import {useContext, useState} from "react";
 import QuizDrawer from "@/components/Quiz/QuizDrawer";
+import Link from "next/link";
 
 const units = [
   {
@@ -94,11 +95,11 @@ const WelcomePage = () => {
             </Text>
 
             <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
-              <a href={'https://lms.monash.edu/my/'} target={'_blank'}>
+              <Link href={'/VideoUpload'}>
                 <Button variant={'ghost'} leftIcon={<FiLink />} >
                   Moodle
                 </Button>
-              </a>
+              </Link>
               <Button variant={'ghost'} leftIcon={<FiBookOpen />} onClick={openDrawer}>
                 Assessments
               </Button>
