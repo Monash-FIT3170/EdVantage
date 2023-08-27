@@ -20,6 +20,10 @@ export default class PostgresClient {
         });
     }
 
+    getPool() {
+        return this.pool;
+    }
+
     async query(queryText: string, values?: any[]): Promise<any> {
         try {
             const result = await this.pool.query(queryText, values);

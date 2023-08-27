@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Menu, MenuButton, MenuList, MenuItem, Table, Thead, Tr, Tbody } from '@chakra-ui/react';
-import { listFilesFromS3 } from '../s3Handler'; // Import the modified listFilesFromS3 function
+import { listFilesFromS3 } from '../../service/s3Handler'; // Import the modified listFilesFromS3 function
 import DeleteComponent from "@/components/Uploads/Deletion";
 export default function ListFilesComponent() {
   const [files, setFiles] = useState<string[]>([]);
