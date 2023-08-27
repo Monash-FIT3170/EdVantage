@@ -1,0 +1,39 @@
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  font-family: system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  font-feature-settings: 'kern';
+}
+
+*,
+*::before,
+*::after {
+  border-width: 0;
+  border-style: solid;
+  box-sizing: border-box;
+}
+
+@supports (width: -webkit-fill-available) {
+  main {
+    width: -webkit-fill-available;
+  }
+}
+
+@supports (width: -moz-available) {
+  main {
+    width: -moz-available;
+  }
+}
+
+.react-multi-carousel-item {
+  display: flex;
+}

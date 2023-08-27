@@ -1,7 +1,11 @@
 import pg from "pg"
 
 var env = process.env.NODE_ENV || 'local'
+<<<<<<< HEAD
 var postgresConfig = require('../../postgres/config')[env]
+=======
+var postgresConfig = require('./config')[env]
+>>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
 
 export default class PostgresClient {
     private pool: pg.Pool;
@@ -16,6 +20,7 @@ export default class PostgresClient {
             ssl: postgresConfig.sslEnabled,
             max: 20,
             idleTimeoutMillis: 1000,
+<<<<<<< HEAD
             connectionTimeoutMillis: 1000
         });
     }
@@ -23,6 +28,15 @@ export default class PostgresClient {
     async query(queryText: string): Promise<any> {
         try {
             const result = await this.pool.query(queryText);
+=======
+            connectionTimeoutMillis: 1000,
+        });
+    }
+
+    async query(queryText: string, values?: any[]): Promise<any> {
+        try {
+            const result = await this.pool.query(queryText, values);
+>>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
             return result.rows;
         } catch (err) {
             throw err;

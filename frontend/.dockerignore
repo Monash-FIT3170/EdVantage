@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 node_modules
 npm-debug.log
+=======
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+>>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
