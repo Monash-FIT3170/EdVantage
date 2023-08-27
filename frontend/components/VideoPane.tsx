@@ -27,13 +27,13 @@ const VideoPane = forwardRef<HTMLVideoElement, VideoPaneProps>((props, ref) => {
     const video = ref as MutableRefObject<HTMLVideoElement>;
     const handleTimeUpdate = () => {
       if (props.onTimeUpdate) {
-        props.onTimeUpdate(video.current?.currentTime ?? 0);
+        props.onTimeUpdate(video?.current?.currentTime ?? 0);
       }
     };
-    video.current?.addEventListener('timeupdate', handleTimeUpdate);
+    video?.current?.addEventListener('timeupdate', handleTimeUpdate);
 
     return () => {
-      video.current?.removeEventListener('timeupdate', handleTimeUpdate);
+      video?.current?.removeEventListener('timeupdate', handleTimeUpdate);
     };
   }, [ref, props]);
   const [startDialogState, setStartDialogState] = useState(false);
