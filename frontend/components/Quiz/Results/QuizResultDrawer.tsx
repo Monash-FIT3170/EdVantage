@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import ApiClient from "@/utils/api-client";
 import {
     Button, ButtonGroup, Card, CardBody, CardHeader, Text,
@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Timestamp from "react-timestamp";
 import QuizAttemptDrawer from "@/components/Quiz/Results/QuizAttemptDrawer";
+import {AuthContext} from "@/components/AuthProvider";
 
 
 interface QuizResultDrawerProps {
@@ -26,6 +27,7 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
     const [isLoading, setLoading] = useState(false);
 
     const btnRef = useRef(null);
+    const auth = useContext(AuthContext);
 
     const [isAttemptOpen, setIsAttemptOpen] = useState(false);
     const [attemptData, setAttemptData] = useState<any>(null);
@@ -39,10 +41,9 @@ const QuizResultDrawer = ({ drawerState, closeDrawer, fetchData }: QuizResultDra
         setLoading(true);
         const apiClient = new ApiClient();
         apiClient
-            .get(`quiz/results/8`)
+            .get(`quiz/results/${auth?.user?.userId}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 fetchData(data);
                 setAttempts(data);
                 setLoading(false);

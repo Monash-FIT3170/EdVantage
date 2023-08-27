@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {useRef, useEffect, useState, useContext} from "react";
 import {
   ButtonGroup,
   Button,
@@ -17,6 +17,7 @@ import ApiClient from "@/utils/api-client";
 import { Select } from "chakra-react-select";
 import Quiz from "@/components/Quiz/Quiz";
 import QuizResultDrawer from "@/components/Quiz/Results/QuizResultDrawer";
+import {AuthContext, useAuth} from "../AuthProvider";
 
 interface QuizDrawerProps {
   id: string;
@@ -27,8 +28,10 @@ interface QuizDrawerProps {
 
 const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProps) => {
   const [quizzes, setQuizzes] = useState<any>(null);
-
   const [quiz, setQuiz] = useState<any>(null);
+
+  const [units, setUnits] = useState<any>(null);
+  const [unit, setUnit] = useState<any>(null);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -37,13 +40,18 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
   function openResultsDrawer() { setIsResultsOpen(true); }
   function closeResultsDrawer() { setIsResultsOpen(false); }
 
-  const btnRef = useRef(null);
+  const { isLoggedIn } = useAuth()
 
-  useEffect(() => {
+  const btnRef = useRef(null);
+  const auth = useContext(AuthContext);
+
+  const getQuizzes = (value: any): void => {
     setLoading(true);
+    setQuiz("")
+    setUnit(value);
     const apiClient = new ApiClient();
     apiClient
-      .get(`quiz`)
+      .get(`quiz`, "unit_code=" + value.value)
       .then((res) => res.json())
       .then((data) => {
         const quizResponses = [];
@@ -58,7 +66,31 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
         setLoading(false);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+    setLoading(true);
+    const apiClient = new ApiClient();
+    apiClient
+      .get(`users/${auth?.user?.userId}/units`)
+      .then((res) => res.json())
+      .then((data) => {
+        const unitResponses = [];
+        for (const i in data) {
+          const currUnit: any = {};
+          currUnit.label = data[i].unit_code + ": " + data[i].unit_name;
+          currUnit.value = data[i].unit_code;
+          currUnit.name = data[i].unit_name;
+          unitResponses.push(currUnit)
+        }
+        setUnits(unitResponses);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
+  }, [isLoggedIn]);
+
+  if (!isLoggedIn) return <div />;
 
   return (
     <>
@@ -83,6 +115,16 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
               <DrawerBody>
                 <Stack spacing={4}>
                   <Select
+                    name="units"
+                    options={units}
+                    placeholder="Select a unit..."
+                    closeMenuOnSelect={true}
+                    onChange={getQuizzes}
+                    value={unit}
+                    size="lg"
+                  />
+
+                  {unit && (<Select
                     name="quizzes"
                     options={quizzes}
                     placeholder="Select a quiz..."
@@ -90,7 +132,7 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
                     onChange={setQuiz}
                     value={quiz}
                     size="lg"
-                  />
+                  />)}
                   <Box>{quiz && <Quiz quiz={quiz} />}</Box>
                 </Stack>
               </DrawerBody>
@@ -110,11 +152,11 @@ const QuizDrawer = ({ id, drawerState, closeDrawer, openDialog }: QuizDrawerProp
         </DrawerContent>
 
         {isResultsOpen && (
-            <QuizResultDrawer
-                drawerState={isResultsOpen}
-                closeDrawer={closeResultsDrawer}
-                fetchData={setResultsData}
-            />
+          <QuizResultDrawer
+            drawerState={isResultsOpen}
+            closeDrawer={closeResultsDrawer}
+            fetchData={setResultsData}
+          />
         )}
       </Drawer>
     </>

@@ -25,15 +25,15 @@ authRouter.get('/auth/userRole', async (req, res) => {
 
 authRouter.post('/login', async (req, res) => {
     try {
-        const { email, name } = req.body;
+        const { id, email, name } = req.body;
 
         // Validate the required parameters
-        if (!email || !name) {
-            return res.status(400).send('Email and name are required');
+        if (!id || !email || !name) {
+            return res.status(400).send('ID, email and name are required');
         }
 
         // Call upsert function
-        await upsertUser(email, name);
+        await upsertUser(id, email, name);
 
         res.status(200).send('User logged in successfully');
     } catch (err) {
@@ -54,16 +54,17 @@ async function getUserRoleByEmail(email: string) {
     return roleResp.length > 0 ? roleResp[0].role_name : null;
 }
 
-async function upsertUser(email: string, name: string) {
+async function upsertUser(id: string, email: string, name: string) {
     const query = `
-      INSERT INTO users (user_email, user_name) 
-      VALUES ($1, $2) 
-      ON CONFLICT (user_email) 
-      DO UPDATE SET 
+      INSERT INTO users (user_id, user_email, user_name) 
+      VALUES ($1, $2, $3) 
+      ON CONFLICT (user_id) 
+      DO UPDATE SET
+        user_email = EXCLUDED.user_email,
         user_name = EXCLUDED.user_name;
     `;
 
-    const values = [email, name];
+    const values = [id, email, name];
     await postgresClient.query(query, values);
 }
 

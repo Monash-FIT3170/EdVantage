@@ -13,6 +13,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# DO NOT REMOVE: Stops docker from re-installing packages on each build
 COPY . .
 
 # Make port 8000 available to the world outside this container

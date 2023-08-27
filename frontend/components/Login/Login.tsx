@@ -1,4 +1,4 @@
-import { AuthContext } from '@/utils/auth';
+import {AuthContext, AuthContextInterface, AuthContextProvider} from '@/components/AuthProvider';
 import ApiClient from '@/utils/api-client';
 import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -24,6 +24,7 @@ const Login = () => {
 
         // Call the login endpoint to create or update the user - user role defaults to student in Postgres
         await apiClient.post(`login`, '', {
+          id: userInfo.id,
           email: userInfo.email,
           name: userInfo.name,
         });
@@ -36,8 +37,9 @@ const Login = () => {
           console.error('Invalid user role:', role);
           // Handle the error of invalid role
         } else {
-          auth?.login();
-          auth?.setUser({
+          auth?.login?.();
+          auth?.setUser?.({
+            userId: userInfo.id,
             name: userInfo.name,
             email: userInfo.email,
             picture: userInfo.picture,

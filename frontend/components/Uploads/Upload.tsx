@@ -1,7 +1,11 @@
 // EdVantage/frontend/components/uploadComponent.tsx
 import React, { ChangeEvent } from 'react';
 import { Button, Input } from '@chakra-ui/react';
-import {uploadFileToS3} from '../s3Handler'; // Import the S3 handler from the API directory
+import {uploadFileToS3} from '../s3Handler';
+import axios from "axios";
+
+const WHISPER_API_URL =
+    process.env.WHISPER_PUBLIC_BACKEND_URL || 'http://localhost:8000/';
 import axios from 'axios';
 
 var fileURL:File | undefined;
@@ -23,8 +27,8 @@ export default function UploadComponent() {
         console.log(file.name);
 
         initiateTranscription(file.name)
-        // Perform any additional actions after successful upload (if needed)
-        alert("The file has been uploaded.")
+        alert("The file has been uploaded. Transcription in progress.")
+        initiateTranscription(file.name)
       })
       .catch((error) => {
         console.error('Error uploading file:', error);
@@ -43,11 +47,22 @@ export default function UploadComponent() {
       });
   };
 
+  const initiateTranscription = (filename: string) => {
+    axios.post(WHISPER_API_URL + 'transcribe', { filename })
+        .then((response) => {
+          console.log('Transcription result:', response.data);
+          // Perform actions with transcription result
+        })
+        .catch((error) => {
+          console.error('Error initiating transcription:', error);
+        });
+  };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     fileURL = event.target.files?.[0];
     // Only proceed if a file is selected
-    
+
   };
 
   return (
