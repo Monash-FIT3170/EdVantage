@@ -72,6 +72,9 @@ const options = {
                     return topic ? [`Topic: ${topic}`, utterance] : [utterance];
                 }
             }
+        },
+        legend: {
+            display: false
         }
     }
   };
