@@ -26,11 +26,6 @@ const UpperSidebar = () => {
             Home
           </Button>
         </Link>
-        <Link href={'/UnitAnalytics'}>
-          <Button variant={'ghost'} leftIcon={<BsPen/>} h={10} w={'full'} justifyContent={'start'}>
-            Quiz Manager
-          </Button>
-        </Link>
       </Stack>
       <Stack>
         <Text size="xs" color={'gray.500'}>

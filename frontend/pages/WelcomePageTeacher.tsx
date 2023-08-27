@@ -2,7 +2,7 @@ import {useRouter} from "next/router";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import {AllRoles} from "@/utils/types";
 import {Button, ButtonGroup, Container, Divider, Flex, Heading, Stack, Text} from "@chakra-ui/react";
-import {FiBookOpen, FiLink, FiMail} from "react-icons/fi";
+import {FiBookOpen, FiLink, FiMail, FiVideo} from "react-icons/fi";
 import UnitCard from "@/components/UnitCard";
 import {AuthContext} from "@/components/AuthProvider";
 import {useContext, useState} from "react";
@@ -68,7 +68,7 @@ const units = [
   },
 ]
 
-const WelcomePage = () => {
+const WelcomePageTeacher = () => {
   const router = useRouter();
   const auth = useContext(AuthContext);
 
@@ -95,14 +95,21 @@ const WelcomePage = () => {
             </Text>
 
             <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
-              <a href={"https://lms.monash.edu/my/"} target={'_blank'}>
-                <Button variant={'ghost'} leftIcon={<FiLink />} >
-                  Moodle
+              <Link href={'/VideoUpload'}>
+                <Button variant={'ghost'} leftIcon={<FiVideo />} onClick={openDrawer}>
+                  Upload Video
                 </Button>
-              </a>
-              <Button variant={'ghost'} leftIcon={<FiBookOpen />} onClick={openDrawer}>
-                Assessments
-              </Button>
+              </Link>
+              <Link href={'/QuizManagerPage'}>
+                <Button variant={'ghost'} leftIcon={<FiLink />} >
+                  Quiz Manager
+                </Button>
+              </Link>
+              <Link href={'/UnitAnalytics'}>
+                <Button variant={'ghost'} leftIcon={<FiBookOpen />} onClick={openDrawer}>
+                  Analytics
+                </Button>
+              </Link>
             </ButtonGroup>
 
             <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog}/>
@@ -121,4 +128,4 @@ const WelcomePage = () => {
   );
 };
 
-export default WelcomePage;
+export default WelcomePageTeacher;

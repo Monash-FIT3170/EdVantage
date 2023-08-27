@@ -136,7 +136,7 @@ export default function QuizCreationPage() {
     await apiClient.post(`quiz`, "", JSON.parse("{\n" +
         "    \"title\": \"FIT3170 Demo Quiz\",\n" +
         "    \"description\": \"Demo Description\",\n" +
-        "    \"unit_code\": \"unit101\",\n" +
+        "    \"unit_code\": \"FIT3170\",\n" +
         "    \"questions\": [\n" +
         "        {\n" +
         "            \"title\": \"What is 2 + 2?\",\n" +

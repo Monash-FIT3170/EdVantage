@@ -15,6 +15,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FiBookOpen, FiLink, FiMail } from 'react-icons/fi';
 import ApiClient from "@/utils/api-client";
+import {useState} from "react";
 
 const units = {
   FIT3170: {
@@ -38,10 +39,10 @@ const units = {
   FIT3159: {
     name: 'Computer architecture',
     videos: [
+      { heading: 'Magnetic Disk Lecture', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Hardware-Software-optimization-process.png' },
       { heading: 'Devices, Counters, Adders, Shifters, Sequential Logic', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Devices-Counters-Adders-Shifters-Sequential+Logic.jpg' },
       { heading: 'Concurrency and Parallelism', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-concurrency-parallelism.jpg' },
       { heading: 'Instruction Sets and Instruction Set Design', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Instruction-Sets-Instruction-Set-Design.jpg' },
-      { heading: 'Optimizing Code for Hardware', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3159-Hardware-Software-optimization-process.png' },
     ],
   },
   FIT3178: {
@@ -58,6 +59,7 @@ const units = {
 const UnitPage: NextPage = () => {
   const router = useRouter();
   const {unitId} = router.query;
+  const [vidState, setVidState] = useState(0)
 
   const unitData = unitId ? units[unitId as keyof typeof units] : units.FIT3178;
 
@@ -67,8 +69,9 @@ const UnitPage: NextPage = () => {
         .get(`video`)
         .then((res) => res.json())
         .then((data) => {
-          if (data.length != 0) {
+          if (data.length != 0 && vidState < 1) {
             unitData.videos.push({heading: data[0].title, thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/demo_thumbnail.png'})
+            setVidState(2);
           }
         })
         .catch((err) => console.error(err));

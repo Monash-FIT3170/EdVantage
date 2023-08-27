@@ -8,6 +8,7 @@ import type { MediaSource } from '@/utils/types';
 import { useRouter } from 'next/router';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import WelcomePage from "@/pages/WelcomePage";
+import WelcomePageTeacher from "@/pages/WelcomePageTeacher";
 
 const mediaOne: MediaSource[] = [
   {
@@ -52,12 +53,7 @@ export default function Home() {
 
   const teacherView = (
     <Container maxW={'container.xl'} centerContent>
-      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
-        Welcome Teacher!
-      </Heading>
-      <Text fontSize={'larger'}>
-        This is the teacher home page view.
-      </Text>
+      <WelcomePageTeacher />
     </Container>
   )
 
