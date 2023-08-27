@@ -5,7 +5,7 @@ import file from "./ExTranscript.json";
 
 Chart.register(...registerables)
 
-const randomWatchCount = (min, max) => {
+const randomWatchCount = (min: any, max: any) => {
     let prob = Math.random();
     let mid = Math.floor((min + max)/2)
 
@@ -25,7 +25,7 @@ const audioData = file.contents.map(item => {
 
 const dialogueSegments = file.labels.filter(item => item.type === "dialogue-segment");
 
-const getTopicForIndex = (index) => {
+const getTopicForIndex = (index: any) => {
     for (let topic of dialogueSegments) {
         if (index >= topic.span[0] && index <= topic.span[1]) {
             return topic.data?.subheading;
@@ -65,7 +65,7 @@ const options = {
         },
         tooltip: {
             callbacks: {
-                afterBody: function(context) {
+                afterBody: function(context: any) {
                     const index = context[0].dataIndex;
                     const topic = getTopicForIndex(index);
                     const utterance = 'Words: ' + audioData[index].utterance;
@@ -80,5 +80,5 @@ const options = {
 const AudioHeatmap = () => {
     return <Line data={data} options={options} />;
 };
-  
+
 export default AudioHeatmap;

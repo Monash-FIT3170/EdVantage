@@ -7,6 +7,7 @@ import MediaPane from '@/components/MediaPane';
 import type { MediaSource } from '@/utils/types';
 import { useRouter } from 'next/router';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import WelcomePage from "@/pages/WelcomePage";
 
 const mediaOne: MediaSource[] = [
   {
@@ -45,25 +46,7 @@ export default function Home() {
 
   const studentView = (
     <Container maxW={'container.xl'} centerContent>
-      <Stack direction={'row'} my={6}>
-        <Box>
-          <Stack>
-            <MediaPane
-              title="Interesting Graphs"
-              type={'image'}
-              media={mediaTwo}
-            />
-            <MediaPane
-              title="Discussion Questions"
-              type={'image'}
-              media={mediaOne}
-            />
-          </Stack>
-        </Box>
-        <Box>
-          <VideoPane link="https://dkkxc50nup77a.cloudfront.net/X32dce7_D48.mp4" />
-        </Box>
-      </Stack>
+      <WelcomePage />
     </Container>
   )
 

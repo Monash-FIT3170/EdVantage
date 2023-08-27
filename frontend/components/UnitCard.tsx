@@ -2,16 +2,17 @@ import { AspectRatio, Badge, Box, Heading, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-type VideoCardProps = {
+type UnitCardProps = {
   heading: string;
   thumbnail?: string;  // Optional thumbnail link
+  unit: string;
 };
 
-const VideoCard = ({ heading, thumbnail }: VideoCardProps) => {
+const UnitCard = ({ heading, thumbnail, unit }: UnitCardProps) => {
   const router = useRouter();
   const currentURL = router.asPath; // Current URL path (e.g., /unit/:unitId)
 
-  const newURL = `${currentURL}${encodeURIComponent(heading)}`; // Appending video heading to current URL
+  const newURL = `${currentURL}unit/${unit}`; // Appending video heading to current URL
 
   return (
     <Link href={newURL}>
@@ -42,4 +43,4 @@ const VideoCard = ({ heading, thumbnail }: VideoCardProps) => {
   );
 };
 
-export default VideoCard;
+export default UnitCard;
