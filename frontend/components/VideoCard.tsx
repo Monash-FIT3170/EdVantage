@@ -11,7 +11,7 @@ const VideoCard = ({ heading, thumbnail }: VideoCardProps) => {
   const router = useRouter();
   const currentURL = router.asPath; // Current URL path (e.g., /unit/:unitId)
 
-  const newURL = `${currentURL}${encodeURIComponent(heading)}`; // Appending video heading to current URL
+  const newURL = `${currentURL}/${heading}`; // Appending video heading to current URL
 
   return (
     <Link href={newURL}>

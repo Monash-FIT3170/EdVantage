@@ -1,69 +1,45 @@
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { AllRoles } from '@/utils/types';
 import type { NextPage } from 'next';
-import { Container, Stack, Box } from '@chakra-ui/react';
-import VideoPane from '@/components/VideoPane';
-import MediaPane from '@/components/MediaPane';
-import type { MediaSource } from '@/utils/types';
+import { useRouter } from 'next/router';
+import VideoPlayer from '@/components/VideoPlayer';
+import { Container, Grid, Box, Image, Center } from '@chakra-ui/react';
+import VideoHeatmap from '@/components/VideoHeatmap';
 
-const mediaOne: MediaSource[] = [
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/3.jpg',
-    alt: 'Question about a scary looking limit posted by Pierre Mounir',
-  },
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/1.png',
-    alt: 'Solve a!b! = a! + b! + c!',
-  },
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/2.jpg',
-    alt: 'A factorials question where the reader must solve for n',
-  },
-];
+// Get topics
 
-const mediaTwo: MediaSource[] = [
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/4.png',
-    alt: 'Representation of a factorial in a tree form',
-  },
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/5.png',
-    alt: "Graph comparing the Gamma function to discrete factorial values in the context of Stirling's approximation",
-  },
-  {
-    src: 'https://dkkxc50nup77a.cloudfront.net/images/X32dce7_D48/6.png',
-    alt: 'https://www.desmos.com/calculator/seukyrudt9',
-  },
-];
+import file from "@/components/ExTranscript.json"
+console.log(file)
 
+const dialogueSegments = file.labels.filter(item => item.type === "dialogue-segment");
+console.log(dialogueSegments);
 
-const UnitPage: NextPage = () => {
+// Page
+
+const Video: NextPage = () => {
+
+  const router = useRouter();
+  const {videoTitle} = router.query;
 
   return (
-    <ProtectedRoute allowedRoles={AllRoles}>
-      <Container maxW={'container.xl'} centerContent>
-        <Stack direction={'row'} my={6}>
-          <Box>
-            <VideoPane link="https://dkkxc50nup77a.cloudfront.net/videos/FIT3170-W8-Lecture-UI-UX.mp4" vttLink="https://dkkxc50nup77a.cloudfront.net/captions/FIT3170-W8-Lecture-UI-UX.vtt" />
-          </Box>
-          <Box>
-            <Stack>
-              <MediaPane
-                title="Interesting Graphs"
-                type={'image'}
-                media={mediaTwo}
-              />
-              <MediaPane
-                title="Discussion Questions"
-                type={'image'}
-                media={mediaOne}
-              />
-            </Stack>
-          </Box>
-        </Stack>
-      </Container>
-    </ProtectedRoute>
+      <Grid templateColumns="70% 30%" gap={6} m={4}>
+        <Box>
+          <VideoPlayer link={'https://dkkxc50nup77a.cloudfront.net/' + videoTitle + ".mp4"} />
+        </Box>
+
+        <Box>
+          <Image src="image.jpg" alt="Description" />
+        </Box>
+
+        <Box>
+          <Center>
+            <VideoHeatmap />
+          </Center>
+        </Box>
+
+        <Box>
+          <Image src="image.jpg" alt="Description" />
+        </Box>
+      </Grid>
   );
 };
 
-export default UnitPage;
+export default Video;
