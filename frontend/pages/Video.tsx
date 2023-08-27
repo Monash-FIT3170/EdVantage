@@ -1,16 +1,19 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/VideoPlayer';
-import { Container, Grid, Box, Image, Center } from '@chakra-ui/react';
+import { Container, Grid, Box, Image, Center, VStack, Text, Heading, Spacer } from '@chakra-ui/react';
 import VideoHeatmap from '@/components/VideoHeatmap';
 
 // Get topics
 
 import file from "../components/ExTranscript.json"
-console.log(file)
 
 const dialogueSegments = file.labels.filter(item => item.type === "dialogue-segment");
-console.log(dialogueSegments);
+
+const topicData = dialogueSegments.map(topic => ({
+    name: topic.data?.subheading,
+    ts: file.contents.at(topic.span[0])?.timestamp
+}));
 
 // Page
 
@@ -35,7 +38,13 @@ const Video: NextPage = () => {
             </Box>
 
             <Box>
-                <Image src="image.jpg" alt="Description" />
+                <VStack align="start" spacing={2}>
+                    <Heading fontSize='2xl'>Topic</Heading>
+                    <Spacer/>
+                    {topicData.map((topic, index) => (
+                        <Text fontSize="sm" key={index}>{`${index + 1}. ${topic.name}`}</Text>
+                    ))}
+                </VStack>
             </Box>
         </Grid>
     );
