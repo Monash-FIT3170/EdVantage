@@ -23,6 +23,7 @@ const units = {
       { heading: 'Semester 1 Week 8 Lecture UI/UX', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W8-Lecture-UI-UX.jpg' },
       { heading: 'Semester 1 Week 10 Lecture Financial Consulting', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W10-Lecture-Financial-Consulting.jpg' },
       { heading: 'Semester 1 Week 12 Group Presentations', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/FIT3170-W12-Group-Presentations.jpg' },
+      { heading: 'AI vs Machine Learning', thumbnail: 'https://dkkxc50nup77a.cloudfront.net/thumbnails/AI-vs-Machine-Learning.jpg' },
     ],
   },
   FIT3077: {

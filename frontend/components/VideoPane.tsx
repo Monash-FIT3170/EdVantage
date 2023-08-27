@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, forwardRef, useEffect, MutableRefObject } from 'react';
 import {
   Box,
   Card,
@@ -19,9 +19,23 @@ import QuizSubmitDialog from './Quiz/QuizSubmissionDialog';
 type VideoPaneProps = {
   link: string;
   vttLink?: string;  // Optional subtitle link
+  onTimeUpdate?: (time: number) => void;
 };
 
-const VideoPane = ({ link, vttLink }: VideoPaneProps) => {
+const VideoPane = forwardRef<HTMLVideoElement, VideoPaneProps>((props, ref) => {
+  useEffect(() => {
+    const video = ref as MutableRefObject<HTMLVideoElement>;
+    const handleTimeUpdate = () => {
+      if (props.onTimeUpdate) {
+        props.onTimeUpdate(video.current?.currentTime ?? 0);
+      }
+    };
+    video.current?.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      video.current?.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [ref, props]);
   const [startDialogState, setStartDialogState] = useState(false);
   function openStartDialog() { setStartDialogState(true); }
   function closeStartDialog() { setStartDialogState(false); }
@@ -36,10 +50,10 @@ const VideoPane = ({ link, vttLink }: VideoPaneProps) => {
 
   return (
     <>
-      <Box maxW={'lg'} position={'sticky'} top={6}>
+      <Box maxW={'2xl'} position={'sticky'} top={6}>
         <Card variant={'outline'}>
           <CardBody>
-            <VideoPlayer link={link} vttLink={vttLink} />
+            <VideoPlayer link={props.link} vttLink={props.vttLink} videoRef={ref} />
             <Stack mt="6" spacing="3">
               <Heading size="lg">Why is 0! = 1?</Heading>
               <Text>© Eddie Woo. All rights reserved.</Text>
@@ -61,9 +75,9 @@ const VideoPane = ({ link, vttLink }: VideoPaneProps) => {
                 <Button onClick={openStartDialog} colorScheme="blue">
                   Quiz
                 </Button>
-                <QuizOpenDialog dialogState={startDialogState} closeDialog={closeStartDialog} openDrawer={openDrawer}/>
-                <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog}/>
-                <QuizSubmitDialog dialogState={submitDialogState} closeDialog={closeSubmitDialog} closeDrawer={closeDrawer}/>
+                <QuizOpenDialog dialogState={startDialogState} closeDialog={closeStartDialog} openDrawer={openDrawer} />
+                <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog} />
+                <QuizSubmitDialog dialogState={submitDialogState} closeDialog={closeSubmitDialog} closeDrawer={closeDrawer} />
               </ButtonGroup>
             </Stack>
           </CardFooter>
@@ -71,6 +85,7 @@ const VideoPane = ({ link, vttLink }: VideoPaneProps) => {
       </Box>
     </>
   );
-};
+});
 
+VideoPane.displayName = "VideoPane"; // <-- Add this line
 export default VideoPane;
