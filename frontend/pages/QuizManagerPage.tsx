@@ -23,12 +23,7 @@ export default function QuizManagerPage() {
   useEffect(() => {
     const apiClient = new ApiClient();
 
-    apiClient.get('quiz').then(result => result.json()).then(data => {
-      console.log('data = ', data);
-      setQuizzes(data);
-    }).catch(error => {
-      console.log(error);
-    });
+    apiClient.get('quiz').then(result => result.json()).then(setQuizzes).catch(console.log);
   }, [setQuizzes]);
 
   return (
@@ -40,7 +35,7 @@ export default function QuizManagerPage() {
         <Box position='relative'>
           <Divider borderWidth='1px'/>
           <AbsoluteCenter background='white' padding='10px'>
-            {`${quizzes.length > 0 ? quizzes.length : 'No'} Quizzes`}
+            {`${0 < quizzes.length ? quizzes.length : 'No'} Quiz${1 != quizzes.length ? 'zes' : ''}`}
           </AbsoluteCenter>
         </Box>
         <Stack spacing='20px' marginTop='40px' marginBottom='40px'>
