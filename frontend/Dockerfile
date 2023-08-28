@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-FROM node:16
-
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-EXPOSE 5173
-CMD [ "npm", "run", "dev"]
-=======
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
@@ -69,4 +57,3 @@ EXPOSE 3000
 ENV PORT 3000
 
 CMD ["node", "server.js"]
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd

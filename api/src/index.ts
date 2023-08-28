@@ -2,11 +2,8 @@ import express, { Express, RequestHandler } from "express"
 import PostgresClient from "./persistence/PostgresClient";
 import cors from "cors"
 import { quizRouter } from "./routes/Quiz"
-<<<<<<< HEAD
-=======
 import { authRouter } from "./routes/Auth"
 import { userRouter } from "./routes/User";
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
 
 const postgresClient = new PostgresClient();
 
@@ -16,11 +13,8 @@ app.use(cors())
 const port = process.env.PORT || 3333
 
 app.use(quizRouter)
-<<<<<<< HEAD
-=======
 app.use(authRouter)
 app.use(userRouter)
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
 
 app.get("/", async (req, res) => {
   const rows = await postgresClient.query("SELECT NOW()")

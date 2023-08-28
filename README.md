@@ -20,27 +20,6 @@ Client: Riordan Alfredo
 Description: A nursing simulation app which plays simulation videos, tracks students' locations during the simulation,
 and opens quizzes about the video content.
 
-<<<<<<< HEAD
-## Basic Requirements
-- Build a platform to upload and view videos
-- Query the text before and after the pause to find related topics 
-- Display them to the student neatly 
-- Analytics to for teachers to understand which topics needed the most help
-
-## How to run locally
-Docker is required to run the application locally due to the requirement for a Postgres DB
-
-- To spin up the full-stack application (frontend, backend, database), run the tools/start.sh script
-- To only spin up the database, run the tools/start_database.sh script
-- To stop all running containers, run the tools/stop.sh script
-- To apply changes and restart the containers, run the tools/restart.sh script
-
-Once running, logs for each part of the app can be seen in docker desktop. Bootstrap data is added to the database via sql scripts in '~/api/postgres/data'. Additionally, data can be added to the local database while it is running using a tool like DBeaver
-
-The frontend and backend can also be run individually
-- Backend: Ensure the database is running, navigate to the api folder and run "npm run dev"
-- Frontend: Navigate to the frontend folder and run "npm run dev". The backend needs to be running locally to populate data or you can overwrite .env.development to point to the railway app and access production data
-=======
 ### Main Features
 
 * Students and teachers are authenticated to their accounts in the app.
@@ -81,4 +60,3 @@ The easiest way to begin development is to run the shell scripts under `/tools` 
 | [`/start_backend.sh`](tools/start_backend.sh) | Starts backend components: database and API |
 | [`/start_database.sh`](tools/start_database.sh) | Starts only the database |
 | [`/stop.sh`](tools/stop.sh) | Stops any component started by the scripts above |
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd

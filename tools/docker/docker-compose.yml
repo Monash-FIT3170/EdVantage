@@ -27,14 +27,9 @@ services:
     container_name: "edvantage-frontend"
     environment:
       NODE_ENV: "docker"
-<<<<<<< HEAD
-    ports:
-      - "5173:5173"
-=======
       OPENAI_API_KEY: xxx
     ports:
       - "3000:3000"
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
     restart: unless-stopped
     depends_on:
       - postgres

@@ -27,23 +27,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
-<<<<<<< HEAD
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-=======
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd

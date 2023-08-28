@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-export default quizRouter 
-export {quizRouter}
-=======
 import { Request, Response, Router } from 'express';
 import PostgresClient from '../persistence/PostgresClient';
 import {
@@ -329,4 +324,3 @@ async function createQuestion(body: any, quiz_id: any): Promise<void> {
 
 export default quizRouter;
 export { quizRouter };
->>>>>>> 2beb72a38f3956951eff9d71d20b937cb211fdcd
