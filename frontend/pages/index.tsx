@@ -1,14 +1,11 @@
 import { AuthContext } from '@/components/AuthProvider';
-import { useContext } from 'react';
-import { AllRoles, UserRole } from '@/utils/types';
-import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
-import VideoPane from '@/components/VideoPane';
-import MediaPane from '@/components/MediaPane';
+import WelcomePage from '@/pages/WelcomePage';
+import WelcomePageTeacher from '@/pages/WelcomePageTeacher';
 import type { MediaSource } from '@/utils/types';
+import { UserRole } from '@/utils/types';
+import { Container, Heading, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import WelcomePage from "@/pages/WelcomePage";
-import WelcomePageTeacher from "@/pages/WelcomePageTeacher";
+import { useContext } from 'react';
 
 const mediaOne: MediaSource[] = [
   {
@@ -41,32 +38,29 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
-
   const auth = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
 
   const studentView = (
     <Container maxW={'container.xl'} centerContent>
       <WelcomePage />
     </Container>
-  )
+  );
 
   const teacherView = (
     <Container maxW={'container.xl'} centerContent>
       <WelcomePageTeacher />
     </Container>
-  )
+  );
 
   const adminView = (
     <Container maxW={'container.xl'} centerContent>
       <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
         Welcome Admin!
       </Heading>
-      <Text fontSize={'larger'}>
-        This is the admin home page view.
-      </Text>
+      <Text fontSize={'larger'}>This is the admin home page view.</Text>
     </Container>
-  )
+  );
 
   // const View = () => {
   switch (auth?.user?.role) {
@@ -78,12 +72,10 @@ export default function Home() {
       return adminView;
     // }
 
-
     // return (
     //   <ProtectedRoute allowedRoles={AllRoles}>
     //     <View />
     //   </ProtectedRoute>
     // )
   }
-
 }
