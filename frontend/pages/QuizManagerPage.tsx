@@ -7,14 +7,7 @@ import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-
-interface Quiz {
-  title: string;
-  description: string;
-  id: number;
-  questions: any;
-}
+import { Quiz } from '../utils/types';
 
 
 export default function QuizManagerPage() {
@@ -25,6 +18,10 @@ export default function QuizManagerPage() {
     
     apiClient.get('quiz').then(result => result.json()).then(setQuizzes, console.log);
   }, [setQuizzes]);
+
+  function handleDelete(id: number) {
+    console.log('Attempting to delete quiz with id', id);
+  }
 
   return (
     <Box margin='50px'>
@@ -40,7 +37,7 @@ export default function QuizManagerPage() {
       </Box>
       <Stack spacing='20px' marginTop='40px' marginBottom='40px'>
         {quizzes.map((quiz: Quiz) => (
-          <Card key={quiz.id}>
+          <Card key={quiz.quiz_id}>
             <CardBody>
               <Stack direction='row'>
                 <Stack direction='column'>
@@ -57,7 +54,7 @@ export default function QuizManagerPage() {
                     <IconButton aria-label='Edit' icon={<BiEdit/>}/>
                     <IconButton
                         aria-label='Delete' icon={<MdDelete/>} background='red'
-                        color='white'
+                        color='white' onClick={() => handleDelete(quiz.quiz_id)}
                       />
                   </Stack>
                 </Center>
