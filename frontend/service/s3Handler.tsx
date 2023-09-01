@@ -1,6 +1,8 @@
 import AWS from 'aws-sdk';
 
 // Configure the AWS SDK with your credentials and desired region
+// This stuff should probably not be exposed in code, let alone the frontend...
+// TODO: Move this to the backend and in an environment variable
 AWS.config.update({
   accessKeyId: 'AKIATPT5BS65E64KVRDV',
   secretAccessKey: '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',

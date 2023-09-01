@@ -15,13 +15,18 @@ const postgresClient = new PostgresClient();
 
 // Define a route to get all quizzes
 quizRouter.get('/quiz', async (req: Request, res: Response) => {
-  let i = 1,
-    quizzes = [],
-    quiz = await buildQuiz(i);
-  while (i < 10 && quiz) {
-    quizzes.push(quiz);
-    i++;
-    quiz = await buildQuiz(i);
+  let quizzes = [];
+
+  if (req.query.unit_code != null) {
+    quizzes = await buildQuizByUnit(req.query.unit_code.toString());
+  } else {
+    let i = 1, quiz = await buildQuiz(i);
+
+    while (i < 10 && quiz) {
+      quizzes.push(quiz);
+      i++;
+      quiz = await buildQuiz(i);
+    }
   }
 
   if (quizzes.length > 0) {
@@ -41,6 +46,19 @@ quizRouter.get('/quiz/:id', async (req: Request, res: Response) => {
   } else {
     res.status(404).send('Quiz not found');
   }
+});
+
+// Define a route to create a quiz and its questions
+quizRouter.post('/quiz', async (req: Request, res: Response) => {
+  const body: any = req.body;
+  const quiz_id = await createQuiz(body);
+
+  for (let i=0; i < body.questions.length; i++) {
+    console.log(body.questions[i])
+    await createQuestion(body.questions[i], quiz_id);
+  }
+
+  res.status(200).send(quiz_id);
 });
 
 // Define a route to get a quiz question by ID
@@ -132,10 +150,9 @@ quizRouter.get(
 quizRouter.get(
   '/quiz/results/:student_id',
   async (req: Request, res: Response) => {
-    const id = parseInt(req.params.student_id);
+    const id = req.params.student_id;
     const attempts = await buildAttempts(id);
 
-    console.log(attempts);
     res.status(200).send(attempts);
   }
 );
@@ -199,16 +216,45 @@ async function buildQuiz(id: number): Promise<Quiz | null> {
     const nextQuestion = await buildQuestion(quizQuestions[i].question_id);
     if (!nextQuestion) continue;
 
-    // console.log(nextQuestion);
-
     quiz.questions.push(nextQuestion);
   }
 
   return quiz;
 }
 
+async function buildQuizByUnit(unit_code: string): Promise<Quiz[]> {
+  console.log(unit_code)
+  const quizResp = await postgresClient.query(
+      `SELECT * FROM quizzes WHERE unit_code = $1`,
+      [unit_code]
+  );
+  console.log(quizResp)
+
+  for (let i = 0; i < quizResp.length; i++) {
+    let currQuiz = quizResp[i];
+    currQuiz.questions = [];
+
+    const quizQuestions: QuizQuestion[] = await postgresClient.query(
+        `SELECT * FROM quiz_questions WHERE quiz_id = $1`,
+        [currQuiz.quiz_id]
+    );
+
+    for (let j = 0; j < quizQuestions.length; j++) {
+      const nextQuestion = await buildQuestion(quizQuestions[j].question_id);
+      if (!nextQuestion) continue;
+
+      currQuiz.questions.push(nextQuestion);
+    }
+
+    quizResp[i] = currQuiz;
+  }
+
+  console.log(quizResp)
+  return quizResp;
+}
+
 // Define a helper function to build a user's quiz attempts
-async function buildAttempts(id: number): Promise<QuizAttempt[]> {
+async function buildAttempts(id: string): Promise<QuizAttempt[]> {
   const attemptResp = await postgresClient.query(
     `SELECT qa.*, q.title FROM quiz_attempts qa JOIN quizzes q ON qa.quiz_id = q.quiz_id WHERE qa.user_id = $1`,
     [id]
@@ -231,6 +277,49 @@ async function buildResult(id: number): Promise<QuizQuestionResult[]> {
   }
 
   return resultResp;
+}
+
+// Define a helper function to add a quiz to DB from JSON
+async function createQuiz(body: any): Promise<number> {
+  return await postgresClient.query(
+      `INSERT INTO quizzes (title, description, unit_code)
+       VALUES ($1, $2, $3)
+       RETURNING quiz_id`,
+      [body.title, body.description, body.unit_code]
+  );
+}
+
+// Define a helper function to create a new question and attach it to a quiz
+async function createQuestion(body: any, quiz_id: any): Promise<void> {
+  let question_id = await postgresClient.query(
+      `INSERT INTO questions (question, question_type) 
+                VALUES ($1, $2)
+                RETURNING question_id`,
+      [body.title, body.type]
+  );
+  question_id = question_id[0]["question_id"]
+
+  if (body.type == "multiple_choice") {
+    for (let i=0; i < body.choices.length; i++) {
+      console.log(body.choices[i])
+      await postgresClient.query(
+          `INSERT INTO question_choices (question_id, option, is_correct) VALUES ($1, $2, $3)`,
+          [parseInt(question_id), body.choices[i].option, false]
+      )
+    }
+  }
+
+  for (let i=0; i < body.answers.length; i++) {
+    await postgresClient.query(
+        `INSERT INTO question_answers (question_id, answer) VALUES ($1, $2)`,
+        [parseInt(question_id), body.answers[i].answer]
+    )
+  }
+
+  await postgresClient.query(
+      `INSERT INTO quiz_questions (quiz_id, question_id) VALUES ($1, $2)`,
+      [parseInt(quiz_id[0]["quiz_id"]), parseInt(question_id)]
+  )
 }
 
 export default quizRouter;

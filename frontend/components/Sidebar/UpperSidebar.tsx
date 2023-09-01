@@ -1,8 +1,9 @@
 import { Button, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FiHome, FiList, FiStar } from 'react-icons/fi';
+import { BsPen } from 'react-icons/bs';
 
-const enrolledUnits = ['FIT3170', 'FIT3077', 'MON1001', 'MON1002'];
+const enrolledUnits = ['FIT3170', 'FIT3077', 'FIT3159', 'FIT3178'];
 
 const UpperSidebar = () => {
   return (
@@ -25,15 +26,11 @@ const UpperSidebar = () => {
             Home
           </Button>
         </Link>
-        <Button
-          variant={'ghost'}
-          leftIcon={<FiStar />}
-          h={10}
-          minW={10}
-          justifyContent={'start'}
-        >
-          Favourites
-        </Button>
+        <Link href={'/QuizManagerPage'}>
+          <Button variant={'ghost'} leftIcon={<BsPen/>} h={10} w={'full'} justifyContent={'start'}>
+            Quiz Manager
+          </Button>
+        </Link>
       </Stack>
       <Stack>
         <Text size="xs" color={'gray.500'}>
