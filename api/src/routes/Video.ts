@@ -107,4 +107,33 @@ function camelToSnake(str: string) {
   return str.replace(/[A-Z]/g, (letter: string, index: number) => (index === 0 ? letter.toLowerCase() : `_${letter.toLowerCase()}`));
 }
 
+videoRouter.get('/video/search', async (req, res) => {
+  const { query } = req.query;
+
+  // SQL query to search for videos based on title, unit, and description
+  const searchQuery = `
+    SELECT *
+    FROM video_metadata
+    WHERE title ILIKE $1 OR unit ILIKE $1 OR video_description ILIKE $1;
+  `;
+
+  const searchValue = `%${query}%`;
+
+  // Execute the query
+  const result = await postgresClient.getPool().query(searchQuery, [searchValue]).catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
+
+  if (!result) return;
+
+  if (result.rowCount === 0) {
+    res.status(404).send('No videos found matching the search criteria');
+    return;
+  }
+
+  res.status(200).send(result.rows);
+});
+
+
 export { videoRouter }
