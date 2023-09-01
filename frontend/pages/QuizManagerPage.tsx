@@ -23,7 +23,7 @@ export default function QuizManagerPage() {
   useEffect(() => {
     const apiClient = new ApiClient();
     
-    apiClient.get('quiz').then(result => result.json()).then(setQuizzes).catch(console.log);
+    apiClient.get('quiz').then(result => result.json()).then(setQuizzes, console.log);
   }, [setQuizzes]);
 
   return (
