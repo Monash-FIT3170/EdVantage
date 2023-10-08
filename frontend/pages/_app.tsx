@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import '../styles/global.css';
 import { useRouter } from 'next/router';
+import { UserContextProvider } from '@/components/UserProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,13 +27,15 @@ export default function App({ Component, pageProps }: AppProps) {
       </style>
       <ChakraProvider theme={theme}>
         <AuthContextProvider>
-          <Flex>
-            {isLoginPage && <Sidebar />}
-            <main>
-              {isLoginPage && <Navbar />}
-              <Component {...pageProps} />
-            </main>
-          </Flex>
+          <UserContextProvider>
+            <Flex>
+              {isLoginPage && <Sidebar />}
+              <main>
+                {isLoginPage && <Navbar />}
+                <Component {...pageProps} />
+              </main>
+            </Flex>
+          </UserContextProvider>
         </AuthContextProvider>
       </ChakraProvider>
     </GoogleOAuthProvider>

@@ -15,5 +15,10 @@ export const AllRoles: UserRole[] = [
   UserRole.Admin,
 ]
 
+export type Unit = {
+  unitCode: string;
+  unitName: string;
+}
+
 export type { MediaSource };
 export { UserRole };
