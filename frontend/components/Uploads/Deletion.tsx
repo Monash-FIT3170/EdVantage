@@ -19,12 +19,12 @@ export default function DeleteComponent({ file }: DeleteComponentProps) {
     }
   }
   const handleFileDelete = () => {
-    // Call the S3 handler function to upload the file to S3
+    // Call the S3 handler function to VideoUpload.tsx the file to S3
     console.log("Delete")
     deleteFileFromS3(file)
       .then((response) => {
         console.log('File deleted successfully:', response);
-        // Perform any additional actions after successful upload (if needed)
+        // Perform any additional actions after successful VideoUpload.tsx (if needed)
         alert("The file has been deleted.")
       })
       .catch((error) => {

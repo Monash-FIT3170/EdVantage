@@ -1,8 +1,17 @@
 // EdVantage/frontend/components/uploadComponent.tsx
 import { BASE_API_URL } from '@/utils/api-client';
-import { Button, Input } from '@chakra-ui/react';
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent, ModalFooter,
+  ModalHeader,
+  ModalOverlay, useDisclosure
+} from '@chakra-ui/react';
 import axios from "axios";
-import { ChangeEvent } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import { uploadFileToS3 } from '../../service/s3Handler';
 import { VideoMetadata } from '@/utils/VideoType';
 import { useAuth } from '../AuthProvider';
@@ -11,8 +20,10 @@ const WHISPER_API_URL =
   process.env.WHISPER_PUBLIC_BACKEND_URL || 'http://localhost:8000/';
 
 var fileURL: File | undefined;
+
 export default function UploadComponent() {
   const { user } = useAuth()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleSaveFile = () => {
     if (fileURL) {
@@ -22,8 +33,9 @@ export default function UploadComponent() {
       alert("Please select a file first.")
     }
   }
+
   const handleFileUpload = async (file: File) => {
-    // Call the S3 handler function to upload the file to S3
+    // Call the S3 handler function to VideoUpload.tsx the file to S3
     console.log("1")
     const result = await uploadFileToS3(file)
       .catch((error) => {
@@ -31,13 +43,9 @@ export default function UploadComponent() {
         // Handle error cases (if needed)
       });
 
-    console.log('File uploaded successfully:', result);
-    alert("The file has been uploaded. Transcription in progress.")
-    initiateTranscription(file.name)
-
     const videoData: Partial<VideoMetadata> = {
-      title: file.name,
-      videoDescription: '',
+      title: 'Demo Video',
+      videoDescription: 'Demo Description',
       unit: '',
       bucket: 'edvantage-video',
       bucketKey: file.name,
@@ -46,6 +54,10 @@ export default function UploadComponent() {
       thumbnailLink: ''
     }
 
+    console.log('File uploaded successfully:', result);
+    onOpen();
+    initiateTranscription(file.name)
+        
     // Call the API to insert the video metadata into the database
     fetch(`${BASE_API_URL}video`, {
       method: 'POST',
@@ -97,6 +109,21 @@ export default function UploadComponent() {
       <Button margin="5" width="50" placeholder="Save" onClick={handleSaveFile}>
         Save
       </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Video Uploaded!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Demo Video has been uploaded. Transcriptions are being generated.
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

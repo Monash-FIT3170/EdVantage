@@ -1,11 +1,11 @@
-import {AuthContext, AuthContextInterface, AuthContextProvider} from '@/components/AuthProvider';
+import { AuthContext } from '@/components/AuthProvider';
 import ApiClient from '@/utils/api-client';
+import { UserRole } from '@/utils/types';
 import { Box, Button, Center, Heading, VStack } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import styles from './Login.module.css';
-import { UserRole } from '@/utils/types';
 
 const Login = () => {
   const apiClient = new ApiClient();
@@ -17,7 +17,7 @@ const Login = () => {
         console.log(tokenResponse);
         const response = await fetch(
           'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' +
-          tokenResponse.access_token
+            tokenResponse.access_token
         );
         const userInfo = await response.json();
         console.log(userInfo);
@@ -29,7 +29,10 @@ const Login = () => {
           name: userInfo.name,
         });
 
-        const roleResponse = await apiClient.get(`auth/userRole`, `email=${userInfo.email}`);
+        const roleResponse = await apiClient.get(
+          `auth/userRole`,
+          `email=${userInfo.email}`
+        );
         const { role } = await roleResponse.json();
         console.log(role);
 

@@ -1,12 +1,11 @@
 import { AuthContext } from '@/components/AuthProvider';
-import { useContext } from 'react';
-import { AllRoles, UserRole } from '@/utils/types';
-import { Container, Stack, Box, Heading, Text } from '@chakra-ui/react';
-import VideoPane from '@/components/VideoPane';
-import MediaPane from '@/components/MediaPane';
+import WelcomePage from '@/pages/WelcomePage';
+import WelcomePageTeacher from '@/pages/WelcomePageTeacher';
 import type { MediaSource } from '@/utils/types';
+import { UserRole } from '@/utils/types';
+import { Container, Heading, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import { useContext } from 'react';
 
 const mediaOne: MediaSource[] = [
   {
@@ -39,55 +38,29 @@ const mediaTwo: MediaSource[] = [
 ];
 
 export default function Home() {
-
   const auth = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
 
   const studentView = (
     <Container maxW={'container.xl'} centerContent>
-      <Stack direction={'row'} my={6}>
-        <Box>
-          <Stack>
-            <MediaPane
-              title="Interesting Graphs"
-              type={'image'}
-              media={mediaTwo}
-            />
-            <MediaPane
-              title="Discussion Questions"
-              type={'image'}
-              media={mediaOne}
-            />
-          </Stack>
-        </Box>
-        <Box>
-          <VideoPane link="https://dkkxc50nup77a.cloudfront.net/videos/X32dce7_D48.mp4" vttLink="https://dkkxc50nup77a.cloudfront.net/captions/X32dce7_D48.vtt" />
-        </Box>
-      </Stack>
+      <WelcomePage />
     </Container>
-  )
+  );
 
   const teacherView = (
     <Container maxW={'container.xl'} centerContent>
-      <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
-        Welcome Teacher!
-      </Heading>
-      <Text fontSize={'larger'}>
-        This is the teacher home page view.
-      </Text>
+      <WelcomePageTeacher />
     </Container>
-  )
+  );
 
   const adminView = (
     <Container maxW={'container.xl'} centerContent>
       <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
         Welcome Admin!
       </Heading>
-      <Text fontSize={'larger'}>
-        This is the admin home page view.
-      </Text>
+      <Text fontSize={'larger'}>This is the admin home page view.</Text>
     </Container>
-  )
+  );
 
   // const View = () => {
   switch (auth?.user?.role) {
@@ -99,12 +72,10 @@ export default function Home() {
       return adminView;
     // }
 
-
     // return (
     //   <ProtectedRoute allowedRoles={AllRoles}>
     //     <View />
     //   </ProtectedRoute>
     // )
   }
-
 }

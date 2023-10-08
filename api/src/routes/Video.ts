@@ -46,6 +46,7 @@ videoRouter.post('/video', async (req, res) => {
     videoData.bucketKey,
     videoData.videoLocation,
     videoData.videoOwner,
+    // 'https://dkkxc50nup77a.cloudfront.net/thumbnails/demo_thumbnail.png'
     videoData.thumbnailLink
   ]).catch((err) => {
     console.error(err)
@@ -95,12 +96,16 @@ videoRouter.patch('/video/:id', async (req, res) => {
     res.status(400).send('Failed to update video metadata');
     return;
   } 
-
+  
   res.status(200).send('Video metadata updated successfully');
 });
 
 videoRouter.get('/video', async (req, res) => {
+  const videoResp = await postgresClient.query(
+      `SELECT * FROM video_metadata LIMIT 1;`
+  )
 
+  res.status(200).send(videoResp);
 })
 
 function camelToSnake(str: string) {
