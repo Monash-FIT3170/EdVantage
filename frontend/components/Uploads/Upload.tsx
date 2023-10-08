@@ -57,7 +57,7 @@ export default function UploadComponent() {
     console.log('File uploaded successfully:', result);
     onOpen();
     initiateTranscription(file.name)
-
+        
     // Call the API to insert the video metadata into the database
     fetch(`${BASE_API_URL}video`, {
       method: 'POST',

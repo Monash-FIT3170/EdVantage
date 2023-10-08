@@ -33,7 +33,7 @@ export default function QuizManagerPage() {
         <Box position='relative'>
           <Divider borderWidth='1px'/>
           <AbsoluteCenter background='white' padding='10px'>
-            {`${quizzes.length > 0 ? quizzes.length : 'No'} Quiz${1 != quizzes.length ? 'zes' : ''}`}
+            {`${quizzes.length > 0 ? quizzes.length : 'No'} Quiz${1 != quizzes.length ? 'Yes' : ''}`}
           </AbsoluteCenter>
         </Box>
         <Stack spacing='20px' marginTop='40px' marginBottom='40px'>
