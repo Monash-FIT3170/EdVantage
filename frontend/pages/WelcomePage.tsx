@@ -1,13 +1,14 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import {AllRoles} from "@/utils/types";
-import {Button, ButtonGroup, Container, Divider, Flex, Heading, Stack, Text} from "@chakra-ui/react";
-import {FiBookOpen, FiLink, FiMail} from "react-icons/fi";
+import { AllRoles } from "@/utils/types";
+import { Button, ButtonGroup, Container, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { FiBookOpen, FiLink, FiMail } from "react-icons/fi";
 import UnitCard from "@/components/UnitCard";
-import {AuthContext} from "@/components/AuthProvider";
-import {useContext, useState} from "react";
+import { AuthContext } from "@/components/AuthProvider";
+import { useContext, useState } from "react";
 import QuizDrawer from "@/components/Quiz/QuizDrawer";
 import Link from "next/link";
+import { useUser } from "@/components/UserProvider";
 
 const units = [
   {
@@ -71,6 +72,7 @@ const units = [
 const WelcomePage = () => {
   const router = useRouter();
   const auth = useContext(AuthContext);
+  const { units } = useUser()
 
   const [drawerState, setDrawerState] = useState(false);
   function openDrawer() { setDrawerState(true); }
@@ -78,46 +80,56 @@ const WelcomePage = () => {
   function openSubmitDialog() { }
 
   return (
-      <ProtectedRoute allowedRoles={AllRoles}>
-        <Container maxW={'container.xl'} mt={6} centerContent>
-          <Stack
-              maxH={'sm'}
-              w={'full'}
-              p={{ base: 3, lg: 6 }}
-              spacing={3}
-              alignItems={'center'}
-          >
-            <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
-              Welcome, {auth?.user?.name}
-            </Heading>
-            <Text fontSize={'larger'}>
-              Select one of your units
-            </Text>
+    <ProtectedRoute allowedRoles={AllRoles}>
+      <Container maxW={'container.xl'} mt={6} centerContent>
+        <Stack
+          maxH={'sm'}
+          w={'full'}
+          p={{ base: 3, lg: 6 }}
+          spacing={3}
+          alignItems={'center'}
+        >
+          <Heading as="h1" fontSize={{ base: '5xl', lg: '6xl' }}>
+            Welcome, {auth?.user?.name}
+          </Heading>
+          <Text fontSize={'larger'}>
+            Select one of your units
+          </Text>
 
-            <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
-              <a href={"https://lms.monash.edu/my/"} target={'_blank'}>
-                <Button variant={'ghost'} leftIcon={<FiLink />} >
-                  Moodle
-                </Button>
-              </a>
-              <Button variant={'ghost'} leftIcon={<FiBookOpen />} onClick={openDrawer}>
-                Assessments
+          <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
+            <a href={"https://lms.monash.edu/my/"} target={'_blank'}>
+              <Button variant={'ghost'} leftIcon={<FiLink />} >
+                Moodle
               </Button>
-            </ButtonGroup>
+            </a>
+            <Button variant={'ghost'} leftIcon={<FiBookOpen />} onClick={openDrawer}>
+              Assessments
+            </Button>
+          </ButtonGroup>
 
-            <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog}/>
+          <QuizDrawer id={'1'} drawerState={drawerState} closeDrawer={closeDrawer} openDialog={openSubmitDialog} />
 
-            <Divider />
-          </Stack>
-          <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
-            {units.map(({ name, unit, thumbnail }) => (
-                <a key={unit} href={'http://localhost:3000/unit/' + unit} >
-                  <UnitCard key={unit} heading={unit + ": " + name} thumbnail={thumbnail} unit={unit} />
+          <Divider />
+        </Stack>
+        <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
+          {!!units ?
+            units.length == 0 ?
+              <Text fontSize={'larger'}>
+                Not enrolled
+              </Text>
+              :
+              units.map(({ unitName, unitCode }) => (
+                <a key={unitCode} href={'http://localhost:3000/unit/' + unitCode} >
+                  <UnitCard key={unitCode} heading={unitCode + ": " + unitName} thumbnail={''} unit={unitCode} />
                 </a>
-            ))}
-          </Flex>
-        </Container>
-      </ProtectedRoute>
+              )) :
+            <Text fontSize={'larger'}>
+              Loading units...
+            </Text>
+          }
+        </Flex>
+      </Container>
+    </ProtectedRoute>
   );
 };
 
