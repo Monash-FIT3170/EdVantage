@@ -26,6 +26,18 @@ userRouter.get("/units", async (_req: Request, res: Response) => {
     }
 });
 
+// Get unit by unit code
+userRouter.get("/units/:unit_code", async (_req: Request, res: Response) => {
+    const unit_code = _req.params.unit_code.toUpperCase();
+
+    const unitResp = await postgresClient.query(
+        `SELECT * FROM units WHERE unit_code = $1`,
+        [unit_code]
+    );
+
+    res.status(200).send(unitResp);
+});
+
 // Get all class_enrolments
 userRouter.get("/class_enrolments", async (_req: Request, res: Response) => {
     const query = `SELECT ce.user_id, u.user_email, ce.class_num, ce.unit_code

@@ -58,7 +58,7 @@ videoRouter.post('/video', async (req, res) => {
   if (result.rowCount === 0) {
     res.status(400).send('Failed to insert video metadata');
     return;
-  } 
+  }
 
   res.status(200).send(result.rows[0]);
 })
@@ -95,15 +95,18 @@ videoRouter.patch('/video/:id', async (req, res) => {
   if (result.rowCount === 0) {
     res.status(400).send('Failed to update video metadata');
     return;
-  } 
-  
+  }
+
   res.status(200).send('Video metadata updated successfully');
 });
 
-videoRouter.get('/video', async (req, res) => {
+videoRouter.get('/video/unit/:unit_id', async (req, res) => {
+  const unitId = req.params.unit_id.toUpperCase();
+
   const videoResp = await postgresClient.query(
-      `SELECT * FROM video_metadata LIMIT 1;`
-  )
+      `SELECT * FROM video_metadata WHERE unit = $1`,
+      [unitId]
+  );
 
   res.status(200).send(videoResp);
 })
