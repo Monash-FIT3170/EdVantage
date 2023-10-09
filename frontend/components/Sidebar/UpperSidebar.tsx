@@ -2,10 +2,13 @@ import { Button, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FiHome, FiList, FiStar } from 'react-icons/fi';
 import { BsPen } from 'react-icons/bs';
+import { useUser } from '../UserProvider';
 
 const enrolledUnits = ['FIT3170', 'FIT3077', 'FIT3159', 'FIT3178'];
 
 const UpperSidebar = () => {
+  const { units } = useUser()
+
   return (
     <Stack spacing={6}>
       <Heading
@@ -28,24 +31,29 @@ const UpperSidebar = () => {
         </Link>
       </Stack>
       <Stack>
-        <Text size="xs" color={'gray.500'}>
-          Units
-        </Text>
-        {enrolledUnits.map((unit) => {
-          return (
-            <Link key={unit} href={`/unit/${unit}`} passHref>
-              <Button
-                variant={'ghost'}
-                leftIcon={<FiList />}
-                h={10}
-                w={'full'}
-                justifyContent={'start'}
-              >
-                {unit}
-              </Button>
-            </Link>
-          );
-        })}
+        {
+          units && units.length > 0 &&
+          <>
+            <Text size="xs" color={'gray.500'}>
+              Units
+            </Text>
+            {units?.map((unit) => {
+              return (
+                <Link key={unit.unitCode} href={`/unit/${unit.unitCode}`} passHref>
+                  <Button
+                    variant={'ghost'}
+                    leftIcon={<FiList />}
+                    h={10}
+                    w={'full'}
+                    justifyContent={'start'}
+                  >
+                    {unit.unitCode}
+                  </Button>
+                </Link>
+              );
+            })}
+          </>
+        }
       </Stack>
     </Stack>
   );
