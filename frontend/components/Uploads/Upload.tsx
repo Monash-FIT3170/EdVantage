@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
   ModalContent, ModalFooter,
   ModalHeader,
-  ModalOverlay, useDisclosure
+  ModalOverlay, Text, useDisclosure
 } from '@chakra-ui/react';
 import axios from "axios";
 import React, {ChangeEvent, useState} from 'react';
@@ -22,12 +22,27 @@ const WHISPER_API_URL =
 var fileURL: File | undefined;
 
 interface UploadProps {
-  unit: string | null
+  unit: string | null,
+  title: string | null,
+  description: string | null
 }
 
-export default function UploadComponent({ unit }: UploadProps) {
+export default function UploadComponent({ unit, title, description }: UploadProps) {
   const { user } = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [thumbnail, setThumbnail] = useState<any>(null);
+
+  const handleThumbnail = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    const result = await uploadFileToS3(file!)
+        .catch((error) => {
+          console.error('Error uploading file:', error);
+          // Handle error cases (if needed)
+        });
+
+    setThumbnail(file!.name);
+  }
 
   const handleSaveFile = () => {
     if (fileURL) {
@@ -48,14 +63,14 @@ export default function UploadComponent({ unit }: UploadProps) {
       });
 
     const videoData: Partial<VideoMetadata> = {
-      title: 'Demo Video',
-      videoDescription: 'Demo Description',
+      title: title ? title : "",
+      videoDescription: description ? description : "",
       unit: unit ? unit : "FIT3170",
       bucket: 'edvantage-video',
       bucketKey: file.name,
       videoLocation: result?.Location || '',
       videoOwner: user?.userId,
-      thumbnailLink: ''
+      thumbnailLink: 'https://dkkxc50nup77a.cloudfront.net/' + thumbnail
     }
 
     console.log('File uploaded successfully:', result);
@@ -109,6 +124,10 @@ export default function UploadComponent({ unit }: UploadProps) {
 
   return (
     <div>
+      <Text fontSize='medium' align={"left"}>Thumbnail</Text>
+      <Input margin="5" width="100" placeholder="Choose File" accept="csv" type="file" onChange={handleThumbnail} />
+
+      <Text fontSize='medium' align={"left"}>Video</Text>
       <Input margin="5" width="100" placeholder="Choose File" accept="csv" type="file" onChange={handleFileChange} />
       <Button margin="5" width="50" placeholder="Save" onClick={handleSaveFile}>
         Save

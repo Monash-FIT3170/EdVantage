@@ -89,7 +89,7 @@ const UnitPage: NextPage = () => {
                 </Stack>
                 {videoData && (<Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'center'} gap={6}>
                   {videoData.map((video: any) => (
-                      <UnitCard key={video.title} heading={video.title} thumbnail={video.thumbnail_link}/>
+                      <UnitCard key={video.id} heading={video.title} thumbnail={video.thumbnail_link} id={video.id}/>
                   ))}
                 </Flex>)}
               </Container>)}

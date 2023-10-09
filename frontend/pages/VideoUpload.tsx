@@ -3,7 +3,6 @@ import {Container, Heading, Input, Select, Spacer, Stack, Text} from "@chakra-ui
 import React, { useState } from 'react';
 import {useRouter} from "next/router";
 import UploadComponent from "@/components/Uploads/Upload";
-import ThumbnailComponent from "@/components/Uploads/Thumbnail";
 
 const units = ["FIT3170", "FIT3077", "FIT3159", "FIT3178"];
 
@@ -11,6 +10,9 @@ const VideoUpload: NextPage = () => {
   const router = useRouter();
 
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
+
 
   return (
       <Container maxW={'container.xl'} mt={6} centerContent>
@@ -33,22 +35,16 @@ const VideoUpload: NextPage = () => {
 
           <Spacer>
             <Text fontSize='medium' align={"left"}>Title</Text>
-            <Input placeholder='Add a title...' />
+            <Input placeholder='Add a title...' onChange={(e) => setTitle(e.target.value)} />
           </Spacer>
 
           <Spacer>
             <Text fontSize='medium' align={"left"}>Description</Text>
-            <Input placeholder='Add a description...' />
+            <Input placeholder='Add a description...' onChange={(e) => setDescription(e.target.value)}/>
           </Spacer>
 
           <Spacer>
-            <Text fontSize='medium' align={"left"}>Thumbnail</Text>
-            <ThumbnailComponent/>
-          </Spacer>
-
-          <Spacer>
-            <Text fontSize='medium' align={"left"}>Video</Text>
-            <UploadComponent unit={selectedUnit}/>
+            <UploadComponent unit={selectedUnit} title={title} description={description}/>
           </Spacer>
         </Stack>
       </Container>
