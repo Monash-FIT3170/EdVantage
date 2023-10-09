@@ -5,7 +5,6 @@ import {useRouter} from "next/router";
 import UploadComponent from "@/components/Uploads/Upload";
 import ThumbnailComponent from "@/components/Uploads/Thumbnail";
 
-
 const units = ["FIT3170", "FIT3077", "FIT3159", "FIT3178"];
 
 const VideoUpload: NextPage = () => {
@@ -49,7 +48,7 @@ const VideoUpload: NextPage = () => {
 
           <Spacer>
             <Text fontSize='medium' align={"left"}>Video</Text>
-            <UploadComponent/>
+            <UploadComponent unit={selectedUnit}/>
           </Spacer>
         </Stack>
       </Container>

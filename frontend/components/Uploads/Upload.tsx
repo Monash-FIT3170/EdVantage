@@ -21,7 +21,11 @@ const WHISPER_API_URL =
 
 var fileURL: File | undefined;
 
-export default function UploadComponent() {
+interface UploadProps {
+  unit: string | null
+}
+
+export default function UploadComponent({ unit }: UploadProps) {
   const { user } = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -46,7 +50,7 @@ export default function UploadComponent() {
     const videoData: Partial<VideoMetadata> = {
       title: 'Demo Video',
       videoDescription: 'Demo Description',
-      unit: '',
+      unit: unit ? unit : "FIT3170",
       bucket: 'edvantage-video',
       bucketKey: file.name,
       videoLocation: result?.Location || '',
@@ -57,7 +61,7 @@ export default function UploadComponent() {
     console.log('File uploaded successfully:', result);
     onOpen();
     initiateTranscription(file.name)
-        
+
     // Call the API to insert the video metadata into the database
     fetch(`${BASE_API_URL}video`, {
       method: 'POST',
