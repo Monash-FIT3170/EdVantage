@@ -5,13 +5,14 @@ import { useRouter } from 'next/router';
 type VideoCardProps = {
   heading: string;
   thumbnail?: string;  // Optional thumbnail link
+  id: number;
 };
 
-const VideoCard = ({ heading, thumbnail }: VideoCardProps) => {
+const VideoCard = ({ id, heading, thumbnail }: VideoCardProps) => {
   const router = useRouter();
   const currentURL = router.asPath; // Current URL path (e.g., /unit/:unitId)
 
-  const newURL = `${currentURL}/${heading}`; // Appending video heading to current URL
+  const newURL = `${currentURL}/${id}`; // Appending video heading to current URL
 
   return (
     <Link href={newURL}>

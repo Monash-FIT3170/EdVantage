@@ -46,7 +46,6 @@ videoRouter.post('/video', async (req, res) => {
     videoData.bucketKey,
     videoData.videoLocation,
     videoData.videoOwner,
-    // 'https://dkkxc50nup77a.cloudfront.net/thumbnails/demo_thumbnail.png'
     videoData.thumbnailLink
   ]).catch((err) => {
     console.error(err)
@@ -106,6 +105,17 @@ videoRouter.get('/video/unit/:unit_id', async (req, res) => {
   const videoResp = await postgresClient.query(
       `SELECT * FROM video_metadata WHERE unit = $1`,
       [unitId]
+  );
+
+  res.status(200).send(videoResp);
+})
+
+videoRouter.get('/video/:video_id', async (req, res) => {
+  const video_id = req.params.video_id;
+
+  const videoResp = await postgresClient.query(
+      `SELECT * FROM video_metadata WHERE id = $1`,
+      [video_id]
   );
 
   res.status(200).send(videoResp);
