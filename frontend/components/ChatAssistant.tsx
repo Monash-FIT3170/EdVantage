@@ -4,7 +4,7 @@ import OpenAI from "openai/index";
 import ChatGptUtils from "@/utils/ChatGptUtils";
 
 const openai = new OpenAI({
-  apiKey: ,
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true // Long-term, ensure secret credentials are not exposed with this method
 });
 
