@@ -67,7 +67,7 @@ export default function UploadComponent({ unit, title, description }: UploadProp
       videoDescription: description ? description : "",
       unit: unit ? unit : "FIT3170",
       bucket: 'edvantage-video',
-      bucketKey: file.name,
+      bucketKey: file.name.split('.', 1)[0],
       videoLocation: result?.Location || '',
       videoOwner: user?.userId,
       thumbnailLink: 'https://dkkxc50nup77a.cloudfront.net/' + thumbnail
