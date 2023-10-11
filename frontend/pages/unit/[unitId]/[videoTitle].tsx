@@ -58,7 +58,8 @@ const Video: NextPage = () => {
                 <Box>
                   <VideoPlayer
                       videoRef={videoPaneRef}
-                      link={'https://dkkxc50nup77a.cloudfront.net/' + videoData.bucket_key}
+                      link={'https://dkkxc50nup77a.cloudfront.net/' + videoData.bucket_key + '.mp4'}
+                      vttLink={'https://dkkxc50nup77a.cloudfront.net/' + videoData.bucket_key + '-transcription.vtt'}
                   />
                 </Box>
 
