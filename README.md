@@ -55,6 +55,48 @@ The **frontend** component is a TypeScript Next.js web application containing th
 
 The **whisper** component is a Python Flask server that exposes some API endpoints. In the backend, an open-source version of OpenAI Whisper is running that performs our video transcription.
 
+## Project Directory Structure
+
+```bash
+.                           
+├── api                                
+│     ├── postgres            
+│     │     ├── data
+│     │     └── Postgres Dockerfile             
+│     └── src                 
+│         ├── persistence     
+│         └── routes
+│               ├── Auth
+│               ├── Quiz
+│               ├── User
+│               └── Video  
+├── frontend                
+│     ├── components          
+│     │     ├── Carousel        
+│     │     ├── Login           
+│     │     ├── Quiz            
+│     │     │     ├── QuizCreation
+│     │     │     └── Results     
+│     │     ├── Sidebar         
+│     │     ├── Uploads         
+│     │     └── Visualization         
+│     ├── pages               
+│     │     ├── api
+│     │     └── unit
+│     ├── public
+│     ├── service
+│     │     └── S3 & Video Services
+│     ├── styles
+│     └── utils
+├── tools
+│     ├── docker
+│     │     └── Docker-Compose Files
+│     └── Start & Stop Scripts
+├── whisper
+│     └── Python Whisper Transcription Server
+
+```
+
 ## Docker
 
 **Prerequisite**: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
