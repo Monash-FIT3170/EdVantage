@@ -13,9 +13,7 @@ const VideoPlayer = ({ link, vttLink, videoRef }: VideoPlayerProps) => {
     <Box className="player-container" borderRadius={'lg'}>
       <video controls preload="metadata" ref={videoRef} crossOrigin="anonymous" style={{ width: '100%' }}>
         <source src={link} type="video/mp4" />
-        {vttLink && (
-          <track kind="subtitles" src={vttLink} srcLang="en" label="English" />
-        )}
+        <track kind="subtitles" src={vttLink} srcLang="en" label="English" />
       </video>
     </Box>
   );
