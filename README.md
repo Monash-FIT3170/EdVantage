@@ -134,6 +134,40 @@ A description of the user flows in our application and how this is represented i
 
 TO-DO: Milestone 4
 
+## Package Versions
+
+These are the most recent, working package versions.
+
+### Backend
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+
+### Frontend
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+
+### Whisper
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+
 ## Common Issues & Notes
 A list of common issues encountered during development and ways to get around them, as well as useful documentation.
 
