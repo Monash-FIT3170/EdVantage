@@ -55,6 +55,48 @@ The **frontend** component is a TypeScript Next.js web application containing th
 
 The **whisper** component is a Python Flask server that exposes some API endpoints. In the backend, an open-source version of OpenAI Whisper is running that performs our video transcription.
 
+## Project Directory Structure
+
+```bash
+.                           
+├── api                                
+│     ├── postgres            
+│     │     ├── data
+│     │     └── Postgres Dockerfile             
+│     └── src                 
+│         ├── persistence     
+│         └── routes
+│               ├── Auth
+│               ├── Quiz
+│               ├── User
+│               └── Video  
+├── frontend                
+│     ├── components          
+│     │     ├── Carousel        
+│     │     ├── Login           
+│     │     ├── Quiz            
+│     │     │     ├── QuizCreation
+│     │     │     └── Results     
+│     │     ├── Sidebar         
+│     │     ├── Uploads         
+│     │     └── Visualization         
+│     ├── pages               
+│     │     ├── api
+│     │     └── unit
+│     ├── public
+│     ├── service
+│     │     └── S3 & Video Services
+│     ├── styles
+│     └── utils
+├── tools
+│     ├── docker
+│     │     └── Docker-Compose Files
+│     └── Start & Stop Scripts
+├── whisper
+│     └── Python Whisper Transcription Server
+
+```
+
 ## Docker
 
 **Prerequisite**: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -75,10 +117,10 @@ The easiest way to begin development is to run the shell scripts under `/tools` 
 
 We call various API's through our application, such as AWS S3 and OpenAI ChatGPT and, to do this, we need to have generated API Keys. We also need API keys implemented in our applications to securely access our backend servers.
 
-| API Key          | Used In           | Local Development                                        | Notes                                                                                                                                                                                            |
-|------------------|-------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AWS Key & Secret | Frontend, Whisper | Should be passed in to the relevant docker-compose files | An environment variable approach is suitable for whisper, however long-term the API keys should be moved out of the frontend and into the backend application.                                   |
-| OpenAI API Key   | Frontend          | Should be passed in to docker-compose.yml                | The API calls currently occurring in the frontend should be wrapped in backend calls that are secured by our API key, and the OpenAI key will be stored in the backend, via env vars or AWS KMS. |
+| API Key          | Used In           | Local Development                                                                                                                                             | Production                                                                                                                                                         | Notes                                                                                                                                                                                            |
+|------------------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AWS Key & Secret | Frontend, Whisper | ./frontend/.env.local: NEXT_PUBLIC_AWS_ACCESS_KEY, NEXT_PUBLIC_AWS_SECRET_KEY <br/><br/>./tools/docker/docker-compose-whisper: AWS_ACCESS_KEY, AWS_SECRET_KEY | ./frontend/.env.production: NEXT_PUBLIC_AWS_ACCESS_KEY, NEXT_PUBLIC_AWS_SECRET_KEY <br/><br/>./tools/docker/docker-compose-whisper: AWS_ACCESS_KEY, AWS_SECRET_KEY | An environment variable approach is suitable for whisper, however long-term the API keys should be moved out of the frontend and into the backend application.                                   |
+| OpenAI API Key   | Frontend          | ./frontend/.env.local: NEXT_PUBLIC_OPENAI_API_KEY                                                                                                             | ./frontend/.env.production: NEXT_PUBLIC_OPENAI_API_KEY                                                                                                             | The API calls currently occurring in the frontend should be wrapped in backend calls that are secured by our API key, and the OpenAI key will be stored in the backend, via env vars or AWS KMS. |
 
 ## Deployment Notes
 
@@ -91,6 +133,40 @@ We call various API's through our application, such as AWS S3 and OpenAI ChatGPT
 A description of the user flows in our application and how this is represented in our code, as well as our code paradigms.
 
 TO-DO: Milestone 4
+
+## Package Versions
+
+These are the most recent, working package versions.
+
+### Backend
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+
+### Frontend
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+
+### Whisper
+| Package                     | Description                                       | Version  |
+|-----------------------------|---------------------------------------------------|----------|
+| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
+| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
+| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
+| express                     | A backend JS framework for building simple API's  | 4.18.2   |
+| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
+| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
 
 ## Common Issues & Notes
 A list of common issues encountered during development and ways to get around them, as well as useful documentation.

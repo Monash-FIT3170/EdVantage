@@ -41,15 +41,17 @@ const Video: NextPage = () => {
 
     console.log(videoTitle);
 
-    // Get video metadata
-    apiClient
-        .get(`video/${videoTitle}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setVideoData(data[0]);
-        })
-        .catch((err) => console.error(err));
-  }, [])
+    if (router.isReady) {
+      // Get video metadata
+      apiClient
+          .get(`video/${videoTitle}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setVideoData(data[0]);
+          })
+          .catch((err) => console.error(err));
+    }
+  }, [router.isReady])
 
   return (
         <>
