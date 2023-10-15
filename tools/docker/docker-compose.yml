@@ -27,7 +27,6 @@ services:
     container_name: "edvantage-frontend"
     environment:
       NODE_ENV: "docker"
-      OPENAI_API_KEY: xxx
     ports:
       - "3000:3000"
     restart: unless-stopped

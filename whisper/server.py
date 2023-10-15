@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 model = whisper.load_model("small.en")
 
-s3 = boto3.resource('s3', aws_access_key_id=env_var['AWS_ACCESS_ID'], aws_secret_access_key=env_var['AWS_ACCESS_KEY'])
+s3 = boto3.resource('s3', aws_access_key_id=env_var['AWS_ACCESS_KEY'], aws_secret_access_key=env_var['AWS_SECRET_KEY'])
 s3_bucket = 'edvantage-video'
 
 
