@@ -74,12 +74,16 @@ const UnitPage: NextPage = () => {
                   </Text>
 
                   <ButtonGroup size={{base: 'sm', lg: 'md'}}>
-                    <Button variant={'ghost'} leftIcon={<FiMail/>}>
-                      Unit Email
-                    </Button>
-                    <Button variant={'ghost'} leftIcon={<FiLink/>}>
-                      Moodle
-                    </Button>
+                    <a href="mailto:example@example.com?subject=Your Subject Here" target="_blank">
+                      <Button variant={'ghost'} leftIcon={<FiMail/>}>
+                        Unit Email
+                      </Button>
+                    </a>
+                    <a href={unitData.unit_moodle} target="_blank" rel="noopener noreferrer">
+                      <Button variant={'ghost'} leftIcon={<FiLink/>}>
+                        Moodle
+                      </Button>
+                    </a>
                     <Button variant={'ghost'} leftIcon={<FiBookOpen/>}>
                       Assessments
                     </Button>

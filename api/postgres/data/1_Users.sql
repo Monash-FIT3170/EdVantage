@@ -24,7 +24,8 @@ CREATE TABLE users
 CREATE TABLE units
 (
     unit_code VARCHAR(50) PRIMARY KEY,
-    unit_name VARCHAR(50)
+    unit_name VARCHAR(50),
+    unit_moodle VARCHAR(50)
 );
 
 CREATE TABLE unit_enrollment
@@ -75,14 +76,15 @@ VALUES
        ('823456789012345678908', 'student8@example.com', 'Student 8', 1),
        ('923456789012345678909', 'teacher1@example.com', 'Teacher 1', 2),
        ('023456789012345678900', 'admin1@example.com', 'Admin 1', 3),
-       ('105397968907776846762', 'sabd0011@student.monash.edu', 'Shareef Abdelal', 1);
+       ('105397968907776846762', 'sabd0011@student.monash.edu', 'Shareef Abdelal', 1),
+       ('114320810043961729379', 'tthi0007@student.monash.edu', 'Thadisha Thilakaratne', 2);
 
 -- Insert units
-INSERT INTO units (unit_code, unit_name)
-VALUES ('FIT3170', 'Software Engineering Practice'),
-       ('FIT3077', 'Architecture & Design'),
-       ('FIT3159', 'Computer Architecture'),
-       ('FIT3178', 'iOS App Development');
+INSERT INTO units (unit_code, unit_name, unit_moodle)
+VALUES ('FIT3170', 'Software Engineering Practice', 'https://lms.monash.edu/course/view.php?id=153821'),
+       ('FIT3077', 'Architecture & Design', 'https://lms.monash.edu/course/view.php?id=155683'),
+       ('FIT3159', 'Computer Architecture', 'https://lms.monash.edu/course/view.php?id=153817'),
+       ('FIT3178', 'iOS App Development', 'https://lms.monash.edu/course/view.php?id=153826');
 
 -- Insert unit enrollments
 INSERT INTO unit_enrollment(user_id, unit_code)
@@ -106,7 +108,10 @@ VALUES ('123456789012345678901', 'FIT3170'),
        ('923456789012345678909', 'FIT3077'),
        ('105397968907776846762', 'FIT3170'),
        ('105397968907776846762', 'FIT3077'),
-       ('105397968907776846762', 'FIT3159');
+       ('105397968907776846762', 'FIT3159'),
+       ('114320810043961729379', 'FIT3170'),
+       ('114320810043961729379', 'FIT3077'),
+       ('114320810043961729379', 'FIT3159');
 
 
 -- Insert classes
