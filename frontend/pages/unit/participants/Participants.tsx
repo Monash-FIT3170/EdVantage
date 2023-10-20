@@ -63,10 +63,11 @@ const units = {
   },
 }
 
-const UnitPage: NextPage = () => {
+const ParticipantsPage: NextPage = () => {
   const router = useRouter();
-  const { unitId } = router.query;
+  const unitId = router.query.unitId;
   const unitData = unitId ? units[unitId as keyof typeof units] : units.FIT3178;
+
 
   return (
     // <ProtectedRoute allowedRoles={AllRoles}>
@@ -82,7 +83,7 @@ const UnitPage: NextPage = () => {
             {unitId?.toString().toUpperCase()}
           </Heading>
           <Text fontSize={'larger'}>
-            {unitData?.name}
+            {unitData.name}
           </Text>
 
           <ButtonGroup size={{ base: 'sm', lg: 'md' }}>
@@ -97,23 +98,52 @@ const UnitPage: NextPage = () => {
             </Button>
           </ButtonGroup>
 
-          <Divider />
-          <Link href={`/unit/${unitId}/Participants`} passHref>
-            <Button>
-              Participants
-            </Button>
-          </Link>  
-          
+          {/* TODO: fill table with data from database. Add new student to unit database */}
+          <TableContainer>
+            <Table variant='striped' colorScheme='teal'>
+              <Thead>
+                <Tr>
+                  <Th>Name</Th>
+                  <Th>Role</Th>
+                  <Th>Email</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>Test Student</Td>
+                  <Td>STUDENT</Td>
+                  <Td>tstud0000@student.monash.edu</Td>
+                </Tr>
+                <Tr>
+                  <Td>Add Student</Td>
+                  <Td></Td>
+                  <Td></Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+
+          {/* TODO: cancel - does nothing, save - saves changes to database */}
+          <ButtonGroup>
+            <Link href={`/unit/${unitId}`}>
+              <Button>
+                Cancel
+              </Button>
+            </Link>
+            <Link href={`/unit/${unitId}`}>
+              <Button colorScheme='blue'>
+                Save
+              </Button>
+            </Link>
+          </ButtonGroup>
+            
           <Divider />
         </Stack>
         <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={'left'} gap={6}>
-          {unitData?.videos.map(({ heading, thumbnail }) => (
-            <UnitCard key={heading} heading={heading} thumbnail={thumbnail} />
-          ))}
         </Flex>
       </Container>
     // </ProtectedRoute>
   );
 };
 
-export default UnitPage;
+export default ParticipantsPage;
