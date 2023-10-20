@@ -13,7 +13,7 @@ Shared Google Drive: https://drive.google.com/drive/folders/1iQphjeupXE0J5FsgBP2
   - [Overview](#overview)
   - [Project Directory Structure](#project-directory-structure)
   - [Docker](#docker)
-  - [User Authentication] (#oauth)
+  - [User Authentication](#user-authentication)
   - [API Keys](#api-keys)
   - [Software Requirements](#software-requirements)
   - [Deployment](#deployment)
