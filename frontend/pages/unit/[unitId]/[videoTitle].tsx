@@ -39,8 +39,6 @@ const Video: NextPage = () => {
   useEffect((): void => {
     const apiClient = new ApiClient();
 
-    console.log(videoTitle);
-
     if (router.isReady) {
       // Get video metadata
       apiClient
