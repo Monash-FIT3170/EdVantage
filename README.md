@@ -33,20 +33,11 @@ and opens quizzes about the video content.
 ### Main Features
 
 * Students and teachers are authenticated to their accounts in the app.
-
-* Nursing simulation videos are provided by the client and played on the app.
-
-* The students' locations are tracked during the simulation video.
-
-* There is a popup quiz throughout the video with questions the teacher/s have written.
-
-* Teachers can see the students' answers to the quizzes.
-
-### Additional Features
-
-* ChatGPT integration to generate more questions about the simulation videos.
-
-* ChatGPT integration to recommend certain simulation videos.
+* Students and teachers are enrolled into units
+* Teachers can upload videos, create assessments and view analytics on the enrolled students
+* Students can watch videos, sit assessments and get additional visualizations from videos and lectures
+* Students can receive AI assistance for their assessment results as well as during videos
+* Captions are automatically generated on video upload via OpenAI Whisper
 
 # Handover Documentation
 
@@ -150,14 +141,17 @@ To deploy this project, you will need to:
 2. For local testing and development, use the provided Docker scripts under `/tools`.
 3. For production, the project is continuously deployed via AWS CodePipeline and AWS Elastic Beanstalk for the backend and AWS Amplify for the frontend. Ensure the proper setup of these platforms and configure the CI/CD pipelines accordingly.
 
-## Application Flow
-A description of the user flows in our application and how this is represented in our code, as well as our code paradigms.
+### Database Credentials
+The default database credentials are as follows:
+- Host: 127.0.0.1
+- Port: 5432
+- Database: edvantage
+- User: admin
+- Password: Password
 
-TO-DO: Milestone 4
+## Dependencies
 
-## Package Versions
-
-These are the package versions for our primary dependencies.
+These are the descriptions and versions of our primary dependencies.
 
 ### Backend
 | Package                     | Description                                       | Version  |
@@ -189,18 +183,6 @@ These are the package versions for our primary dependencies.
 | openai-whisper | Open-source whisper transcription model            | latest  |
 | boto3          | Provides client for AWS API's and services         | latest  |
 | flask_cors     | Extension to flask that fixes CORS                 | latest  |
-
-## Key Software Versions
-
-| Software  | Description                                      | Version  |
-|-----------|--------------------------------------------------|----------|
-| Node.js   | Provides client for AWS API's and services       | 2.1423.0 |
-| NPM       | Node Package Manager                             | 2.7.0    |
-| Express   | A backend JS framework for building simple API's | 2.8.5    |
-| Next.js   | Front-end framework with server-side rendering   | 4.18.2   |
-| React     | Front-end framework                              | 8.8.0    |
-| Chakra-UI | React CSS styling package                        | 8.5.1    |
-| Postgres  | Relational Database                              |          |
 
 ## Common Issues & Notes
 A list of common issues encountered during development and ways to get around them, as well as useful documentation.
