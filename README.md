@@ -12,12 +12,17 @@ Shared Google Drive: https://drive.google.com/drive/folders/1iQphjeupXE0J5FsgBP2
     - [Additional Features](#additional-features)
 - [Handover Documentation](#handover-documentation)
   - [Overview](#overview)
+  - [Project Directory Structure](#project-directory-structure)
   - [Docker](#docker)
   - [API Keys](#api-keys)
-  - [Deployment Notes](#deployment-notes)
+  - [Software Requirements](#software-requirements)
+  - [Deployment](#deployment)
   - [Application Flow](#application-flow)
+  - [Package Versions](#package-versions)
   - [Common Issues & Notes](#common-issues--notes)
   - [Development Tools](#development-tools)
+  - [Versioning Strategy](#versioning-strategy)
+  - [Pull Request Strategy](#pull-request-strategy)
 
 ## Project Description
 Client: Riordan Alfredo
@@ -122,12 +127,28 @@ We call various API's through our application, such as AWS S3 and OpenAI ChatGPT
 | AWS Key & Secret | Frontend, Whisper | ./frontend/.env.local: NEXT_PUBLIC_AWS_ACCESS_KEY, NEXT_PUBLIC_AWS_SECRET_KEY <br/><br/>./tools/docker/docker-compose-whisper: AWS_ACCESS_KEY, AWS_SECRET_KEY | ./frontend/.env.production: NEXT_PUBLIC_AWS_ACCESS_KEY, NEXT_PUBLIC_AWS_SECRET_KEY <br/><br/>./tools/docker/docker-compose-whisper: AWS_ACCESS_KEY, AWS_SECRET_KEY | An environment variable approach is suitable for whisper, however long-term the API keys should be moved out of the frontend and into the backend application.                                   |
 | OpenAI API Key   | Frontend          | ./frontend/.env.local: NEXT_PUBLIC_OPENAI_API_KEY                                                                                                             | ./frontend/.env.production: NEXT_PUBLIC_OPENAI_API_KEY                                                                                                             | The API calls currently occurring in the frontend should be wrapped in backend calls that are secured by our API key, and the OpenAI key will be stored in the backend, via env vars or AWS KMS. |
 
-## Deployment Notes
+## Software Requirements
 
+This project requires the following software:
+
+- Node.js (v18 or above)
+- Docker (For building and running the project containers)
+- PostgreSQL (Connectable through DBeaver or any other SQL client)
+- Python (v3.8 or above, required for the Whisper component)
+
+## Deployment
+### Notes
 - Accounts required for deployment (Railway, AWS)
 - Production URL's
 - CI/CD Builds and any notes
 - Release processes
+
+### Instructions
+To deploy this project, you will need to:
+
+1. Set up the environment variables as described in the API Keys section for local or production environments.
+2. For local testing and development, use the provided Docker scripts under `/tools`.
+3. For production, the project is continuously deployed via AWS CodePipeline and AWS Elastic Beanstalk for the backend and AWS Amplify for the frontend. Ensure the proper setup of these platforms and configure the CI/CD pipelines accordingly.
 
 ## Application Flow
 A description of the user flows in our application and how this is represented in our code, as well as our code paradigms.
@@ -136,37 +157,50 @@ TO-DO: Milestone 4
 
 ## Package Versions
 
-These are the most recent, working package versions.
+These are the package versions for our primary dependencies.
 
 ### Backend
 | Package                     | Description                                       | Version  |
 |-----------------------------|---------------------------------------------------|----------|
 | aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
-| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
 | cors                        | Provides CORS functionality for API calls         | 2.8.5    |
 | express                     | A backend JS framework for building simple API's  | 4.18.2   |
 | google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
 | pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
 
 ### Frontend
-| Package                     | Description                                       | Version  |
-|-----------------------------|---------------------------------------------------|----------|
-| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
-| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
-| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
-| express                     | A backend JS framework for building simple API's  | 4.18.2   |
-| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
-| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+| Package             | Description                                            | Version  |
+|---------------------|--------------------------------------------------------|----------|
+| @chakra-ui/react    | React CSS styling package                              | 2.5.5    |
+| @react-oauth/google | React integration with Google OAuth                    | 0.11.0   |
+| aws-sdk             | Provides client for AWS API's and services             | 2.1423.0 |
+| chart.js            | Statistics library used to create visualisations       | 4.4.0    |
+| next                | Server-side front-end framework that extends React     | 13.3.0   |
+| openai              | Package for integrating with OpenAI API's              | 4.1.0    |
+| pg                  | Package that provides a pre-built Postgres client      | 8.5.1    |
+| react               | All-in-one front-end framework                         | 18.2.0   |
+| react-dom           | Extension to react that makes DOM easier to work with  | 18.2.0   |
+| typescript          | Typed extension to the Javascript programming language | 5.0.3    |
 
 ### Whisper
-| Package                     | Description                                       | Version  |
-|-----------------------------|---------------------------------------------------|----------|
-| aws-sdk                     | Provides client for AWS API's and services        | 2.1423.0 |
-| @types/aws-sdk              | TypeScript types for aws-sdk                      | 2.7.0    |
-| cors                        | Provides CORS functionality for API calls         | 2.8.5    |
-| express                     | A backend JS framework for building simple API's  | 4.18.2   |
-| google-auth-library         | Used for creating OAuth functionality             | 8.8.0    |
-| pg                          | Package that provides a pre-built Postgres client | 8.5.1    |
+| Package        | Description                                        | Version |
+|----------------|----------------------------------------------------|---------|
+| flask          | A lightweight backend framework for building API's | latest  |
+| openai-whisper | Open-source whisper transcription model            | latest  |
+| boto3          | Provides client for AWS API's and services         | latest  |
+| flask_cors     | Extension to flask that fixes CORS                 | latest  |
+
+## Key Software Versions
+
+| Software  | Description                                      | Version  |
+|-----------|--------------------------------------------------|----------|
+| Node.js   | Provides client for AWS API's and services       | 2.1423.0 |
+| NPM       | Node Package Manager                             | 2.7.0    |
+| Express   | A backend JS framework for building simple API's | 2.8.5    |
+| Next.js   | Front-end framework with server-side rendering   | 4.18.2   |
+| React     | Front-end framework                              | 8.8.0    |
+| Chakra-UI | React CSS styling package                        | 8.5.1    |
+| Postgres  | Relational Database                              |          |
 
 ## Common Issues & Notes
 A list of common issues encountered during development and ways to get around them, as well as useful documentation.
@@ -184,3 +218,26 @@ A list of common issues encountered during development and ways to get around th
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) - Required for local development
 - [Postman](https://www.postman.com/) - Useful for sending REST requests to your backend servers without the need for frontend integration
 - [DBeaver](https://dbeaver.io/) - Useful for connecting to our Postgres database and interacting with/modifying the data
+
+## Versioning Strategy
+
+We use [Semantic Versioning](https://semver.org/) for this project. For future releases, please adhere to this structure:
+
+- **MAJOR** version when you make incompatible API changes,
+- **MINOR** version when you add functionality in a backward-compatible manner, and
+- **PATCH** version when you make backward-compatible bug fixes.
+
+Remember to update the version in the `package.json` file as well as tag the commit with the new version.
+
+## Pull Request Strategy
+
+For developers intending to contribute to the project, please follow these steps:
+
+1. Fork the repository to your GitHub account.
+2. Create a new branch from the 'main' branch with a descriptive name about the feature or fix.
+3. Implement your changes and write clear, understandable commit messages.
+4. Push your branch to your fork.
+5. Open a pull request against the 'main' branch of the original repository.
+6. Describe the changes in the pull request description and mention any issue(s) your PR addresses.
+
+Please ensure your code adheres to the existing style guidelines and passes any tests. The project maintainers will review your PR and provide feedback.
