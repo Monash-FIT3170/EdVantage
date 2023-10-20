@@ -36,6 +36,8 @@ and opens quizzes about the video content.
 
 * Nursing simulation videos are provided by the client and played on the app.
 
+* Students are able to view subtitles generated for the videos uploaded by teachers.
+
 * The students' locations are tracked during the simulation video.
 
 * There is a popup quiz throughout the video with questions the teacher/s have written.
