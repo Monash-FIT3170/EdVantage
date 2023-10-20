@@ -13,6 +13,7 @@ Shared Google Drive: https://drive.google.com/drive/folders/1iQphjeupXE0J5FsgBP2
   - [Overview](#overview)
   - [Project Directory Structure](#project-directory-structure)
   - [Docker](#docker)
+  - [User Authentication](#user-authentication)
   - [API Keys](#api-keys)
   - [Software Requirements](#software-requirements)
   - [Deployment](#deployment)
@@ -112,6 +113,21 @@ The easiest way to begin development is to run the shell scripts under `/tools` 
 | [`/restart.sh`](tools/restart.sh)               | Runs stop.sh and then start.sh for quick restarting         |
 | [`/start_whisper.sh`](tools/start_whisper.sh)   | Starts the Whisper backend server (separated due to size)   |
 | [`/stop_whiser.sh`](tools/stop_whisper.sh)      | Stops the Whisper backend server                            |
+
+## User Authentication
+OAuth is an authorization framework that enables apps to obtain limited access to user data. Using this service, users can login to the Edvantage platform if they are a verified Monash student.
+
+Using OAuth 2.0 requires setting up credentials through Google API Console. 
+
+1. Navigate to Credentials and create a new project. 
+2. Choose a project name and the organisation (choosing monash.edu will enable access to Monash users only). 
+3. Under “Create Credentials” choose “OAuth Client ID”.
+4. Choose “Internal” for the User Type to limit who can login. 
+5. Fill in basic project information.
+6. For the “Authorised JavaScript Origins” and “Authorised Redirect URIs” sections include all the URIs for production, testing and development including port numbers. 
+7. Note the Client ID and Client Secret. 
+
+After these steps are followed, the authentication service is ready to be used in the client by updating the value of clientID in `/frontend/pages/_app.tsx`
 
 ## API Keys
 
